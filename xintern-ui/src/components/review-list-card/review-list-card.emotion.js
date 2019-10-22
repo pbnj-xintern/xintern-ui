@@ -6,7 +6,7 @@ export const CardContainer = css`
     flex-direction: row;
     overflow: hidden;
     width: 950px;
-    height: 110px;
+    height: 100px;
     background-color: gray; //remove after
     border-radius: 1.25em;
     padding: 0.5em 1.25em;
@@ -19,9 +19,9 @@ export const CardContainer = css`
 export const CompanyLogoContainer = css`
     display: flex;
     height: 100%;
-    width: 12%;
+    width: 11%;
     background-color: honeydew; //remove after
-    border-radius: 1.5em;
+    border-radius: 1em;
     justify-content: center;
     align-items: center;
     cursor: pointer;
@@ -29,12 +29,12 @@ export const CompanyLogoContainer = css`
 export const ContentContainer = css`
     display: flex;
     flex-direction: row;
-    width: 85%;
+    width: 90%;
     height: calc(100% - 0.5em);
     // background-color: lightgreen; //remove after
     border-radius: 1em;
     // margin-left: 1.5%;
-    padding: 0.2em 0.5em;
+    padding: 0.2em 0em;
     align-items: center;
     position: relative;
 `
@@ -42,7 +42,7 @@ export const ReviewInfoContainer = css`
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 35%; 
+    width: 45%; 
     // background-color: purple; //remove after
     border-radius: 1em;
     justify-content: center;
@@ -76,7 +76,7 @@ export const ReviewText = css`
     font-weight: 100;
     margin: 0.35em 1em;
     text-align: left;
-    font-size: 20px;
+    font-size: 18px;
     width: 80%;
     height: fit-content;
     // position: absolute;
@@ -86,7 +86,7 @@ export const RatingContainer = css`
     flex-direction: column;
     background-color: cadetblue; //remove after
     height: 100%;
-    width: 19%;
+    width: 17%;
     margin: 0em 0.25em;
     border-radius: 2em;
     algin-items: center;
@@ -101,7 +101,7 @@ export const RatingValue = css`
 `
 
 export const RatingLabel = css`
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 500;
     margin: 0em;
 `
