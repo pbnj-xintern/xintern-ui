@@ -6,7 +6,7 @@ export const CardContainer = css`
     flex-direction: row;
     overflow: hidden;
     width: 950px;
-    height: 125px;
+    height: 110px;
     background-color: gray; //remove after
     border-radius: 1.25em;
     padding: 0.5em 1.25em;
@@ -19,7 +19,7 @@ export const CardContainer = css`
 export const CompanyLogoContainer = css`
     display: flex;
     height: 100%;
-    width: 13.5%;
+    width: 12%;
     background-color: honeydew; //remove after
     border-radius: 1.5em;
     justify-content: center;
@@ -52,7 +52,7 @@ export const ReviewInfoContainer = css`
 export const ReviewRatingsContainer = css`
     display: flex;
     flex-direction: row;
-    height: calc(100% - 0.6em);
+    height: calc(100% - 5px);
     width: 65%; 
     // background-color: teal; //remove after
     border-radius: 1em;
@@ -86,9 +86,9 @@ export const RatingContainer = css`
     flex-direction: column;
     background-color: cadetblue; //remove after
     height: 100%;
-    width: 20%;
+    width: 19%;
     margin: 0em 0.25em;
-    border-radius: 1em;
+    border-radius: 2em;
     algin-items: center;
     justify-content: center;
     cursor: pointer;
@@ -101,8 +101,8 @@ export const RatingValue = css`
 `
 
 export const RatingLabel = css`
-    font-size: 15px;
-    font-weight: 300;
+    font-size: 12px;
+    font-weight: 500;
     margin: 0em;
 `
 //     ${bp['medium']} {

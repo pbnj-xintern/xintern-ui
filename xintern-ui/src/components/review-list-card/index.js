@@ -31,7 +31,7 @@ const ReviewListCard = () => {
                 <div css={styles.ReviewRatingsContainer}>
                     <div css={styles.RatingContainer}>
                         <h3 css={styles.RatingValue}>{overallRating}</h3>
-                        <h6 css={styles.RatingLabel}>rating label</h6>
+                        <h6 css={styles.RatingLabel} style={{ color: 'gold' }}>rating</h6>
                     </div>
                     <div css={styles.RatingContainer}>
                         <h3 css={styles.RatingValue}>123</h3>
@@ -43,7 +43,7 @@ const ReviewListCard = () => {
                     </div>
                     <div css={styles.RatingContainer}>
                         <h3 css={styles.RatingValue}>4321</h3>
-                        <h6 css={styles.RatingLabel}>comments</h6>
+                        <h6 css={styles.RatingLabel} style={{ color: 'black' }}>comments</h6>
                     </div>
                 </div>
             </div>
