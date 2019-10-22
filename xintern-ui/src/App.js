@@ -1,5 +1,5 @@
 import React from 'react';
-import ReviewListCard from './components/review-list-card'
+import ReviewListCard from './components/review-list-card/index'
 // import logo from './logo.svg';
 import './App.css';
 
