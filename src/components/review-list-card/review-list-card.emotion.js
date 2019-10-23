@@ -3,25 +3,32 @@ import { css } from '@emotion/core'
 
 export const CardContainer = css`
     display: flex;
-    flex-direction: row;
+    // flex-direction: row;
     overflow: hidden;
-    width: 925px;
-    height: 100px;
+    width: 100%;
+    height: 105px;
     background-color: gray; //remove after
-    border-radius: 1.25em;
-    padding: 0.5em 1.25em;
+    border-radius: 1em;
+    padding: 0.5em 2em;
     cursor: pointer;
+    margin-bottom: 0.5em;
 
-    &:hover{
-        border: 0.5px lightgreen solid;
-    }
+    // &:hover{
+    //     border: 0.5px lightgreen solid;
+    // }
 `
+
+export const CardBodyStyle = {
+    width: "100%",
+    padding: "0"
+}
+
 export const CompanyLogoContainer = css`
     display: flex;
     height: 100%;
-    width: 11%;
+    width: 90%;
     background-color: honeydew; //remove after
-    border-radius: 1em;
+    border-radius: 2em;
     justify-content: center;
     align-items: center;
     cursor: pointer;
@@ -42,26 +49,19 @@ export const ReviewInfoContainer = css`
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 45%; 
+    width: 100%; 
     // background-color: purple; //remove after
-    border-radius: 1em;
-    justify-content: center;
-    position: absolute;
-    left: 15px;
+    // justify-content: center;
+    // align-items: center;
 `
 export const ReviewRatingsContainer = css`
     display: flex;
-    flex-direction: row;
-    height: calc(100% - 5px);
-    width: 65%; 
+    height: 100%;
+    width: 100%; 
     // background-color: teal; //remove after
     border-radius: 1em;
-    justify-content: flex-end;
+    justify-content: space-evenly;
     align-items: center;
-    // margin-left: 0.51em;
-    // margin-right: -1em;
-    position: absolute;
-    right: 0;
 `
 
 export const MetaDataContainer = css`
@@ -74,36 +74,38 @@ export const MetaDataContainer = css`
 
 export const ReviewText = css`
     font-weight: 100;
-    margin: 0.35em 1em;
+    margin: 0em 1em;
     text-align: left;
     font-size: 18px;
     width: 80%;
+    color: white;
     height: fit-content;
-    // position: absolute;
+    // margin-left: 0;
 `
 export const RatingContainer = css`
     display: flex;
     flex-direction: column;
     background-color: cadetblue; //remove after
-    height: 100%;
-    width: 17%;
+    height: 86%;
+    width: 22%;
     margin: 0em 0.25em;
-    border-radius: 2em;
-    algin-items: center;
+    border-radius: 3em;
     justify-content: center;
     cursor: pointer;
 `
 
 export const RatingValue = css`
-    font-size: 37px;
+    font-size: 27px;
     font-weight: 100;
     margin: 0.2em 0em;
+    margin-bottom: 0;
 `
 
 export const RatingLabel = css`
     font-size: 10px;
-    font-weight: 500;
+    font-weight: 300;
     margin: 0em;
+    color: white;
 `
 //     ${bp['medium']} {
 //         width: 720px;
