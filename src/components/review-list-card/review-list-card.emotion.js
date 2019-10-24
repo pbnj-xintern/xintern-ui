@@ -29,7 +29,7 @@ export const CompanyLogoContainer = css`
     display: flex;
     height: 100%;
     width: 90%;
-    background-color: honeydew; //remove after
+    background-color: aliceblue;
     border-radius: 2em;
     justify-content: center;
     align-items: center;
