@@ -1,16 +1,14 @@
 import React from 'react';
-import ReviewListCard from './components/review-list-card/index'
-// import logo from './logo.svg';
+import Homepage from './layouts/homepage/homepage'
 import './App.css';
+import 'antd/dist/antd.css';
 
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>xintern-ui</h1>
-        <ReviewListCard />
-      </header>
+      <h1>xintern-ui</h1>
+      <Homepage />
     </div>
   );
 }
