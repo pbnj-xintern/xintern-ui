@@ -1,7 +1,8 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
 // import React, { useState } from 'react'
-import { Row, Col, Carousel, List, Input } from 'antd'
+import { Row, Col, Carousel, List } from 'antd'
 import SmallCompanyCard from '../../components/small-company-card/SmallCompanyCard'
+import SearchBar from '../../components/search-bar/index'
 import * as styles from './homepage.emotion'
 import ReviewListCard from '../../components/review-list-card/index'
 
@@ -23,13 +24,8 @@ const Homepage = () => {
                 alignItems: 'center',
                 justifyContent: 'center'
             }}>
-                <Input
-                    placeholder="input search text"
-                    enterButton="Search"
-                    size="large"
-                    onSearch={value => console.log(value)}
-                    style={{width: '40vw'}}
-                />
+                <h1 style={{color: 'white'}}>See what other students said about their internships!<SearchBar search={true}/></h1>
+                
             </div>
             <Row>
                 <Col md={{ span: 20, offset: 2 }} sm={{ span: 24 }}>
