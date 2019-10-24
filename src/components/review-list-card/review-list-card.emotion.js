@@ -13,11 +13,11 @@ export const CardContainer = css`
     border-bottom: 0.5px solid lightgray;
     padding: 16px 2em;
     cursor: pointer;
-    margin-bottom: 0.5em;
 
-    // &:hover{
-    //     border: 0.5px lightgreen solid;
-    // }
+    &:hover{
+        border-top: 0.5px lightgreen solid;
+        border-bottom: 0.5px lightgreen solid;
+    }
 `
 
 export const CardBodyStyle = {
@@ -53,8 +53,8 @@ export const ReviewInfoContainer = css`
     height: 100%;
     width: 100%; 
     // background-color: purple; //remove after
-    justify-content: center;
-    align-items: center;
+    // justify-content: center;
+    // align-items: center;
 `
 export const ReviewRatingsContainer = css`
     display: flex;
@@ -76,18 +76,31 @@ export const MetaDataContainer = css`
 
 export const ReviewText = css`
     font-weight: 100;
-    margin: 0em 2.15em;
-    text-align: left;
+    margin: 0em 0em;
+    padding-left: 4%;
     font-size: 18px;
-    width: 80%;
+    width: fit-content;
     color: black;
-    height: fit-content;
+    height: 100%;
     // margin-left: 0;
+`
+export const DateReviewText = css`
+    font-weight: 100;
+    margin: 0em 0em;
+    font-size: 12px;
+    width: fit-content;
+    color: black;
+    height: 100%;
+    display: flex;
+    padding-left: 11%;
+    justify-content: center; 
+    align-items: center;
 `
 export const RatingContainer = css`
     display: flex;
     flex-direction: column;
-    background-color: lightgray; //remove after
+    // background-color: lightgray; //remove after
+    background-color: aliceblue;
     height: 82%;
     width: 22%;
     margin: 0em 0.25em;
@@ -99,14 +112,14 @@ export const RatingContainer = css`
 export const RatingValue = css`
     color: black;
     font-size: 27px;
-    font-weight: 100;
+    font-weight: 250;
     margin: 0em 0em;
     margin-bottom: 0;
 `
 
 export const RatingLabel = css`
-    font-size: 10px;
-    font-weight: 300;
+    font-size: 11px;
+    font-weight: 200;
     margin: 0em;
     color: black;
     margin-top: -1.5px;
