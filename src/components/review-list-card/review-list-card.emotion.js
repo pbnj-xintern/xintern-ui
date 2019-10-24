@@ -3,25 +3,34 @@ import { css } from '@emotion/core'
 
 export const CardContainer = css`
     display: flex;
-    flex-direction: row;
+    // flex-direction: row;
     overflow: hidden;
-    width: 925px;
-    height: 100px;
-    background-color: gray; //remove after
-    border-radius: 1.25em;
-    padding: 0.5em 1.25em;
+    width: 100%;
+    height: 125px;
+    // background-color: gray; //remove after
+    // border-radius: 1em;
+    border-top: 0.5px solid lightgray;
+    border-bottom: 0.5px solid lightgray;
+    padding: 16px 2em;
     cursor: pointer;
 
     &:hover{
-        border: 0.5px lightgreen solid;
+        border-top: 0.5px green solid;
+        border-bottom: 0.5px green solid;
     }
 `
+
+export const CardBodyStyle = {
+    width: "100%",
+    padding: "0"
+}
+
 export const CompanyLogoContainer = css`
     display: flex;
     height: 100%;
-    width: 11%;
-    background-color: honeydew; //remove after
-    border-radius: 1em;
+    width: 90%;
+    background-color: aliceblue;
+    border-radius: 2em;
     justify-content: center;
     align-items: center;
     cursor: pointer;
@@ -42,26 +51,19 @@ export const ReviewInfoContainer = css`
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 45%; 
+    width: 100%; 
     // background-color: purple; //remove after
-    border-radius: 1em;
-    justify-content: center;
-    position: absolute;
-    left: 15px;
+    // justify-content: center;
+    // align-items: center;
 `
 export const ReviewRatingsContainer = css`
     display: flex;
-    flex-direction: row;
-    height: calc(100% - 5px);
-    width: 65%; 
+    height: 100%;
+    width: 100%; 
     // background-color: teal; //remove after
     border-radius: 1em;
-    justify-content: flex-end;
+    justify-content: space-evenly;
     align-items: center;
-    // margin-left: 0.51em;
-    // margin-right: -1em;
-    position: absolute;
-    right: 0;
 `
 
 export const MetaDataContainer = css`
@@ -74,36 +76,53 @@ export const MetaDataContainer = css`
 
 export const ReviewText = css`
     font-weight: 100;
-    margin: 0.35em 1em;
-    text-align: left;
+    margin: 0em 0em;
+    padding-left: 4%;
     font-size: 18px;
-    width: 80%;
-    height: fit-content;
-    // position: absolute;
+    width: fit-content;
+    color: black;
+    height: 100%;
+    // margin-left: 0;
+`
+export const DateReviewText = css`
+    font-weight: 100;
+    margin: 0em 0em;
+    font-size: 12px;
+    width: fit-content;
+    color: black;
+    height: 100%;
+    display: flex;
+    padding-left: 11%;
+    justify-content: center; 
+    align-items: center;
 `
 export const RatingContainer = css`
     display: flex;
     flex-direction: column;
-    background-color: cadetblue; //remove after
-    height: 100%;
-    width: 17%;
+    // background-color: lightgray; //remove after
+    background-color: aliceblue;
+    height: 82%;
+    width: 22%;
     margin: 0em 0.25em;
-    border-radius: 2em;
-    algin-items: center;
+    border-radius: 1.5em;
     justify-content: center;
     cursor: pointer;
 `
 
 export const RatingValue = css`
-    font-size: 37px;
-    font-weight: 100;
-    margin: 0.2em 0em;
+    color: black;
+    font-size: 27px;
+    font-weight: 250;
+    margin: 0em 0em;
+    margin-bottom: 0;
 `
 
 export const RatingLabel = css`
-    font-size: 10px;
-    font-weight: 500;
+    font-size: 11px;
+    font-weight: 200;
     margin: 0em;
+    color: black;
+    margin-top: -1.5px;
 `
 //     ${bp['medium']} {
 //         width: 720px;
