@@ -17,17 +17,17 @@ const getTopCompanies = async () => {
 
 const Homepage = () => {
     let [recentReviews, setRecentReviews] = useState([])
-    useEffect( async () => {
+    useEffect(() => {
         const getRecentReviews = async () => {
             try{
                 let response = await axios.get('https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/review/recent')
-                if (response.data.length == 0) console.error("no recent reviews")
+                if (response.data.length == 0 || response.data.error) console.error("no recent reviews")
                 return response.data
             } catch (err) {
                 console.error("Could not get recent reviews", err)
             }
         }
-        setRecentReviews(await getRecentReviews())
+        setRecentReviews(getRecentReviews())
     }, [])
 
     return (
