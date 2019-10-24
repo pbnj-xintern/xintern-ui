@@ -6,12 +6,12 @@ export const CardContainer = css`
     // flex-direction: row;
     overflow: hidden;
     width: 100%;
-    height: 140px;
+    height: 125px;
     // background-color: gray; //remove after
     // border-radius: 1em;
     border-top: 0.5px solid lightgray;
     border-bottom: 0.5px solid lightgray;
-    padding: 24px 2em;
+    padding: 16px 2em;
     cursor: pointer;
     margin-bottom: 0.5em;
 
@@ -88,18 +88,19 @@ export const RatingContainer = css`
     display: flex;
     flex-direction: column;
     background-color: lightgray; //remove after
-    height: 86%;
+    height: 82%;
     width: 22%;
     margin: 0em 0.25em;
-    border-radius: 3em;
+    border-radius: 1.5em;
     justify-content: center;
     cursor: pointer;
 `
 
 export const RatingValue = css`
+    color: black;
     font-size: 27px;
     font-weight: 100;
-    margin: 0.2em 0em;
+    margin: 0em 0em;
     margin-bottom: 0;
 `
 

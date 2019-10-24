@@ -30,7 +30,8 @@ const ReviewListCard = (props) => {
 
     useEffect(() => {
         let review = getPopulatedReview(props)
-        //setState
+        //setStates
+        // setCompanyLogo(review.)
     }, [])
 
 
