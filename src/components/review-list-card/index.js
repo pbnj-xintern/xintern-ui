@@ -1,20 +1,38 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import * as styles from './review-list-card.emotion'
 import Logo from '../../logo192.png'
+import axios from 'axios'
 
 import { Card, Row, Col } from 'antd'
 
-const ReviewListCard = () => {
+const getPopulatedReview = async (props) => {
+    try {
+        let response = await axios.get(`https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/populated-review/${props.reviewId}`)
+        if (response == null) console.error("No response, get request failed.")
+        return response
+    } catch (err) {
+        console.error(404, "Could not get review.")
+    }
+}
+
+const ReviewListCard = (props) => {
     const [companyLogo, setCompanyLogo] = useState("")
     const [reviewTitle, setReviewTitle] = useState("Review Title")
     const [companyName, setCompanyName] = useState("Company Name")
     const [username, setUsername] = useState("username")
+    const [createdAtDate, setCreatedAtDate] = useState("")
 
     const [overallRating, setOverallRating] = useState("4.5")
     const [upvotes, setUpvotes] = useState([])
     const [downvotes, setDownvotes] = useState([])
     const [comments, setComments] = useState([])
+
+    useEffect(() => {
+        let review = getPopulatedReview(props)
+        //setState
+    }, [])
+
 
     return (
         <Card css={styles.CardContainer} bordered={false} bodyStyle={styles.CardBodyStyle}>
@@ -37,19 +55,19 @@ const ReviewListCard = () => {
                 <Col xl={{ span: 10 }} style={{ height: '100%' }}>
                     <div css={styles.ReviewRatingsContainer}>
                         <div css={styles.RatingContainer}>
-                            <h3 css={styles.RatingValue} style={{ color: 'gold' }}>{overallRating}</h3>
+                            <h3 css={styles.RatingValue} style={{ color: 'black' }}>{overallRating}</h3>
                             <h6 css={styles.RatingLabel} >rating</h6>
                         </div>
                         <div css={styles.RatingContainer}>
-                            <h3 css={styles.RatingValue} style={{ color: 'white' }}>123</h3>
+                            <h3 css={styles.RatingValue} style={{ color: 'black' }}>123</h3>
                             <h6 css={styles.RatingLabel}>upvotes</h6>
                         </div>
                         <div css={styles.RatingContainer}>
-                            <h3 css={styles.RatingValue} style={{ color: 'white' }}>12</h3>
+                            <h3 css={styles.RatingValue} style={{ color: 'black' }}>12</h3>
                             <h6 css={styles.RatingLabel}>downvotes</h6>
                         </div>
                         <div css={styles.RatingContainer}>
-                            <h3 css={styles.RatingValue} style={{ color: 'white' }}>4321</h3>
+                            <h3 css={styles.RatingValue} style={{ color: 'black' }}>4321</h3>
                             <h6 css={styles.RatingLabel}>comments</h6>
                         </div>
                     </div>

@@ -7,8 +7,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1 style={{ color: 'white' }}>xintern-ui</h1>
-        <ReviewListCard />
+        <h1 style={{ color: 'black' }}>xintern-ui</h1>
+        <ReviewListCard reviewId=""  />
       </header>
     </div>
   );

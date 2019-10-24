@@ -6,10 +6,12 @@ export const CardContainer = css`
     // flex-direction: row;
     overflow: hidden;
     width: 100%;
-    height: 105px;
-    background-color: gray; //remove after
-    border-radius: 1em;
-    padding: 0.5em 2em;
+    height: 140px;
+    // background-color: gray; //remove after
+    // border-radius: 1em;
+    border-top: 0.5px solid lightgray;
+    border-bottom: 0.5px solid lightgray;
+    padding: 24px 2em;
     cursor: pointer;
     margin-bottom: 0.5em;
 
@@ -51,8 +53,8 @@ export const ReviewInfoContainer = css`
     height: 100%;
     width: 100%; 
     // background-color: purple; //remove after
-    // justify-content: center;
-    // align-items: center;
+    justify-content: center;
+    align-items: center;
 `
 export const ReviewRatingsContainer = css`
     display: flex;
@@ -74,18 +76,18 @@ export const MetaDataContainer = css`
 
 export const ReviewText = css`
     font-weight: 100;
-    margin: 0em 1em;
+    margin: 0em 2.15em;
     text-align: left;
     font-size: 18px;
     width: 80%;
-    color: white;
+    color: black;
     height: fit-content;
     // margin-left: 0;
 `
 export const RatingContainer = css`
     display: flex;
     flex-direction: column;
-    background-color: cadetblue; //remove after
+    background-color: lightgray; //remove after
     height: 86%;
     width: 22%;
     margin: 0em 0.25em;
@@ -105,7 +107,8 @@ export const RatingLabel = css`
     font-size: 10px;
     font-weight: 300;
     margin: 0em;
-    color: white;
+    color: black;
+    margin-top: -1.5px;
 `
 //     ${bp['medium']} {
 //         width: 720px;
