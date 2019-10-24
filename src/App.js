@@ -1,19 +1,17 @@
 import React from 'react';
-import ReviewListCard from './components/review-list-card/index'
+import Homepage from './layouts/homepage/homepage'
 import Navbar from './components/navbar/index'
 import 'antd/dist/antd.css';
 // import logo from './logo.svg';
 import './App.css';
+import 'antd/dist/antd.css';
 
 
 function App() {
   return (
-    <div className="App">
-
-      <header className="App-header">
-        <Navbar search={true} />
-        <h1>xintern-ui</h1>
-      </header>
+    <div className="App" style={{backgroundImage: `url('/images/bg.png')`, backgroundRepeat: 'repeat'}}>
+      <Navbar search={false} />
+      <Homepage />
     </div>
   );
 }
