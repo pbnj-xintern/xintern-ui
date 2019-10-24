@@ -8,7 +8,7 @@ import 'antd/dist/antd.css';
 
 function App() {
   return (
-    <div className="App" style={{backgroundImage: `url('/images/bg.png')`, backgroundRepeat: 'repeat'}}>
+    <div className="App" style={{ backgroundImage: `url('/images/bg.png')`, backgroundRepeat: 'repeat' }}>
       <Navbar search={false} />
       <Homepage />
     </div>

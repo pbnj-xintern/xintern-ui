@@ -15,8 +15,8 @@ export const CardContainer = css`
     cursor: pointer;
 
     &:hover{
-        border-top: 0.5px lightgreen solid;
-        border-bottom: 0.5px lightgreen solid;
+        border-top: 0.5px green solid;
+        border-bottom: 0.5px green solid;
     }
 `
 
