@@ -25,6 +25,6 @@ export const ImageContainer = css`
     width: 150px;
 `
 export const LogoImage = css`
-    max-width:150px;
+    max-width:100px;
     height: auto;
 `
