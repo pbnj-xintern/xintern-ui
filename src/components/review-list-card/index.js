@@ -37,18 +37,18 @@ const ReviewListCard = (props) => {
     return (
         <Card css={styles.CardContainer} bordered={false} bodyStyle={styles.CardBodyStyle}>
             <Row style={{ height: '100%' }}>
-                <Col xl={{ span: 3 }} style={{ height: '100%' }}>
+                <Col lg={{  }} xl={{ span: 3 }} style={{ height: '100%' }}>
                     <div css={styles.CompanyLogoContainer}>
                         <img src={reviewObj.company_logo} style={{ objectFit: 'contain', width: '75%' }} alt="no_logo" />
                     </div>
                 </Col >
-                <Col xl={{ span: 11 }} style={{ height: '100%' }}>
+                <Col lg={{  }} xl={{ span: 11 }} style={{ height: '100%' }}>
                     <div css={styles.ReviewInfoContainer}>
-                        <h4 css={styles.ReviewText} style={{ fontWeight: "250", fontStyle: "italic" }}>"{reviewObj.content && reviewObj.content.substring(0, 40) + '...'}"</h4>
+                        <h4 css={styles.ReviewText} style={{ fontWeight: "250", fontStyle: "italic" }}>"{reviewObj.content && reviewObj.content.substring(0, 30) + '...'}"</h4>
                         <h4 css={styles.ReviewText} style={{ marginBottom: "2%", fontWeight: "400", color: "darkblue" }}>{reviewObj.company_name}</h4>
                         <div css={styles.MetaDataContainer}>
                             <h4 css={styles.ReviewText}>
-                                <Anchor>
+                                <Anchor affix={false}>
                                     <Link href="#" title={reviewObj.username} style={{ fontSize: '15px', fontWeight: "500" }} />
                                 </Anchor>
                             </h4>
@@ -56,7 +56,7 @@ const ReviewListCard = (props) => {
                         </div>
                     </div>
                 </Col>
-                <Col xl={{ span: 10 }} style={{ height: '100%' }}>
+                <Col lg={{  }} xl={{ span: 10 }} style={{ height: '100%' }}>
                     <div css={styles.ReviewRatingsContainer}>
                         <div css={styles.RatingContainer}>
                             <h3 css={styles.RatingValue} style={{ color: 'darkblue' }}>{reviewObj.overall_rating}</h3>
