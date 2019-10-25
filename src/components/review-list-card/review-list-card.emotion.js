@@ -6,7 +6,7 @@ export const CardContainer = css`
     // flex-direction: row;
     overflow: hidden;
     width: 100%;
-    height: 125px;
+    //height: 125px;
     // background-color: gray; //remove after
     // border-radius: 1em;
     border-top: 0.5px solid lightgray;

@@ -8,28 +8,63 @@ import ReviewListCard from '../../components/review-list-card/index'
 import axios from 'axios'
 
 const getTopCompanies = async () => {
-    try{
+    try {
+        let res = await axios.get('https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/topCompanies')
+        if (res.status === 500) {
+            console.error('Could not get top companies')
+            return []
+        }
+
+        const cardsInDiv = 4
+        const formattedData = []
+        res.data.forEach((company, i) => {
+            if (i % cardsInDiv === 0)
+                formattedData.push([])
+            formattedData[formattedData.length - 1].push(company)
+        })
+
+        console.log('formattedData', formattedData)
+
+        return formattedData
 
     } catch (err) {
         console.error("Could not get recent reviews")
     }
 }
 
+
+const getRecentReviews = async () => {
+    try {
+        let response = await axios.get('https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/review/recent')
+        if (response.data.length == 0) console.error("no recent reviews")
+        return response.data
+    } catch (err) {
+        console.error("Could not get recent reviews", err)
+    }
+}
+
 const Homepage = () => {
     let [recentReviews, setRecentReviews] = useState([])
-    useEffect( async () => {
-        const getRecentReviews = async () => {
-            try{
-                let response = await axios.get('https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/review/recent')
-                if (response.data.length == 0 || response.data.error) console.error("no recent reviews")
-                return response.data
-            } catch (err) {
-                console.error("Could not get recent reviews", err)
-            }
+    let [topCompanies, setTopCompanies] = useState([])
+
+    useEffect(() => {
+
+        async function fetchRecentReviews() {
+            setRecentReviews(await getRecentReviews())
         }
-        setRecentReviews(await getRecentReviews())
-        console.log('recent review list', recentReviews)
+
+        async function fetchTopCompanies() {
+            setTopCompanies(await getTopCompanies())
+        }
+
+        fetchTopCompanies()
+        fetchRecentReviews()
+
     }, [])
+
+    var isTopCompaniesEmpty = topCompanies === [] || topCompanies === undefined;
+
+    console.log('topcom', topCompanies)
 
     return (
         <div>
@@ -41,75 +76,62 @@ const Homepage = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 opacity: 0.95
-                }}>
-                <h1 style={{color: 'white', fontSize: "3em", fontWeight: "200"}}>See what other students said about their internships!<SearchBar search={true}/></h1>          
+            }}>
+                <h1 style={{ color: 'white', fontSize: "3em", fontWeight: "200" }}>See what other students said about their internships!<SearchBar search={true} /></h1>
             </div>
+            {!isTopCompaniesEmpty &&
+                <Row>
+                    <Col md={{ span: 20, offset: 2 }} sm={{ span: 24 }}>
+                        <h1 style={{ fontWeight: "500", marginTop: '7%' }}>Check out these Top Companies!</h1>
+                        <Carousel autoplay>
+                            {
+                                topCompanies.map(div =>
+                                    <div css={styles.CarouselDiv}>
+                                        <Row type="flex" justify="space-around" align="middle">
+                                            {
+                                                div.map(company =>
+                                                    <Col md={4} sm={24}>
+                                                        <SmallCompanyCard {...company} />
+                                                    </Col>
+                                                )
+                                            }
+                                        </Row>
+                                    </div>
+                                )
+                            }
+                        </Carousel>
+                    </Col>
+                </Row>
+            }
             <Row>
-                <Col md={{ span: 20, offset: 2 }} sm={{ span: 24 }}>
-                    <h1 style={{ fontWeight: "500", marginTop: '7%' }}>Check out these Top Companies!</h1>
-                    <Carousel>
-                        <div css={styles.CarouselDiv}>
-                            <Row type="flex" justify="space-around" align="middle">
-                                <Col md={4} sm={24}>
-                                    <SmallCompanyCard />
-                                </Col>
-                                <Col md={4} sm={24}>
-                                    <SmallCompanyCard />
-                                </Col>
-                                <Col md={4} sm={24}>
-                                    <SmallCompanyCard />
-                                </Col>
-                                <Col md={4} sm={24}>
-                                    <SmallCompanyCard />
-                                </Col>
-                            </Row>
-                        </div>
-                        <div>
-                            <Row type="flex" justify="space-around" align="middle">
-                                <Col md={4} sm={24}>
-                                    <SmallCompanyCard />
-                                </Col>
-                                <Col md={4} sm={24}>
-                                    <SmallCompanyCard />
-                                </Col>
-                                <Col md={4} sm={24}>
-                                    <SmallCompanyCard />
-                                </Col>
-                                <Col md={4}>
-                                    <SmallCompanyCard />
-                                </Col>
-                            </Row>
-                        </div>
-                        <div>
-                            <Row type="flex" justify="space-around" align="middle">
-                                <Col md={4} sm={24}>
-                                    <SmallCompanyCard />
-                                </Col>
-                                <Col md={4} sm={24}>
-                                    <SmallCompanyCard />
-                                </Col>
-                                <Col md={4} sm={24}>
-                                    <SmallCompanyCard />
-                                </Col>
-                                <Col md={4} sm={24}>
-                                    <SmallCompanyCard />
-                                </Col>
-                            </Row>
-                        </div>
-                    </Carousel>
+                <Col md={{ span: 18, offset: 3 }} xs={{ span: 24 }}>
+                    <h1 style={{ fontWeight: "500", marginTop: '7%' }}>Recent Reviews</h1>
+                    {recentReviews ?
+                        <List
+                            split={false}
+                            size="large"
+                            dataSource={recentReviews.map((review) => <ReviewListCard {...review} />)}
+                            renderItem={item => <List.Item style={{ padding: "0 !important" }}>{item}</List.Item>}
+                        /> :
+                        <h2>No reviews</h2>
+                    }
                 </Col>
             </Row>
+            {/*             
             <Row style={{ padding: "0em 17em" }}>
                 <Col xs={{ span: 24 }} style={{ width: "100%" }}>
                     <h1 style={{ fontWeight: "500", marginTop: '7%' }}>Recent Reviews</h1>
-                    <List
-                        split={false}
-                        size="large"
-                        dataSource={ recentReviews.map((review) => <ReviewListCard {...review} />) }
-                        renderItem={item => <List.Item style={{ padding: "0 !important" }}>{item}</List.Item>}
-                    />
+                    {recentReviews ?
+                        <List
+                            split={false}
+                            size="large"
+                            dataSource={recentReviews.map((review) => <ReviewListCard {...review} />)}
+                            renderItem={item => <List.Item style={{ padding: "0 !important" }}>{item}</List.Item>}
+                        /> :
+                        <h2>No reviews</h2>
+                    }
                 </Col>
-            </Row>
+            </Row> */}
         </div>
     )
 }
