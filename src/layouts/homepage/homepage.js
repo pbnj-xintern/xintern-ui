@@ -17,7 +17,7 @@ const getTopCompanies = async () => {
 
 const Homepage = () => {
     let [recentReviews, setRecentReviews] = useState([])
-    useEffect(() => {
+    useEffect( async () => {
         const getRecentReviews = async () => {
             try{
                 let response = await axios.get('https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/review/recent')
@@ -27,7 +27,8 @@ const Homepage = () => {
                 console.error("Could not get recent reviews", err)
             }
         }
-        setRecentReviews(getRecentReviews())
+        setRecentReviews(await getRecentReviews())
+        console.log('recent review list', recentReviews)
     }, [])
 
     return (
