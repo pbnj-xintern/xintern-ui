@@ -98,7 +98,7 @@ const Homepage = () => {
                 </Row>
             }
             <Row>
-                <Col md={{ span: 18, offset: 3 }} xs={{ span: 24 }}>
+                <Col md={{ span: 16, offset: 4 }} xs={{ span: 24 }}>
                     <h1 style={{ fontWeight: "500", marginTop: '7%' }}>Recent Reviews</h1>
                     {recentReviews ?
                         <List
