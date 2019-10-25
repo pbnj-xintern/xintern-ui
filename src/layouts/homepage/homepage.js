@@ -103,6 +103,21 @@ const Homepage = () => {
                     </Col>
                 </Row>
             }
+            <Row>
+                <Col md={{ span: 18, offset: 3 }} xs={{ span: 24 }}>
+                    <h1 style={{ fontWeight: "500", marginTop: '7%' }}>Recent Reviews</h1>
+                    {recentReviews ?
+                        <List
+                            split={false}
+                            size="large"
+                            dataSource={recentReviews.map((review) => <ReviewListCard {...review} />)}
+                            renderItem={item => <List.Item style={{ padding: "0 !important" }}>{item}</List.Item>}
+                        /> :
+                        <h2>No reviews</h2>
+                    }
+                </Col>
+            </Row>
+            {/*             
             <Row style={{ padding: "0em 17em" }}>
                 <Col xs={{ span: 24 }} style={{ width: "100%" }}>
                     <h1 style={{ fontWeight: "500", marginTop: '7%' }}>Recent Reviews</h1>
@@ -116,7 +131,7 @@ const Homepage = () => {
                         <h2>No reviews</h2>
                     }
                 </Col>
-            </Row>
+            </Row> */}
         </div>
     )
 }
