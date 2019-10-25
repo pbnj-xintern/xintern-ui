@@ -10,5 +10,21 @@ export const Card = css`
 `
 
 export const BodyStyle = {
-    padding: 0
+    paddingTop: '1em',
+    paddingBottom: 0,
+    paddingLeft: 0,
+    paddingRight: 0,
 }
+
+export const ImageContainer = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    height: 150px;
+    width: 150px;
+`
+export const LogoImage = css`
+    max-width:150px;
+    height: auto;
+`
