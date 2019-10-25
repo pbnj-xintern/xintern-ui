@@ -14,7 +14,6 @@ const getTopCompanies = async () => {
             console.error('Could not get top companies')
             return []
         }
-
         const cardsInDiv = 4
         const formattedData = []
         res.data.forEach((company, i) => {
@@ -22,21 +21,20 @@ const getTopCompanies = async () => {
                 formattedData.push([])
             formattedData[formattedData.length - 1].push(company)
         })
-
         console.log('formattedData', formattedData)
-
         return formattedData
-
     } catch (err) {
         console.error("Could not get recent reviews")
     }
 }
 
-
 const getRecentReviews = async () => {
     try {
         let response = await axios.get('https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/review/recent')
-        if (response.data.length == 0) console.error("no recent reviews")
+        if (response.data.length == 0 || response.data.error) {
+            console.error("no recent reviews")
+            return []
+        }
         return response.data
     } catch (err) {
         console.error("Could not get recent reviews", err)
@@ -48,18 +46,14 @@ const Homepage = () => {
     let [topCompanies, setTopCompanies] = useState([])
 
     useEffect(() => {
-
         async function fetchRecentReviews() {
             setRecentReviews(await getRecentReviews())
         }
-
         async function fetchTopCompanies() {
             setTopCompanies(await getTopCompanies())
         }
-
         fetchTopCompanies()
         fetchRecentReviews()
-
     }, [])
 
     var isTopCompaniesEmpty = topCompanies === [] || topCompanies === undefined;
@@ -85,12 +79,12 @@ const Homepage = () => {
                         <h1 style={{ fontWeight: "500", marginTop: '7%' }}>Check out these Top Companies!</h1>
                         <Carousel autoplay>
                             {
-                                topCompanies.map(div =>
-                                    <div css={styles.CarouselDiv}>
+                                topCompanies.map((div, i) =>
+                                    <div key={i} css={styles.CarouselDiv}>
                                         <Row type="flex" justify="space-around" align="middle">
                                             {
-                                                div.map(company =>
-                                                    <Col md={4} sm={24}>
+                                                div.map((company, i) =>
+                                                    <Col key={i} md={4} sm={24}>
                                                         <SmallCompanyCard {...company} />
                                                     </Col>
                                                 )
@@ -116,22 +110,7 @@ const Homepage = () => {
                         <h2>No reviews</h2>
                     }
                 </Col>
-            </Row>
-            {/*             
-            <Row style={{ padding: "0em 17em" }}>
-                <Col xs={{ span: 24 }} style={{ width: "100%" }}>
-                    <h1 style={{ fontWeight: "500", marginTop: '7%' }}>Recent Reviews</h1>
-                    {recentReviews ?
-                        <List
-                            split={false}
-                            size="large"
-                            dataSource={recentReviews.map((review) => <ReviewListCard {...review} />)}
-                            renderItem={item => <List.Item style={{ padding: "0 !important" }}>{item}</List.Item>}
-                        /> :
-                        <h2>No reviews</h2>
-                    }
-                </Col>
-            </Row> */}
+            </Row>      
         </div>
     )
 }

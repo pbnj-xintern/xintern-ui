@@ -1,16 +1,16 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
 import React, { useState, useEffect } from 'react'
 import * as styles from './review-list-card.emotion'
+import moment from 'moment'
 
 import { Card, Row, Col, Anchor } from 'antd'
 
 const ReviewListCard = (props) => {
     const [reviewObj, setReviewObj] = useState({})
-
     const { Link } = Anchor
 
-    useEffect(async () => {
-        const getAllMetrics = async (props) => {
+    useEffect(() => {
+        const getAllMetrics = (props) => {
             let allRatings = [props.rating.culture, props.rating.mentorship, props.rating.impact, props.rating.interview]
             allRatings = allRatings.filter(rating => rating !== null)
             let upvotesCount = props.upvotes.length
@@ -19,19 +19,8 @@ const ReviewListCard = (props) => {
             let overallRating = ((allRatings.reduce((a, b) => a + b, 0)) / allRatings.length).toFixed(1)
             return { overallRating, upvotesCount, downvotesCount, commentsCount }
         }
-        let metrics = await getAllMetrics(props)
-        let dateFormatOptions = {
-            weekday: "short",
-            year: "numeric",
-            month: "short",
-            day: "2-digit",
-            hour: "numeric",
-            minute: "2-digit",
-            second: "2-digit",
-            hour12: true, 
-            timeZone: "America/Los_Angeles"
-        }
-        let formattedCreatedAt = new Date(props.createdAt).toLocaleString('en-US', dateFormatOptions)
+        let metrics = getAllMetrics(props)
+        let formattedCreatedAt = moment(props.createdAt).format("llll")
         setReviewObj({
             company_logo: props.company.logo,
             content: props.content,
