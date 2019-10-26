@@ -25,9 +25,10 @@ const ReviewListCard = (props) => {
         let metrics = getAllMetrics(props)
         let formattedCreatedAt = moment(props.createdAt).format("llll")
         setReviewObj({
-            company_logo: props.company.logo,
             content: props.content,
+            company_logo: props.company.logo,
             company_name: props.company.name,
+            company_location: props.company.location,
             username: props.user.username,
             created_at: formattedCreatedAt,
             overall_rating: metrics.overallRating,
@@ -48,7 +49,10 @@ const ReviewListCard = (props) => {
                 <Col lg={{ span: 20 }} xl={{ span: 11 }} css={styles.ReviewInfoCol}>
                     <div css={styles.ReviewInfoContainer}>
                         <h4 css={styles.ReviewText} style={{ fontWeight: "250", fontStyle: "italic" }}>"{reviewObj.content && reviewObj.content.substring(0, 35) + "..."}"</h4>
-                        <h4 css={styles.ReviewText} style={{ marginBottom: "2%", fontWeight: "400", color: "darkblue" }}>{reviewObj.company_name}</h4>
+                        <div style={{ display: "flex", flexDirection: "row" }}>
+                            <h4 css={styles.ReviewText} style={{ marginBottom: "2%", fontWeight: "400", color: "darkblue" }}>{reviewObj.company_name}</h4>
+                            <h4 css={styles.LocationText}>{reviewObj.company_location}</h4>
+                        </div>
                         <div css={styles.MetaDataContainer}>
                             <h4 css={styles.ReviewText}>
                                 <Anchor affix={false}>

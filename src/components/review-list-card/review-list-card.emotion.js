@@ -126,11 +126,30 @@ export const ReviewText = css`
     color: black;
     height: 100%;
     // margin-left: 0;
+`
 
-    @media (min-width: 992px) {
-        width: 100%;
+export const LocationText = css`
+    font-weight: 100;
+    margin: 0em 0em;
+    padding-left: 4%;
+    font-size: 16px;
+    width: fit-content;
+    color: black;
+    height: 100%;
+    margin-bottom: 2%;
+    margin-top: 1.9px;
+    font-weight: 200;
+    color: darkgray;
+
+    @media (min-width: 992px){
+        margin-top: 1.9px;
+
+    }
+    @media (min-width: 1200px){
+        margin-top: 1.85px;
     }
 `
+
 export const DateReviewText = css`
     font-weight: 100;
     margin: 0em 0em;
@@ -139,7 +158,7 @@ export const DateReviewText = css`
     color: black;
     height: 100%;
     display: flex;
-    // padding-left: 11%;
+    padding-left: 11%;
     justify-content: center; 
     align-items: center;
 
