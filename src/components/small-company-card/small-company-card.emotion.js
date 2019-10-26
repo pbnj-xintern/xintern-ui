@@ -8,6 +8,10 @@ export const Card = css`
     -webkit-box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.56);
     -moz-box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.56);
     box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.56);
+
+    @media (min-width: 992px) {
+        width: 167px;
+    }
 `
 
 export const BodyStyle = {

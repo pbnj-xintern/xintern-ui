@@ -77,7 +77,7 @@ const Homepage = () => {
                 <Row>
                     <Col xl={{ span: 22, offset: 1 }} lg={{  }} md={{ span: 20, offset: 2 }} sm={{ span: 24 }}>
                         <h1 style={{ fontWeight: "500", marginTop: '7%' }}>Check out these Top Companies!</h1>
-                        <Carousel autoplay>
+                        <Carousel>
                             {
                                 topCompanies.map((div, i) =>
                                     <div key={i} css={styles.CarouselDiv}>

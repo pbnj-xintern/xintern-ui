@@ -6,6 +6,7 @@ export const CardContainer = css`
     // flex-direction: row;
     overflow: hidden;
     width: 100%;
+    height: fit-content;
     //height: 125px;
     // background-color: gray; //remove after
     // border-radius: 1em;
@@ -19,6 +20,13 @@ export const CardContainer = css`
         // border-top: 0.5px green solid;
         // border-bottom: 0.5px green solid;
         border: 0.5px darkblue solid;
+    }
+
+    @media (min-width: 992px) {
+        height: 225px;
+    }
+    @media (min-width: 1200px) {
+        height: fit-content;
     }
 `
 
@@ -37,6 +45,16 @@ export const CompanyLogoContainer = css`
     align-items: center;
     cursor: pointer;
 `
+
+export const CompanyLogoCol = css`
+    @media (min-width: 992px) { 
+        height: 51%; 
+    } 
+    @media (min-width: 1200px) {
+        height: 100%;
+    }
+`
+
 export const ContentContainer = css`
     display: flex;
     flex-direction: row;
@@ -57,15 +75,29 @@ export const ReviewInfoContainer = css`
     // background-color: purple; //remove after
     // justify-content: center;
     // align-items: center;
+
+    @media (min-width: 992px) {
+        text-align: left;
+    }
+
 `
 export const ReviewRatingsContainer = css`
     display: flex;
     height: 100%;
     width: 100%; 
     // background-color: teal; //remove after
-    border-radius: 1em;
+    // border-radius: 1em;
     justify-content: space-evenly;
     align-items: center;
+`
+
+export const ReviewRatingCol = css`
+    @media (min-width: 992px) { 
+        height: 55%;
+    }
+    @media (min-width: 1200px) { 
+        height: 100%;
+    }
 `
 
 export const MetaDataContainer = css`
@@ -85,6 +117,10 @@ export const ReviewText = css`
     color: black;
     height: 100%;
     // margin-left: 0;
+
+    @media (min-width: 992px) {
+        width: 100%;
+    }
 `
 export const DateReviewText = css`
     font-weight: 100;
@@ -97,6 +133,12 @@ export const DateReviewText = css`
     padding-left: 11%;
     justify-content: center; 
     align-items: center;
+
+    @media (min-width: 992px) {
+        width: 100%;
+        justify-content: left; 
+        align-items: left;
+    }
 `
 export const RatingContainer = css`
     display: flex;
@@ -106,9 +148,18 @@ export const RatingContainer = css`
     height: 82%;
     width: 22%;
     margin: 0em 0.25em;
-    border-radius: 1.5em;
+    // border-radius: 1.5em;
     justify-content: center;
     cursor: pointer;
+
+    @media (min-width: 992px) {
+        height: 60%; 
+        width: 22.5%;
+    }
+    @media (min-width: 1200px) {
+        height: 82%; 
+        width: 22%;
+    }
 `
 
 export const RatingValue = css`
