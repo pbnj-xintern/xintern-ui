@@ -6,6 +6,7 @@ import { Switch, Route } from 'react-router-dom'
 import './App.css';
 import 'antd/dist/antd.css';
 import BrowseCompanies from './layouts/browse-companies/browse-companies';
+import CommentSection from "./layouts/comment-section/comment-section";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Homepage} />
         <Route path="/companies" component={BrowseCompanies} />
+        <Route path="/test" component={CommentSection} />
       </Switch>
     </div>
   );
