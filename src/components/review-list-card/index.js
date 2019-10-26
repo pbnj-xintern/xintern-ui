@@ -45,7 +45,7 @@ const ReviewListCard = (props) => {
                         <img src={reviewObj.company_logo} style={{ objectFit: 'contain', width: '75%' }} alt="no_logo" />
                     </div>
                 </Col >
-                <Col lg={{ span: 20 }} xl={{ span: 11 }} style={{ height: '100%' }} css={css`@media (min-width: 992px) { height: fit-content !important; }`}>
+                <Col lg={{ span: 20 }} xl={{ span: 11 }} css={styles.ReviewInfoCol}>
                     <div css={styles.ReviewInfoContainer}>
                         <h4 css={styles.ReviewText} style={{ fontWeight: "250", fontStyle: "italic" }}>"{reviewObj.content && reviewObj.content.substring(0, 35) + "..."}"</h4>
                         <h4 css={styles.ReviewText} style={{ marginBottom: "2%", fontWeight: "400", color: "darkblue" }}>{reviewObj.company_name}</h4>

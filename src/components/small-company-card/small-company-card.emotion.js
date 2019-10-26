@@ -10,7 +10,10 @@ export const Card = css`
     box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.56);
 
     @media (min-width: 992px) {
-        width: 167px;
+        width: 168px;
+    }
+    @media (min-width: 1200px) {
+        width: 250px;
     }
 `
 

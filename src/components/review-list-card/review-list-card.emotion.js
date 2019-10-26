@@ -79,8 +79,17 @@ export const ReviewInfoContainer = css`
     @media (min-width: 992px) {
         text-align: left;
     }
-
 `
+
+export const ReviewInfoCol = css`
+    @media (min-width: 992px) { 
+        height: fit-content; 
+    }
+    @media (min-width: 1200px) { 
+        height: 100%; 
+    }
+`
+
 export const ReviewRatingsContainer = css`
     display: flex;
     height: 100%;
@@ -130,7 +139,7 @@ export const DateReviewText = css`
     color: black;
     height: 100%;
     display: flex;
-    padding-left: 11%;
+    // padding-left: 11%;
     justify-content: center; 
     align-items: center;
 
@@ -153,7 +162,7 @@ export const RatingContainer = css`
     cursor: pointer;
 
     @media (min-width: 992px) {
-        height: 60%; 
+        height: 56%; 
         width: 22.5%;
     }
     @media (min-width: 1200px) {
@@ -168,6 +177,13 @@ export const RatingValue = css`
     font-weight: 250;
     margin: 0em 0em;
     margin-bottom: 0;
+
+    @media (min-width: 992px){
+        font-size: 25px;
+    }
+    @media (min-width: 1200px){
+        font-size: 27px;
+    }
 `
 
 export const RatingLabel = css`
