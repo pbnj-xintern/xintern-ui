@@ -1,13 +1,16 @@
-/** @jsx jsx */ import { jsx } from '@emotion/core'
+/** @jsx jsx */ import { jsx, css } from '@emotion/core'
 import React, { useState, useEffect } from 'react'
 import * as styles from './review-list-card.emotion'
 import moment from 'moment'
 
 import { Card, Row, Col, Anchor } from 'antd'
+// import useWindowSize from '../../hooks/use-window-size'
 
 const ReviewListCard = (props) => {
     const [reviewObj, setReviewObj] = useState({})
+    // const [reviewTitle, setReviewTitle] = useState("")
     const { Link } = Anchor
+    // const { width, height } = useWindowSize()
 
     useEffect(() => {
         const getAllMetrics = (props) => {
@@ -22,9 +25,10 @@ const ReviewListCard = (props) => {
         let metrics = getAllMetrics(props)
         let formattedCreatedAt = moment(props.createdAt).format("llll")
         setReviewObj({
-            company_logo: props.company.logo,
             content: props.content,
+            company_logo: props.company.logo,
             company_name: props.company.name,
+            company_location: props.company.location,
             username: props.user.username,
             created_at: formattedCreatedAt,
             overall_rating: metrics.overallRating,
@@ -37,18 +41,21 @@ const ReviewListCard = (props) => {
     return (
         <Card css={styles.CardContainer} bordered={false} bodyStyle={styles.CardBodyStyle}>
             <Row style={{ height: '100%' }}>
-                <Col xl={{ span: 3 }} style={{ height: '100%' }}>
+                <Col lg={{ span: 4 }} xl={{ span: 3 }} css={styles.CompanyLogoCol}>
                     <div css={styles.CompanyLogoContainer}>
                         <img src={reviewObj.company_logo} style={{ objectFit: 'contain', width: '75%' }} alt="no_logo" />
                     </div>
                 </Col >
-                <Col xl={{ span: 11 }} style={{ height: '100%' }}>
+                <Col lg={{ span: 20 }} xl={{ span: 11 }} css={styles.ReviewInfoCol}>
                     <div css={styles.ReviewInfoContainer}>
-                        <h4 css={styles.ReviewText} style={{ fontWeight: "250", fontStyle: "italic" }}>"{reviewObj.content && reviewObj.content.substring(0, 40) + '...'}"</h4>
-                        <h4 css={styles.ReviewText} style={{ marginBottom: "2%", fontWeight: "400", color: "darkblue" }}>{reviewObj.company_name}</h4>
+                        <h4 css={styles.ReviewText} style={{ fontWeight: "250", fontStyle: "italic" }}>"{reviewObj.content && reviewObj.content.substring(0, 35) + "..."}"</h4>
+                        <div style={{ display: "flex", flexDirection: "row" }}>
+                            <h4 css={styles.ReviewText} style={{ marginBottom: "2%", fontWeight: "400", color: "darkblue" }}>{reviewObj.company_name}</h4>
+                            <h4 css={styles.LocationText}>{reviewObj.company_location}</h4>
+                        </div>
                         <div css={styles.MetaDataContainer}>
                             <h4 css={styles.ReviewText}>
-                                <Anchor>
+                                <Anchor affix={false}>
                                     <Link href="#" title={reviewObj.username} style={{ fontSize: '15px', fontWeight: "500" }} />
                                 </Anchor>
                             </h4>
@@ -56,7 +63,7 @@ const ReviewListCard = (props) => {
                         </div>
                     </div>
                 </Col>
-                <Col xl={{ span: 10 }} style={{ height: '100%' }}>
+                <Col lg={{ span: 24 }} xl={{ span: 10 }} css={styles.ReviewRatingCol}>
                     <div css={styles.ReviewRatingsContainer}>
                         <div css={styles.RatingContainer}>
                             <h3 css={styles.RatingValue} style={{ color: 'darkblue' }}>{reviewObj.overall_rating}</h3>
