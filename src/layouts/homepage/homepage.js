@@ -4,7 +4,7 @@ import { Row, Col, Carousel, List } from 'antd'
 import SmallCompanyCard from '../../components/small-company-card/SmallCompanyCard'
 import SearchBar from '../../components/search-bar/index'
 import * as styles from './homepage.emotion'
-import ReviewListCard from '../../components/review-list-card/index'
+import ReviewListCard from '../../components/review-list-card/ReviewListCard'
 import axios from 'axios'
 
 const getTopCompanies = async () => {
