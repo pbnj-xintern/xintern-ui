@@ -9,7 +9,7 @@ import BrowseCompanies from './layouts/browse-companies/browse-companies';
 
 function App() {
   return (
-    <div className="App" style={{ backgroundImage: `url('/images/bg.png')`, backgroundRepeat: 'repeat' }}>
+    <div className="App" >
       <Navbar search={false} />
       <Switch>
         <Route exact path="/" component={Homepage} />
@@ -20,3 +20,5 @@ function App() {
 }
 
 export default App;
+
+// style={{ backgroundImage: `url('/images/bg.png')`, backgroundRepeat: 'repeat' }}

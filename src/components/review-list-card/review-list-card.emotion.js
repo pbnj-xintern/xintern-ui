@@ -10,16 +10,16 @@ export const CardContainer = css`
     //height: 125px;
     // background-color: gray; //remove after
     // border-radius: 1em;
-    // border-top: 0.5px solid lightgray;
-    // border-bottom: 0.5px solid lightgray;
-    border: 0.5px solid lightgray;
+    border-top: 0.5px solid lightgray;
+    border-bottom: 0.5px solid lightgray;
+    // border: 0.5px solid lightgray;
     padding: 16px 2em;
     cursor: pointer;
 
     &:hover{
-        // border-top: 0.5px green solid;
-        // border-bottom: 0.5px green solid;
-        border: 0.5px darkblue solid;
+        border-top: 0.5px darkblue solid;
+        border-bottom: 0.5px darkblue solid;
+        // border: 0.5px darkblue solid;
     }
 
     @media (min-width: 992px) {
@@ -139,7 +139,7 @@ export const LocationText = css`
     margin-bottom: 2%;
     margin-top: 1.9px;
     font-weight: 200;
-    color: darkgray;
+    color: gray;
 
     @media (min-width: 992px){
         margin-top: 1.9px;
