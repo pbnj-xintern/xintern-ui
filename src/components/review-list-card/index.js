@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import * as styles from './review-list-card.emotion'
 import moment from 'moment'
+import { NavLink } from 'react-router-dom'
 
 import { Card, Row, Col, Anchor } from 'antd'
 // import useWindowSize from '../../hooks/use-window-size'
@@ -25,6 +26,7 @@ const ReviewListCard = (props) => {
         let metrics = getAllMetrics(props)
         let formattedCreatedAt = moment(props.createdAt).format("llll")
         setReviewObj({
+            _id: props._id,
             content: props.content,
             company_logo: props.company.logo,
             company_name: props.company.name,
@@ -40,6 +42,7 @@ const ReviewListCard = (props) => {
 
     return (
         <Card css={styles.CardContainer} bordered={false} bodyStyle={styles.CardBodyStyle}>
+            <NavLink to={`/review/${reviewObj._id}`}>
             <Row style={{ height: '100%' }}>
                 <Col lg={{ span: 4 }} xl={{ span: 3 }} css={styles.CompanyLogoCol}>
                     <div css={styles.CompanyLogoContainer}>
@@ -84,6 +87,7 @@ const ReviewListCard = (props) => {
                     </div>
                 </Col>
             </Row>
+            </NavLink>
         </Card>
     )
 }

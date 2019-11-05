@@ -176,7 +176,7 @@ export const RatingContainer = css`
     height: 82%;
     width: 22%;
     margin: 0em 0.25em;
-    // border-radius: 1.5em;
+    border-radius: 1.25em;
     justify-content: center;
     cursor: pointer;
 
