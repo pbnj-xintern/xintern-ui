@@ -36,57 +36,58 @@ const ReviewListCard = (props) => {
             overall_rating: metrics.overallRating,
             upvotes_count: metrics.upvotesCount,
             downvotes_count: metrics.downvotesCount,
-            comments_count: metrics.commentsCount
+            comments_count: metrics.commentsCount,
+            review_ratings: props.rating
         })
     }, [])
 
     return (
         <Card css={styles.CardContainer} bordered={false} bodyStyle={styles.CardBodyStyle}>
-            <NavLink to={`/review/${reviewObj._id}`}>
-            <Row style={{ height: '100%' }}>
-                <Col lg={{ span: 4 }} xl={{ span: 3 }} css={styles.CompanyLogoCol}>
-                    <div css={styles.CompanyLogoContainer}>
-                        <img src={reviewObj.company_logo} style={{ objectFit: 'contain', width: '75%' }} alt="no_logo" />
-                    </div>
-                </Col >
-                <Col lg={{ span: 20 }} xl={{ span: 11 }} css={styles.ReviewInfoCol}>
-                    <div css={styles.ReviewInfoContainer}>
-                        <h4 css={styles.ReviewText} style={{ fontWeight: "250", fontStyle: "italic" }}>"{reviewObj.content && reviewObj.content.substring(0, 35) + "..."}"</h4>
-                        <div style={{ display: "flex", flexDirection: "row" }}>
-                            <h4 css={styles.ReviewText} style={{ marginBottom: "2%", fontWeight: "400", color: "darkblue" }}>{reviewObj.company_name}</h4>
-                            <h4 css={styles.LocationText}>{reviewObj.company_location}</h4>
+            <NavLink to={{ pathname: `/review/${reviewObj._id}`, reviewObject: {...reviewObj} }}>
+                <Row style={{ height: '100%' }}>
+                    <Col lg={{ span: 4 }} xl={{ span: 3 }} css={styles.CompanyLogoCol}>
+                        <div css={styles.CompanyLogoContainer}>
+                            <img src={reviewObj.company_logo} style={{ objectFit: 'contain', width: '75%' }} alt="no_logo" />
                         </div>
-                        <div css={styles.MetaDataContainer}>
-                            <h4 css={styles.ReviewText}>
-                                <Anchor affix={false}>
-                                    <Link href="#" title={reviewObj.username} style={{ fontSize: '15px', fontWeight: "500" }} />
-                                </Anchor>
-                            </h4>
-                            <h4 css={styles.DateReviewText} >{reviewObj.created_at}</h4>
+                    </Col >
+                    <Col lg={{ span: 20 }} xl={{ span: 11 }} css={styles.ReviewInfoCol}>
+                        <div css={styles.ReviewInfoContainer}>
+                            <h4 css={styles.ReviewText} style={{ fontWeight: "250", fontStyle: "italic" }}>"{reviewObj.content && reviewObj.content.substring(0, 35) + "..."}"</h4>
+                            <div style={{ display: "flex", flexDirection: "row" }}>
+                                <h4 css={styles.ReviewText} style={{ marginBottom: "2%", fontWeight: "400", color: "darkblue" }}>{reviewObj.company_name}</h4>
+                                <h4 css={styles.LocationText}>{reviewObj.company_location}</h4>
+                            </div>
+                            <div css={styles.MetaDataContainer}>
+                                <h4 css={styles.ReviewText}>
+                                    <Anchor affix={false}>
+                                        <Link href="#" title={reviewObj.username} style={{ fontSize: '15px', fontWeight: "500" }} />
+                                    </Anchor>
+                                </h4>
+                                <h4 css={styles.DateReviewText} >{reviewObj.created_at}</h4>
+                            </div>
                         </div>
-                    </div>
-                </Col>
-                <Col lg={{ span: 24 }} xl={{ span: 10 }} css={styles.ReviewRatingCol}>
-                    <div css={styles.ReviewRatingsContainer}>
-                        <div css={styles.RatingContainer}>
-                            <h3 css={styles.RatingValue} style={{ color: 'darkblue' }}>{reviewObj.overall_rating}</h3>
-                            <h6 css={styles.RatingLabel} >rating</h6>
+                    </Col>
+                    <Col lg={{ span: 24 }} xl={{ span: 10 }} css={styles.ReviewRatingCol}>
+                        <div css={styles.ReviewRatingsContainer}>
+                            <div css={styles.RatingContainer}>
+                                <h3 css={styles.RatingValue} style={{ color: 'darkblue' }}>{reviewObj.overall_rating}</h3>
+                                <h6 css={styles.RatingLabel} >rating</h6>
+                            </div>
+                            <div css={styles.RatingContainer}>
+                                <h3 css={styles.RatingValue} style={{ color: 'black' }}>{reviewObj.upvotes_count}</h3>
+                                <h6 css={styles.RatingLabel}>upvotes</h6>
+                            </div>
+                            <div css={styles.RatingContainer}>
+                                <h3 css={styles.RatingValue} style={{ color: 'black' }}>{reviewObj.downvotes_count}</h3>
+                                <h6 css={styles.RatingLabel}>downvotes</h6>
+                            </div>
+                            <div css={styles.RatingContainer}>
+                                <h3 css={styles.RatingValue} style={{ color: 'black' }}>{reviewObj.comments_count}</h3>
+                                <h6 css={styles.RatingLabel}>comments</h6>
+                            </div>
                         </div>
-                        <div css={styles.RatingContainer}>
-                            <h3 css={styles.RatingValue} style={{ color: 'black' }}>{reviewObj.upvotes_count}</h3>
-                            <h6 css={styles.RatingLabel}>upvotes</h6>
-                        </div>
-                        <div css={styles.RatingContainer}>
-                            <h3 css={styles.RatingValue} style={{ color: 'black' }}>{reviewObj.downvotes_count}</h3>
-                            <h6 css={styles.RatingLabel}>downvotes</h6>
-                        </div>
-                        <div css={styles.RatingContainer}>
-                            <h3 css={styles.RatingValue} style={{ color: 'black' }}>{reviewObj.comments_count}</h3>
-                            <h6 css={styles.RatingLabel}>comments</h6>
-                        </div>
-                    </div>
-                </Col>
-            </Row>
+                    </Col>
+                </Row>
             </NavLink>
         </Card>
     )

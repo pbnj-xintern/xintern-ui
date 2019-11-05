@@ -12,7 +12,7 @@ export const CompanyContainer = css`
     height: 18%;
     width: 100%;
     margin-top: 1%;
-    margin-bottom: 0.5%;
+    margin-bottom: 0.3%;
 `
 export const RatingsContainer = css`
     display: flex;
@@ -107,7 +107,8 @@ export const RatingContainer = css`
     display: flex;
     flex-direction: column;
     // background-color: lightgray; //remove after
-    background-color: aliceblue;
+    // background-color: lightblue;
+    border: 1.5px solid lightblue;
     height: 82%;
     width: 22%;
     margin: 0em 0.25em;
@@ -125,7 +126,7 @@ export const RatingContainer = css`
     }
 `
 export const RatingValue = css`
-    color: black;
+    color: darkblue;
     font-size: 27px;
     font-weight: 250;
     margin: 0em 0em;
@@ -142,11 +143,14 @@ export const RatingLabel = css`
     font-size: 12px;
     font-weight: 250;
     margin: 0em;
-    color: darkblue;
+    color: black;
     margin-top: -1.5px;
 `
 export const MetaText = css`
     text-align: left;
     font-weight: 300;
     margin: 0;
+`
+export const CommentsContainer = css`
+    display: flex;
 `
