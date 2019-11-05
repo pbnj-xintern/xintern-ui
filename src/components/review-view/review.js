@@ -91,7 +91,7 @@ const Review = (props) => {
                     <Row style={{ height: "100%", width: "100%" }}>
                         <Col xl={{ span: 24 }}>
                             <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                <p style={{ textAlign: "left", color: "black", fontWeight: "350", fontSize: "16px" }}>"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."</p>
+                                <p style={{ textAlign: "justify", color: "black", fontWeight: "350", fontSize: "16px", marginBottom: "0" }}>"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."</p>
                             </div>
                         </Col>
                     </Row>
@@ -99,13 +99,13 @@ const Review = (props) => {
                 <div css={styles.UpvoteDownvoteContainer}>
                     <Row style={{ height: "100%", width: "100%" }}>
                         <Col xl={{ span: 2 }}>
-                            <div style={{ display: "flex" }}>
+                            <div style={{ display: "flex", cursor: "pointer", width: "fit-content" }}>
                                 <p css={styles.MetaText} style={{ paddingLeft: "0.5%", fontWeight: "700", fontSize: "14px" }}>10</p>
                                 <svg stroke="green" fill="transparent" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-5 -3 40 40"><path d="M7 11h-6l11-11 11 11h-6v13h-10z"/></svg>
                             </div>
                         </Col>
                         <Col xl={{ span: 22 }}>
-                            <div style={{ display: "flex" }}>
+                            <div style={{ display: "flex", cursor: "pointer", width: "fit-content" }}>
                                 <p css={styles.MetaText} style={{ fontWeight: "700", fontSize: "14px" }}>1</p>
                                 <svg stroke="red" fill="transparent" style={{ transform: "rotate(180deg)" }} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-10 -11 40 40"><path d="M7 11h-6l11-11 11 11h-6v13h-10z"/></svg>                                    
                             </div>

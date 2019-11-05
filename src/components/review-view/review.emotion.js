@@ -12,7 +12,7 @@ export const CompanyContainer = css`
     height: 18%;
     width: 100%;
     margin-top: 1%;
-    margin-bottom: 0.2%;
+    margin-bottom: 0.5%;
 `
 export const RatingsContainer = css`
     display: flex;
@@ -37,7 +37,7 @@ export const ContentContainer = css`
     // height: 44%;
     height: fit-content;
     width: 100%;
-    padding: 17px 40px 17px 40px;
+    padding: 22px 50px 22px 50px;
 `
 export const UpvoteDownvoteContainer = css`
     // background-color: aliceblue;
