@@ -4,6 +4,7 @@ import { Comment, Avatar, Row, Col, Form, Input, Button } from 'antd'
 import * as styles from './review.emotion'
 import { useLocation, Link } from 'react-router-dom'
 import axios from 'axios'
+import moment from 'moment'
 
 const { TextArea } = Input
 
@@ -22,8 +23,8 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
 
 const getAllComments = async () => {
 
-}
- 
+} 
+
 const getPopulatedReview = async (reviewId) => {
     try {
         console.log("hello im here")
@@ -37,29 +38,26 @@ const getPopulatedReview = async (reviewId) => {
     } catch (err) {
         console.error("error getting a populated review")
     }
-}    
+}   
 
 const Review = () => {
-    const [reviewObj, setReviewObj] = useState({})    
+    const [reviewObj, setReviewObj] = useState({
+        rating: {},
+        company: {},
+        user: {}
+    })    
     const [commentInput, setCommentInput] = useState("")
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     const location = useLocation()
-
-    // const reviewObj = location.reviewObject
-    // console.log("review obj test:\n", reviewObj)
     const reviewId = location.pathname.substring(8, location.pathname.length)
-    // console.log("reviewId:", reviewId)
 
     useEffect(() => {
         const fetchReview = async () => {
-            let review = await getPopulatedReview(reviewId)
-            console.log("test:", review)
-            setReviewObj(review)
-            console.log("fetched review:\n", reviewObj)
+            setReviewObj(await getPopulatedReview(reviewId))
         }
         fetchReview()
-    }, [])
+    }, [reviewId])
 
     const handleSubmit = () => {
         console.log("hello")
@@ -69,7 +67,6 @@ const Review = () => {
         setCommentInput(e.target.value)
     }
 
-    //grab reviewId from url path and make http call to retrieve review with review Id
     return (
         <Row style={{ height: "100vh", width: "100%", paddingTop: "3%", overflowY: "scroll" }}>
             <Col xl={{ span: 16, offset: 4 }} css={styles.ReviewViewCol}>
@@ -77,32 +74,41 @@ const Review = () => {
                     <Row style={{ height: "100%", width: "100%" }}>
                         <Col xl={{ span: 3 }} css={styles.CompanyLogoCol}>
                             <div css={styles.CompanyLogoContainer}>
-                                <img src={reviewObj.company_logo} style={{ objectFit: 'contain', width: '75%' }} alt="no_logo" />
+                                <img src={reviewObj.company.logo} style={{ objectFit: 'contain', width: '75%' }} alt="no_logo" />
                             </div>
                         </Col>
                         <Col xl={{ span: 21 }} css={styles.CompanyNameCol}>
-                            <h1 style={{ fontWeight: "500" }}>{reviewObj.company_name}</h1>
+                            <div style={{ display: "flex", flexDirection: "row", width: "100%", height: "100%", alignItems: "center" }}>
+                                <h1 style={{ fontWeight: "500", paddingRight: "4%", marginBottom: "0" }}>{reviewObj.company.name}</h1>
+                                <h1 style={{ fontWeight: "100", fontSize: "22px", marginBottom: "0", marginTop: "3.5px" }}>{reviewObj.company.location}</h1>
+                            </div>
                         </Col>
                     </Row>
                 </div>
                 <div css={styles.RatingsContainer}>
                     <Row style={{ height: "100%", width: "100%" }}>
-                        <Col lg={{ span: 24 }} xl={{ span: 10 }} css={styles.ReviewRatingCol}>
+                        <Col xl={{ span: 12 }} css={styles.ReviewPosSalCol}>
+                            <div css={styles.ReviewPositionSalaryContainer}>
+                                <h3 css={styles.MetaText} style={{ marginBottom: "2.5%" }}><b style={{ paddingRight: "2%" }}>Position:</b> {reviewObj.position}</h3>
+                                <h3 css={styles.MetaText}><b style={{ paddingRight: "4.5%" }}>Salary:</b> ${reviewObj.salary ? reviewObj.salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A" } {reviewObj.currency}</h3>
+                            </div>
+                        </Col>
+                        <Col lg={{ span: 24 }} xl={{ span: 12 }} css={styles.ReviewRatingCol}>
                             <div css={styles.ReviewRatingsContainer}>
                                 <div css={styles.RatingContainer}>
-                                    <h3 css={styles.RatingValue}>{(reviewObj.rating.culture === null) ? "N/A" : reviewObj.rating.culture.toFixed(1)}</h3>
+                                    <h3 css={styles.RatingValue}>{!reviewObj.rating.culture ? "N/A" : reviewObj.rating.culture.toFixed(1)}</h3>
                                     <h6 css={styles.RatingLabel} >culture</h6>
                                 </div>
                                 <div css={styles.RatingContainer}>
-                                    <h3 css={styles.RatingValue}>{(reviewObj.rating.mentorship === null) ? "N/A" : reviewObj.rating.mentorship.toFixed(1)}</h3>
+                                    <h3 css={styles.RatingValue}>{!reviewObj.rating.mentorship ? "N/A" : reviewObj.rating.mentorship.toFixed(1)}</h3>
                                     <h6 css={styles.RatingLabel}>mentorship</h6>
                                 </div>
                                 <div css={styles.RatingContainer}>
-                                    <h3 css={styles.RatingValue}>{(reviewObj.rating.impact === null) ? "N/A" : reviewObj.rating.impact.toFixed(1)}</h3>
+                                    <h3 css={styles.RatingValue}>{!reviewObj.rating.impact ? "N/A" : reviewObj.rating.impact.toFixed(1)}</h3>
                                     <h6 css={styles.RatingLabel}>impact</h6>
                                 </div>
                                 <div css={styles.RatingContainer}>
-                                    <h3 css={styles.RatingValue}>{(reviewObj.rating.interview === null) ? "N/A" : reviewObj.rating.interview.toFixed(1)}</h3>
+                                    <h3 css={styles.RatingValue}>{!reviewObj.rating.interview ? "N/A" : reviewObj.rating.interview.toFixed(1)}</h3>
                                     <h6 css={styles.RatingLabel}>interview</h6>
                                 </div>
                             </div>
@@ -112,10 +118,10 @@ const Review = () => {
                 <div css={styles.MetadataContainer}>
                     <Row style={{ height: "100%", width: "100%" }}>
                         <Col xl={{ span: 6 }}>
-                            <Link to="/user/1"><p css={styles.MetaText} style={{ paddingLeft: "0.5%" }}>{reviewObj.username}</p></Link>
+                            <Link to="/user/1"><p css={styles.MetaText} style={{ paddingLeft: "0.5%" }}>{reviewObj.user.username}</p></Link>
                         </Col>
                         <Col xl={{ span: 18 }}>
-                            <p css={styles.MetaText}>{reviewObj.created_at}</p>
+                            <p css={styles.MetaText}>{moment(reviewObj.createdAt).format('llll')}</p>
                         </Col>
                     </Row>
                 </div>
@@ -123,7 +129,7 @@ const Review = () => {
                     <Row style={{ height: "100%", width: "100%" }}>
                         <Col xl={{ span: 24 }}>
                             <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                <p style={{ textAlign: "justify", color: "black", fontWeight: "350", fontSize: "16px", marginBottom: "0" }}>"{reviewObj.content}"</p>
+                                <p style={{ textAlign: "justify", color: "black", fontWeight: "500", fontSize: "16px", marginBottom: "0" }}>"{reviewObj.content}"</p>
                             </div>
                         </Col>
                     </Row>
@@ -132,14 +138,14 @@ const Review = () => {
                     <Row style={{ height: "100%", width: "100%" }}>
                         <Col xl={{ span: 2 }}>
                             <div style={{ display: "flex", cursor: "pointer", width: "fit-content" }}>
-                                <p css={styles.MetaText} style={{ paddingLeft: "0.5%", fontWeight: "700", fontSize: "14px" }}>{reviewObj.upvotes_count}</p>
-                                <svg stroke="green" fill="transparent" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-5 -3 40 40"><path d="M7 11h-6l11-11 11 11h-6v13h-10z"/></svg>
+                                <p css={styles.MetaText} style={{ paddingLeft: "0.5%", fontWeight: "700", fontSize: "14px" }}>{(reviewObj.upvotes) ? reviewObj.upvotes.length : 0}</p>
+                                <svg stroke="green" fill="transparent" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 2 26 26"><path d="M7 11h-6l11-11 11 11h-6v13h-10z"/></svg>
                             </div>
                         </Col>
                         <Col xl={{ span: 22 }}>
                             <div style={{ display: "flex", cursor: "pointer", width: "fit-content" }}>
-                                <p css={styles.MetaText} style={{ fontWeight: "700", fontSize: "14px" }}>{reviewObj.downvotes_count}</p>
-                                <svg stroke="red" fill="transparent" style={{ transform: "rotate(180deg)" }} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-10 -11 40 40"><path d="M7 11h-6l11-11 11 11h-6v13h-10z"/></svg>                                    
+                                <p css={styles.MetaText} style={{ fontWeight: "700", fontSize: "14px" }}>{(reviewObj.downvotes) ? reviewObj.downvotes.length : 0}</p>
+                                <svg stroke="red" fill="transparent" style={{ transform: "rotate(180deg)" }} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 -3 25.5 25.5"><path d="M7 11h-6l11-11 11 11h-6v13h-10z"/></svg>                                    
                             </div>
                         </Col>
                     </Row>
@@ -167,7 +173,11 @@ const Review = () => {
                     </Row>
                 </div>
                 <div css={styles.CommentsContainer}>
-                    comment section
+                    <Row style={{ height: "100%", width: "100%" }}>
+                        <Col xl={{ span: 24 }}>
+                            
+                        </Col>
+                    </Row>
                 </div>
             </Col>
         </Row>

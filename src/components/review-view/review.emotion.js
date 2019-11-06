@@ -12,7 +12,7 @@ export const CompanyContainer = css`
     height: 18%;
     width: 100%;
     margin-top: 1%;
-    margin-bottom: 0.3%;
+    margin-bottom: 0.5%;
 `
 export const RatingsContainer = css`
     display: flex;
@@ -90,12 +90,10 @@ export const ReviewRatingsContainer = css`
     width: 100%; 
     // background-color: teal; //remove after
     // border-radius: 1em;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
 `
 export const ReviewRatingCol = css`
-    width: 100%;
-
     @media (min-width: 992px) { 
         height: 55%;
     }
@@ -122,7 +120,7 @@ export const RatingContainer = css`
     }
     @media (min-width: 1200px) {
         height: 82%; 
-        width: 9%;
+        width: 18%;
     }
 `
 export const RatingValue = css`
@@ -150,7 +148,23 @@ export const MetaText = css`
     text-align: left;
     font-weight: 300;
     margin: 0;
+    width: 100%;
 `
 export const CommentsContainer = css`
+    display: flex;
+    width: 100%;
+    height: 100%;
+`
+export const ReviewPositionSalaryContainer = css`
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    // padding-left: 2 %;
+`
+export const ReviewPosSalCol = css`
+    height: 100%;
     display: flex;
 `
