@@ -1,7 +1,7 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Row, Col, Carousel, List } from 'antd'
-import SmallCompanyCard from '../../components/small-company-card/SmallCompanyCard'
+import SmallCompanyCard from '../../components/small-company-card/small-company-card'
 import SearchBar from '../../components/search-bar/index'
 import * as styles from './homepage.emotion'
 import ReviewListCard from '../../components/review-list-card/index'
@@ -9,7 +9,7 @@ import axios from 'axios'
 
 const getTopCompanies = async () => {
     try {
-        let res = await axios.get('https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/topCompanies')
+        let res = await axios.get('/topCompanies')
         if (res.status === 500) {
             console.error('Could not get top companies')
             return []
@@ -21,7 +21,6 @@ const getTopCompanies = async () => {
                 formattedData.push([])
             formattedData[formattedData.length - 1].push(company)
         })
-        console.log('formattedData', formattedData)
         return formattedData
     } catch (err) {
         console.error("Could not get recent reviews")
@@ -30,7 +29,7 @@ const getTopCompanies = async () => {
 
 const getRecentReviews = async () => {
     try {
-        let response = await axios.get('https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/review/recent')
+        let response = await axios.get('review/recent')
         if (response.data.length == 0 || response.data.error) {
             console.error("no recent reviews")
             return []
@@ -57,8 +56,6 @@ const Homepage = () => {
     }, [])
 
     var isTopCompaniesEmpty = topCompanies === [] || topCompanies === undefined;
-
-    console.log('topcom', topCompanies)
 
     return (
         <div>
