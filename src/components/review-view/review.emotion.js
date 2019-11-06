@@ -108,13 +108,13 @@ export const RatingContainer = css`
     flex-direction: column;
     // background-color: lightgray; //remove after
     // background-color: lightblue;
-    border: 1.5px solid lightblue;
+    border: 1.4px solid darkblue;
     height: 82%;
     width: 22%;
     margin: 0em 0.25em;
-    border-radius: 1.25em;
+    border-radius: 1em;
     justify-content: center;
-    cursor: pointer;
+    // cursor: pointer;
 
     @media (min-width: 992px) {
         height: 56%; 
