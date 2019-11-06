@@ -64,7 +64,7 @@ const Homepage = () => {
         <div>
             <div style={{
                 backgroundImage: `url('/images/homepage-backdrop.jpeg')`,
-                height: '60vh',
+                height: '70vh',
                 backgroundSize: 'cover',
                 display: 'flex',
                 alignItems: 'center',
