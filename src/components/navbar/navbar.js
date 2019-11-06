@@ -1,21 +1,12 @@
 
 import React, { useState, useEffect } from 'react'
-import { Layout, Menu } from 'antd';
+import { Menu, Icon } from 'antd';
 import SearchBar from '../search-bar/index'
-
-
-const { Header, Content, Footer } = Layout;
+import { Redirect, Link } from 'react-router-dom'
+import { toast } from 'react-toastify';
 
 const menuStyle = { position: 'fixed', zIndex: 1, width: '100%' }
 const menuItemStyle = { float: 'right' }
-
-const authItems =
-    <Menu.Item style={menuItemStyle} key="3">My Profile</Menu.Item>
-
-const unauthItems = [
-    <Menu.Item style={menuItemStyle} key="2">Signup</Menu.Item>,
-    <Menu.Item style={menuItemStyle} key="3">Login</Menu.Item>
-]
 
 const Navbar = (props) => {
 
@@ -25,9 +16,36 @@ const Navbar = (props) => {
             window.pageYOffset < 30 ?
                 setIsTop(true) :
                 setIsTop(false)
-
         }
     }, [])
+
+
+    const logout = () => {
+        if (window.confirm("Are you sure you want to log out?")) {
+            localStorage.clear()
+            localStorage.getItem('token') && toast.info('Successfully logged out')
+        }
+    }
+
+
+    const authItems = [
+        <Menu.Item onClick={logout} style={menuItemStyle} key="2"><Icon type='logout'/>Logout</Menu.Item>,
+        <Menu.Item style={menuItemStyle} key="3">
+            <Link to={`/me`}><Icon type='user'/>My Profile</Link>
+        </Menu.Item>
+    ]
+
+    const unauthItems = [
+
+        <Menu.Item style={menuItemStyle} key="2">
+            <Link to={`/signup`}>Signup</Link>
+        </Menu.Item>
+        ,
+        <Menu.Item style={menuItemStyle} key="3">
+            <Link to={`/login`}><Icon type='login'/>Login</Link>
+        </Menu.Item>
+    ]
+
 
     return (
         <Menu
@@ -36,11 +54,14 @@ const Navbar = (props) => {
             style={{
                 ...menuStyle,
                 lineHeight: isTop ? '64px' : '40px',
-                backgroundColor: isTop ? '#1561ad' : 'rgba(21, 97, 173,0.6)',
+                backgroundColor: isTop ? '#1561ad' : 'rgba(0,0,0,0.6)',
                 transition: 'all .1s ease-in-out'
             }}
         >
-            <Menu.Item style={{ float: 'left' }} key="1">xintern</Menu.Item>
+            <Menu.Item style={{ float: 'left' }} key="1">
+                <Link to={`/`}>xintern</Link>
+            </Menu.Item>
+
             <SearchBar search={props.search} />
             {
                 props.isAuth ?
@@ -49,11 +70,9 @@ const Navbar = (props) => {
             }
         </Menu>
 
+
     )
 }
-
-
-
 
 
 export default Navbar

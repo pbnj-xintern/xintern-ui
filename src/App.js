@@ -12,9 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 toast.configure()
 
-const isAuthenticated = () => (
-  localStorage.getItem('token')
-);
+const SET_AGE = "SET_AGE";
 
 const PrivateRoute = ({ component: Component, path, otherProps }) => (
   <Route
@@ -54,7 +52,33 @@ const UnAuthRoute = ({ component: Component, path, otherProps }) => (
 );
 
 function App() {
+
+  const initialState = {
+    token: localStorage.getItem('token')
+  }
+
+  const LOGIN = 'LOGIN'
+  const LOGOUT = 'LOGOUT'
+
+  function authReducer(state, action) {
+    switch (action.type) {
+      case LOGIN:
+        return {
+          token: action.token,
+        };
+      case LOGOUT:
+        return {
+          token: null
+        };
+      default:
+        return initialState;
+    }
+  }
+
   let auth = isAuthenticated()
+  
+  const [user, dispatch] = React.useReducer(authReducer, initialState);
+
   return (
     <div className="App" >
       <Navbar isAuth={auth} search={false} />
@@ -62,6 +86,7 @@ function App() {
         <Route exact path="/" component={Homepage} />
         <Route path="/companies" component={BrowseCompanies} />
         <UnAuthRoute path="/login" component={Login} />
+        <PrivateRoute path="/me" component={<div>oioi</div>} />
       </Switch>
     </div>
   );
