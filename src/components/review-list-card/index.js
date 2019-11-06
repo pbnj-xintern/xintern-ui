@@ -43,7 +43,8 @@ const ReviewListCard = (props) => {
 
     return (
         <Card css={styles.CardContainer} bordered={false} bodyStyle={styles.CardBodyStyle}>
-            <NavLink to={{ pathname: `/review/${reviewObj._id}`, reviewObject: {...reviewObj} }}>
+            {/* <NavLink to={{ pathname: `/review/${reviewObj._id}`, reviewObject: {...reviewObj} }}> */}
+            <NavLink to={`/review/${reviewObj._id}`}>
                 <Row style={{ height: '100%' }}>
                     <Col lg={{ span: 4 }} xl={{ span: 3 }} css={styles.CompanyLogoCol}>
                         <div css={styles.CompanyLogoContainer}>
@@ -59,8 +60,9 @@ const ReviewListCard = (props) => {
                             </div>
                             <div css={styles.MetaDataContainer}>
                                 <h4 css={styles.ReviewText}>
-                                    <Anchor affix={false}>
-                                        <Link href="#" title={reviewObj.username} style={{ fontSize: '15px', fontWeight: "500" }} />
+                                    <Anchor affix={false} style={{ width: "125px" }}>
+                                        <h4 css={styles.ReviewText} style={{ fontSize: '12px' }}>{reviewObj.username}</h4>
+                                        {/* <Link href="#" title={reviewObj.username} style={{ fontSize: '15px', fontWeight: "500" }} /> */}
                                     </Anchor>
                                 </h4>
                                 <h4 css={styles.DateReviewText} >{reviewObj.created_at}</h4>

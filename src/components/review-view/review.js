@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { Comment, Avatar, Row, Col, Form, Input, Button } from 'antd'
 import * as styles from './review.emotion'
-import { useLocation } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom'
 import axios from 'axios'
 
 const { TextArea } = Input
@@ -23,8 +23,7 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
 const getAllComments = async () => {
 
 }
-
-
+ 
 const getPopulatedReview = async (reviewId) => {
     try {
         console.log("hello im here")
@@ -41,43 +40,25 @@ const getPopulatedReview = async (reviewId) => {
 }    
 
 const Review = () => {
-    // const [reviewObj, setReviewObject] = useState({})    
+    const [reviewObj, setReviewObj] = useState({})    
     const [commentInput, setCommentInput] = useState("")
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     const location = useLocation()
 
-    const reviewObj = location.reviewObject
-    console.log("review obj test:\n", reviewObj)
-    // const reviewId = location.pathname.substring(8, location.pathname.length)
+    // const reviewObj = location.reviewObject
+    // console.log("review obj test:\n", reviewObj)
+    const reviewId = location.pathname.substring(8, location.pathname.length)
     // console.log("reviewId:", reviewId)
 
-    useEffect( async () => {
-        // const fetchReview = async () => {
-        //     let review = await getPopulatedReview(reviewId)
-        //     console.log("test:", review)
-        //     setReviewObject(review)
-        //     console.log("fetched review:\n", reviewObj)
-        // }
-        // fetchReview()
-        // console.log("fetched review:\n", reviewObj)
-
-        // const getPopulatedReview = async (reviewId) => {
-        //     try {
-        //         console.log("hello im here")
-        //         let response = await axios.get(`https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/populated-review/${reviewId}`)
-        //         if (response.data.error) {
-        //             console.error("no review to pull")
-        //             return {}
-        //         }
-        //         console.log("response data:\n", response.data)
-        //         return response.data
-        //     } catch (err) {
-        //         console.error("error getting a populated review")
-        //     }
-        // }    
-        // setReviewObject(await getPopulatedReview(reviewId))
-        // console.log("fetched review:\n", reviewObj)
+    useEffect(() => {
+        const fetchReview = async () => {
+            let review = await getPopulatedReview(reviewId)
+            console.log("test:", review)
+            setReviewObj(review)
+            console.log("fetched review:\n", reviewObj)
+        }
+        fetchReview()
     }, [])
 
     const handleSubmit = () => {
@@ -109,19 +90,19 @@ const Review = () => {
                         <Col lg={{ span: 24 }} xl={{ span: 10 }} css={styles.ReviewRatingCol}>
                             <div css={styles.ReviewRatingsContainer}>
                                 <div css={styles.RatingContainer}>
-                                    <h3 css={styles.RatingValue}>{(reviewObj.review_ratings.culture === null) ? "N/A" : reviewObj.review_ratings.culture.toFixed(1)}</h3>
+                                    <h3 css={styles.RatingValue}>{(reviewObj.rating.culture === null) ? "N/A" : reviewObj.rating.culture.toFixed(1)}</h3>
                                     <h6 css={styles.RatingLabel} >culture</h6>
                                 </div>
                                 <div css={styles.RatingContainer}>
-                                    <h3 css={styles.RatingValue}>{(reviewObj.review_ratings.mentorship === null) ? "N/A" : reviewObj.review_ratings.mentorship.toFixed(1)}</h3>
+                                    <h3 css={styles.RatingValue}>{(reviewObj.rating.mentorship === null) ? "N/A" : reviewObj.rating.mentorship.toFixed(1)}</h3>
                                     <h6 css={styles.RatingLabel}>mentorship</h6>
                                 </div>
                                 <div css={styles.RatingContainer}>
-                                    <h3 css={styles.RatingValue}>{(reviewObj.review_ratings.impact === null) ? "N/A" : reviewObj.review_ratings.impact.toFixed(1)}</h3>
+                                    <h3 css={styles.RatingValue}>{(reviewObj.rating.impact === null) ? "N/A" : reviewObj.rating.impact.toFixed(1)}</h3>
                                     <h6 css={styles.RatingLabel}>impact</h6>
                                 </div>
                                 <div css={styles.RatingContainer}>
-                                    <h3 css={styles.RatingValue}>{(reviewObj.review_ratings.interview === null) ? "N/A" : reviewObj.review_ratings.interview.toFixed(1)}</h3>
+                                    <h3 css={styles.RatingValue}>{(reviewObj.rating.interview === null) ? "N/A" : reviewObj.rating.interview.toFixed(1)}</h3>
                                     <h6 css={styles.RatingLabel}>interview</h6>
                                 </div>
                             </div>
@@ -131,7 +112,7 @@ const Review = () => {
                 <div css={styles.MetadataContainer}>
                     <Row style={{ height: "100%", width: "100%" }}>
                         <Col xl={{ span: 6 }}>
-                            <p css={styles.MetaText} style={{ paddingLeft: "0.5%" }}>{reviewObj.username}</p>
+                            <Link to="/user/1"><p css={styles.MetaText} style={{ paddingLeft: "0.5%" }}>{reviewObj.username}</p></Link>
                         </Col>
                         <Col xl={{ span: 18 }}>
                             <p css={styles.MetaText}>{reviewObj.created_at}</p>
