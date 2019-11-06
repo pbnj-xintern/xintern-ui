@@ -109,19 +109,19 @@ const Review = () => {
                         <Col lg={{ span: 24 }} xl={{ span: 10 }} css={styles.ReviewRatingCol}>
                             <div css={styles.ReviewRatingsContainer}>
                                 <div css={styles.RatingContainer}>
-                                    {/* <h3 css={styles.RatingValue}>{(reviewObj.rating.culture === null) ? "N/A" : reviewObj.rating.culture.toFixed(1)}</h3> */}
+                                    <h3 css={styles.RatingValue}>{(reviewObj.review_ratings.culture === null) ? "N/A" : reviewObj.review_ratings.culture.toFixed(1)}</h3>
                                     <h6 css={styles.RatingLabel} >culture</h6>
                                 </div>
                                 <div css={styles.RatingContainer}>
-                                    {/* <h3 css={styles.RatingValue}>{(reviewObj.rating.mentorship === null) ? "N/A" : reviewObj.rating.mentorship.toFixed(1)}</h3> */}
+                                    <h3 css={styles.RatingValue}>{(reviewObj.review_ratings.mentorship === null) ? "N/A" : reviewObj.review_ratings.mentorship.toFixed(1)}</h3>
                                     <h6 css={styles.RatingLabel}>mentorship</h6>
                                 </div>
                                 <div css={styles.RatingContainer}>
-                                    {/* <h3 css={styles.RatingValue}>{(reviewObj.rating.impact === null) ? "N/A" : reviewObj.rating.impact.toFixed(1)}</h3> */}
+                                    <h3 css={styles.RatingValue}>{(reviewObj.review_ratings.impact === null) ? "N/A" : reviewObj.review_ratings.impact.toFixed(1)}</h3>
                                     <h6 css={styles.RatingLabel}>impact</h6>
                                 </div>
                                 <div css={styles.RatingContainer}>
-                                    {/* <h3 css={styles.RatingValue}>{(reviewObj.rating.interview === null) ? "N/A" : reviewObj.rating.interview.toFixed(1)}</h3> */}
+                                    <h3 css={styles.RatingValue}>{(reviewObj.review_ratings.interview === null) ? "N/A" : reviewObj.review_ratings.interview.toFixed(1)}</h3>
                                     <h6 css={styles.RatingLabel}>interview</h6>
                                 </div>
                             </div>
