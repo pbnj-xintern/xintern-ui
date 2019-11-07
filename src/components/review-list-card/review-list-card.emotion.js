@@ -7,11 +7,6 @@ export const CardContainer = css`
     overflow: hidden;
     width: 100%;
     height: fit-content;
-    //height: 125px;
-    // background-color: gray; //remove after
-    // border-radius: 1em;
-    // border-top: 0.5px solid lightgray;
-    // border-bottom: 0.5px solid lightgray;
     border: 0.5px solid lightgray;
     padding: 16px 2em;
     cursor: pointer;
@@ -188,7 +183,7 @@ export const RatingContainer = css`
         width: 22.5%;
     }
     @media (min-width: 1200px) {
-        height: 93%; 
+        height: 95%; 
         width: 22%;
     }
 `

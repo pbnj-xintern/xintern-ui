@@ -45,6 +45,7 @@ const Homepage = () => {
     let [topCompanies, setTopCompanies] = useState([])
 
     useEffect(() => {
+        window.scrollTo({ top: 0 })
         async function fetchRecentReviews() {
             setRecentReviews(await getRecentReviews())
         }
@@ -61,7 +62,7 @@ const Homepage = () => {
         <div>
             <div style={{
                 backgroundImage: `url('/images/homepage-backdrop.jpeg')`,
-                height: '70vh',
+                height: '75vh',
                 backgroundSize: 'cover',
                 display: 'flex',
                 alignItems: 'center',

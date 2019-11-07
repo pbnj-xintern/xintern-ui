@@ -71,5 +71,3 @@ function App() {
 }
 
 export default App;
-
-// style={{ backgroundImage: `url('/images/bg.png')`, backgroundRepeat: 'repeat' }}
