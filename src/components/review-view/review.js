@@ -5,6 +5,8 @@ import * as styles from './review.emotion'
 import { useLocation, Link } from 'react-router-dom'
 import axios from 'axios'
 import moment from 'moment'
+import CommentSection from '../../layouts/comment-section/comment-section'
+import mockData from './mock-comments'
 
 const { TextArea } = Input
 
@@ -21,14 +23,24 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
     </div>
 )
 
-const getAllComments = async () => {
-
+const getPopulatedComments = async (reviewId) => {
+    try {
+        let response = await axios.get(`https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/comments/${reviewId}`)
+        if (response.data.error) {
+            console.error("no comments to pull")
+            return {}
+        }
+        console.log("response data:\n", response.data)
+        return response.data
+    } catch (err) {
+        console.error("error getting comments")
+    }
 } 
 
-const getPopulatedReview = async (reviewId) => {
+const getReviewById = async (reviewId) => {
     try {
         console.log("hello im here")
-        let response = await axios.get(`https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/populated-review/${reviewId}`)
+        let response = await axios.get(`https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/review/${reviewId}`)
         if (response.data.error) {
             console.error("no review to pull")
             return {}
@@ -53,8 +65,9 @@ const Review = () => {
     const reviewId = location.pathname.substring(8, location.pathname.length)
 
     useEffect(() => {
+        window.scrollTo({ top: 0 })
         const fetchReview = async () => {
-            setReviewObj(await getPopulatedReview(reviewId))
+            setReviewObj(await getReviewById(reviewId))
         }
         fetchReview()
     }, [reviewId])
@@ -68,7 +81,7 @@ const Review = () => {
     }
 
     return (
-        <Row style={{ height: "100vh", width: "100%", paddingTop: "3%", overflowY: "scroll" }}>
+        <Row style={{ height: "100%", width: "100%", paddingTop: "3%", paddingBottom: "3%", overflowY: "scroll" }}>
             <Col xl={{ span: 16, offset: 4 }} css={styles.ReviewViewCol}>
                 <div css={styles.CompanyContainer}>
                     <Row style={{ height: "100%", width: "100%" }}>
@@ -80,7 +93,7 @@ const Review = () => {
                         <Col xl={{ span: 21 }} css={styles.CompanyNameCol}>
                             <div style={{ display: "flex", flexDirection: "row", width: "100%", height: "100%", alignItems: "center" }}>
                                 <h1 style={{ fontWeight: "500", paddingRight: "4%", marginBottom: "0" }}>{reviewObj.company.name}</h1>
-                                <h1 style={{ fontWeight: "100", fontSize: "22px", marginBottom: "0", marginTop: "3.5px" }}>{reviewObj.company.location}</h1>
+                                <h1 style={{ fontWeight: "100", fontSize: "22px", marginBottom: "0", marginTop: "3.5px" }}>( {reviewObj.company.location} )</h1>
                             </div>
                         </Col>
                     </Row>
@@ -118,7 +131,7 @@ const Review = () => {
                 <div css={styles.MetadataContainer}>
                     <Row style={{ height: "100%", width: "100%" }}>
                         <Col xl={{ span: 6 }}>
-                            <Link to="/user/1"><p css={styles.MetaText} style={{ paddingLeft: "0.5%" }}>{reviewObj.user.username}</p></Link>
+                            <Link to="/user/1"><p css={styles.MetaText} style={{ paddingLeft: "0.5%", width: "fit-content" }}>{reviewObj.user.username}</p></Link>
                         </Col>
                         <Col xl={{ span: 18 }}>
                             <p css={styles.MetaText}>{moment(reviewObj.createdAt).format('llll')}</p>
@@ -174,8 +187,8 @@ const Review = () => {
                 </div>
                 <div css={styles.CommentsContainer}>
                     <Row style={{ height: "100%", width: "100%" }}>
-                        <Col xl={{ span: 24 }}>
-                            
+                        <Col xl={{ span: 24 }} style={{ paddingTop: "1%" }}>
+                            <CommentSection data={mockData} />
                         </Col>
                     </Row>
                 </div>

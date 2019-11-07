@@ -146,7 +146,7 @@ export const LocationText = css`
 
     }
     @media (min-width: 1200px){
-        margin-top: 1.85px;
+        margin-top: 1px;
     }
 `
 
@@ -185,7 +185,7 @@ export const RatingContainer = css`
         width: 22.5%;
     }
     @media (min-width: 1200px) {
-        height: 82%; 
+        height: 93%; 
         width: 22%;
     }
 `

@@ -37,10 +37,10 @@ const CommentCard = props => {
             style={{
                 marginTop: '0.5em',
                 marginBottom: '0.5em',
-                marginLeft: '1em',
+                // marginLeft: '1em',
                 marginRight: '1em',
                 boxShadow: props.parentComment ? 'none' : '6px 10px 31px -17px rgba(0,0,0,0.3)',
-                borderLeftStyle: 'solid'
+                borderLeft: '1px solid black'
             }}
             bodyStyle={{
                 padding: "0",

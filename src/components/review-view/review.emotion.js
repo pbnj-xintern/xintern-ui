@@ -9,23 +9,23 @@ export const CompanyContainer = css`
     display: flex;
     flex-direction: row;
     // background-color: lightblue;
-    height: 18%;
+    height: 100px;
     width: 100%;
-    margin-top: 1%;
-    margin-bottom: 0.5%;
+    margin-top: 2%;
+    margin-bottom: 1%;
 `
 export const RatingsContainer = css`
     display: flex;
     flex-direction: row;
     // background-color: lightgreen;
-    height: 16%;
+    height: 92px;
     width: 100%;
     justify-content: center;
     align-items: center;
 `
 export const MetadataContainer = css`
     // background-color: lightpink;
-    height: 4%;
+    height: 25px;
     width: 100%;
     margin-top: 2.2%;
 `
@@ -41,7 +41,7 @@ export const ContentContainer = css`
 `
 export const UpvoteDownvoteContainer = css`
     // background-color: aliceblue;
-    height: 3%;
+    height: 21px;
     width: 100%;
     margin-top: 0.5%;
 `
@@ -53,10 +53,10 @@ export const CreateCommentContainer = css`
     border-bottom: 1px solid lightgray;
 `
 export const ReviewViewCol = css`
-    height: 600px;
+    height: 100%;
     padding: 0px 30px 0px 30px;
     border: 1px solid lightgray;
-    border-bottom: 0;
+    // border-bottom: 0;
     // border-top: 0;
 `
 export const CompanyLogoContainer = css`

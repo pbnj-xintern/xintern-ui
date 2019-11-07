@@ -5,13 +5,10 @@ import moment from 'moment'
 import { NavLink } from 'react-router-dom'
 
 import { Card, Row, Col, Anchor } from 'antd'
-// import useWindowSize from '../../hooks/use-window-size'
 
 const ReviewListCard = (props) => {
     const [reviewObj, setReviewObj] = useState({})
-    // const [reviewTitle, setReviewTitle] = useState("")
     const { Link } = Anchor
-    // const { width, height } = useWindowSize()
 
     useEffect(() => {
         const getAllMetrics = (props) => {
@@ -61,7 +58,7 @@ const ReviewListCard = (props) => {
                             <div css={styles.MetaDataContainer}>
                                 <h4 css={styles.ReviewText}>
                                     <Anchor affix={false} style={{ width: "125px" }}>
-                                        <h4 css={styles.ReviewText} style={{ fontSize: '12px' }}>{reviewObj.username}</h4>
+                                        <h4 css={styles.ReviewText} style={{ fontSize: '12px', fontWeight: "300" }}>{reviewObj.username}</h4>
                                         {/* <Link href="#" title={reviewObj.username} style={{ fontSize: '15px', fontWeight: "500" }} /> */}
                                     </Anchor>
                                 </h4>
