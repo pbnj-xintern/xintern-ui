@@ -61,7 +61,7 @@ const Homepage = () => {
         <div>
             <div style={{
                 backgroundImage: `url('/images/homepage-backdrop.jpeg')`,
-                height: '60vh',
+                height: '70vh',
                 backgroundSize: 'cover',
                 display: 'flex',
                 alignItems: 'center',
@@ -72,7 +72,7 @@ const Homepage = () => {
             </div>
             {!isTopCompaniesEmpty &&
                 <Row>
-                    <Col xl={{ span: 22, offset: 1 }} lg={{  }} md={{ span: 20, offset: 2 }} sm={{ span: 24 }}>
+                    <Col xl={{ span: 22, offset: 1 }} md={{ span: 20, offset: 2 }} sm={{ span: 24 }}>
                         <h1 style={{ fontWeight: "500", marginTop: '7%' }}>Check out these Top Companies!</h1>
                         <Carousel autoplay>
                             {
@@ -107,7 +107,7 @@ const Homepage = () => {
                         <h2>No reviews</h2>
                     }
                 </Col>
-            </Row>      
+            </Row>
         </div>
     )
 }

@@ -10,9 +10,9 @@ export const CardContainer = css`
     //height: 125px;
     // background-color: gray; //remove after
     // border-radius: 1em;
-    border-top: 0.5px solid lightgray;
-    border-bottom: 0.5px solid lightgray;
-    // border: 0.5px solid lightgray;
+    // border-top: 0.5px solid lightgray;
+    // border-bottom: 0.5px solid lightgray;
+    border: 0.5px solid lightgray;
     padding: 16px 2em;
     cursor: pointer;
 
@@ -20,6 +20,9 @@ export const CardContainer = css`
         border-top: 0.5px darkblue solid;
         border-bottom: 0.5px darkblue solid;
         // border: 0.5px darkblue solid;
+        -webkit-box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.10);
+        -moz-box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.10);
+        box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.10);
     }
 
     @media (min-width: 992px) {
