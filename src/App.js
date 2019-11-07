@@ -6,6 +6,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import './App.css';
 import 'antd/dist/antd.css';
 import BrowseCompanies from './layouts/browse-companies/browse-companies';
+import Review from './components/review-view/review'
 import Login from './layouts/login/login';
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
@@ -60,6 +61,7 @@ function App() {
         <Switch >
           <Route exact path="/" component={Homepage} />
           <Route path="/companies" component={BrowseCompanies} />
+          <Route path="/review/:reviewId" component={Review} />
           <UnAuthRoute path="/login" component={Login} />
           <PrivateRoute path="/me" component={<div><h1>HEY HEY YOU YOU</h1></div>} />
         </Switch>
@@ -69,5 +71,3 @@ function App() {
 }
 
 export default App;
-
-// style={{ backgroundImage: `url('/images/bg.png')`, backgroundRepeat: 'repeat' }}
