@@ -26,7 +26,7 @@ const Login = props => {
     const [toHome, setToHome] = useState(false)
 
     useEffect(() => {
-        setUsername(props.state ? props.state.username : '')
+        setUsername(props.location ? props.location.state.username : '')
     }, [])
 
     const changeUsername = e => {

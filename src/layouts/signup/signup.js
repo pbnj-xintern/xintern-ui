@@ -147,7 +147,6 @@ const Signup = () => {
             })
 
         if (!response) {
-            console.log(response)
             toast.error('Could not create an account')
             setLoading(false)
             return
