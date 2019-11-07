@@ -1,10 +1,10 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Row, Col, Carousel, List } from 'antd'
-import SmallCompanyCard from '../../components/small-company-card/SmallCompanyCard'
+import SmallCompanyCard from '../../components/small-company-card/small-company-card'
 import SearchBar from '../../components/search-bar/index'
 import * as styles from './homepage.emotion'
-import ReviewListCard from '../../components/review-list-card/ReviewListCard'
+import ReviewListCard from '../../components/review-list-card/review-list-card'
 import axios from 'axios'
 
 const getTopCompanies = async () => {
@@ -21,7 +21,6 @@ const getTopCompanies = async () => {
                 formattedData.push([])
             formattedData[formattedData.length - 1].push(company)
         })
-        console.log('formattedData', formattedData)
         return formattedData
     } catch (err) {
         console.error("Could not get recent reviews")
@@ -46,6 +45,7 @@ const Homepage = () => {
     let [topCompanies, setTopCompanies] = useState([])
 
     useEffect(() => {
+        window.scrollTo({ top: 0 })
         async function fetchRecentReviews() {
             setRecentReviews(await getRecentReviews())
         }
@@ -58,24 +58,22 @@ const Homepage = () => {
 
     var isTopCompaniesEmpty = topCompanies === [] || topCompanies === undefined;
 
-    console.log('topcom', topCompanies)
-
     return (
         <div>
             <div style={{
                 backgroundImage: `url('/images/homepage-backdrop.jpeg')`,
-                height: '60vh',
+                height: '81vh',
                 backgroundSize: 'cover',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                opacity: 0.95
+                opacity: 0.98
             }}>
                 <h1 style={{ color: 'white', fontSize: "3em", fontWeight: "200" }}>See what other students said about their internships!<SearchBar search={true} /></h1>
             </div>
             {!isTopCompaniesEmpty &&
                 <Row>
-                    <Col xl={{ span: 22, offset: 1 }} lg={{  }} md={{ span: 20, offset: 2 }} sm={{ span: 24 }}>
+                    <Col xl={{ span: 22, offset: 1 }} md={{ span: 20, offset: 2 }} sm={{ span: 24 }}>
                         <h1 style={{ fontWeight: "500", marginTop: '7%' }}>Check out these Top Companies!</h1>
                         <Carousel autoplay>
                             {
@@ -110,7 +108,7 @@ const Homepage = () => {
                         <h2>No reviews</h2>
                     }
                 </Col>
-            </Row>      
+            </Row>
         </div>
     )
 }
