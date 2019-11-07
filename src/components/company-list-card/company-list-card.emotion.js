@@ -56,12 +56,13 @@ export const CompanyLogoCol = css`
 
 export const CompanyInfoContainer = css`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    position: relative;
     height: 100%;
     width: 100%; 
     // background-color: purple; //remove after
-    // justify-content: center;
-    // align-items: center;
+    justify-content: left;
+    align-items: center;
 
     @media (min-width: 992px) {
         text-align: left;
@@ -80,11 +81,11 @@ export const CompanyInfoCol = css`
 export const CompanyText = css`
     font-weight: 200;
     margin: 0em 0em;
-    padding-left: 5%;
+    padding-left: 4%;
     font-size: 25px;
     width: fit-content;
     color: black;
-    padding-top: 4.5%;
+    padding-top: 2.5%;
     height: 100%;
     // margin-left: 0;
 `

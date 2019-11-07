@@ -64,6 +64,8 @@ function App() {
           <Route path="/review/:reviewId" component={Review} />
           <UnAuthRoute path="/login" component={Login} />
           <PrivateRoute path="/me" component={<div><h1>HEY HEY YOU YOU</h1></div>} />
+          <PrivateRoute path="/company/:companyId/review/create" component={CreateReview} />
+          <PrivateRoute path="/review/create" component={CreateReview} />
         </Switch>
       </div>
     </AuthContextProvider>
