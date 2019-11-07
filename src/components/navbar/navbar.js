@@ -49,6 +49,7 @@ const Navbar = (props) => {
         <Menu.Item style={menuItemStyle} key="3">
             <Link to={`/login`}><Icon type='login' />Login</Link>
         </Menu.Item>
+
     ]
 
     console.log('authstate', authState)
@@ -65,7 +66,10 @@ const Navbar = (props) => {
             }}
         >
             <Menu.Item style={{ float: 'left' }} key="1">
-                <Link to={`/`}>xintern</Link>
+                <Link to={`/`}>xIntern</Link>
+            </Menu.Item>
+            <Menu.Item style={{ float: 'left' }} key="4">
+                <Link to={`/companies`}><Icon />Companies</Link>
             </Menu.Item>
 
             <SearchBar search={props.search} />
