@@ -57,6 +57,7 @@ const Review = () => {
         company: {},
         user: {}
     })
+    // const [salaryValue, setSalaryValue] = useState(0)
     const [commentsList, setCommentsList] = useState([])
     const [commentInput, setCommentInput] = useState("")
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -84,6 +85,16 @@ const Review = () => {
         setCommentInput(e.target.value)
     }
 
+    const formatSalary = (salary) => {
+        let formattedSalary = 0
+        if (reviewObj.currency === "CAD" || reviewObj.currency === "USD") {
+            formattedSalary = (salary/100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        } else {
+            formattedSalary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        }
+        return formattedSalary
+    }
+
     return (
         <Row style={{ height: "100%", width: "100%", paddingTop: "7%", paddingBottom: "3%", overflowY: "scroll" }}>
             <Col xl={{ span: 16, offset: 4 }} css={styles.ReviewViewCol}>
@@ -107,7 +118,7 @@ const Review = () => {
                         <Col xl={{ span: 12 }} css={styles.ReviewPosSalCol}>
                             <div css={styles.ReviewPositionSalaryContainer}>
                                 <h3 css={styles.MetaText} style={{ marginBottom: "2.5%" }}><b style={{ paddingRight: "2%" }}>Position:</b> {reviewObj.position}</h3>
-                                <h3 css={styles.MetaText}><b style={{ paddingRight: "4.5%" }}>Salary:</b> ${reviewObj.salary ? reviewObj.salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A" } {reviewObj.currency}</h3>
+                                <h3 css={styles.MetaText}><b style={{ paddingRight: "4.5%" }}>Salary:</b> ${reviewObj.salary ? formatSalary(reviewObj.salary) : "N/A"} {reviewObj.currency}</h3>
                             </div>
                         </Col>
                         <Col lg={{ span: 24 }} xl={{ span: 12 }} css={styles.ReviewRatingCol}>
