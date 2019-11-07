@@ -13,6 +13,7 @@ import './App.css';
 // LAYOUTS
 import Homepage from './layouts/homepage/homepage'
 import BrowseCompanies from './layouts/browse-companies/browse-companies';
+import Review from './components/review-view/review'
 import Login from './layouts/login/login';
 import Signup from './layouts/signup/signup';
 
@@ -32,6 +33,7 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
           <Route path="/me" component={Homepage} />
+          <Route path="/review/:reviewId" component={Review} />
         </Switch>
       </div>
     </AuthContextProvider>
@@ -39,5 +41,3 @@ function App() {
 }
 
 export default App;
-
-// style={{ backgroundImage: `url('/images/bg.png')`, backgroundRepeat: 'repeat' }}

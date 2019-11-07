@@ -1,6 +1,7 @@
 @import '~antd/dist/antd.css';
 
 .App {
+  
   text-align: center;
   height: 100%;
   background-color: white;
@@ -35,4 +36,13 @@
 
 h1{
   font-weight: 100;
+}
+
+.ant-comment-actions {
+  justify-content: left;
+  float: left;
+}
+
+.ant-comment-content-detail {
+  text-align: left;
 }

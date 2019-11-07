@@ -6,10 +6,13 @@ import { Redirect, Link } from 'react-router-dom'
 import { useAuthState } from '../../state/auth-state'
 
 const outerDiv = {
-    paddingTop: '20em',
+    paddingTop: '15%',
     height: '100vh',
     width: '100vw',
     background: 'linear-gradient(8deg, #FFF 60%, rgb(21, 97, 173) 60%)'
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
 }
 
 const cardShadow = {
@@ -63,9 +66,15 @@ const Login = props => {
         setLoading(false)
     }
 
+    const handleEnterKey = async (e) => {
+        if (e.which === 13) {
+            await loginfn()
+        }
+    }
+
     return toHome ? <Redirect to='/' /> : (
         <div style={outerDiv}>
-            <Row>
+            <Row style={{ height: "100%", width: "100%" }}>
                 <Col md={{ offset: 4, span: 6 }} sm={24}>
                     <Card style={cardShadow}>
                         <h1>
@@ -87,12 +96,13 @@ const Login = props => {
                                     type="password"
                                     placeholder="Password"
                                     onChange={changePassword}
+                                    onKeyPress={handleEnterKey}
                                 />
                             </Form.Item>
                             <Form.Item>
                                 <Button
                                     disabled={formDisable}
-                                    type="primary" onClick={loginfn} block>
+                                    type="primary" onClick={loginfn} block >
                                     Log in
                                 </Button>
                             </Form.Item>
