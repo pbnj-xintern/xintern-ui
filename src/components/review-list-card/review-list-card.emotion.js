@@ -10,11 +10,13 @@ export const CardContainer = css`
     border: 0.5px solid lightgray;
     padding: 16px 2em;
     cursor: pointer;
+    transition: all 0.15s ease-in;
 
     &:hover{
         border-top: 0.5px darkblue solid;
         border-bottom: 0.5px darkblue solid;
-        // border: 0.5px darkblue solid;
+        border-left: 0.5px white solid;
+        border-right:0.5px white solid;
         -webkit-box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.10);
         -moz-box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.10);
         box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.10);
