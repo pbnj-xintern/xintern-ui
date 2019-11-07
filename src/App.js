@@ -61,12 +61,12 @@ function App() {
         <Switch >
           <Route exact path="/" component={Homepage} />
           <Route path="/companies" component={BrowseCompanies} />
+          <Route path="/review/:reviewId" component={Review} />
           <UnAuthRoute path="/login" component={Login} />
           <PrivateRoute path="/me" component={<div><h1>HEY HEY YOU YOU</h1></div>} />
         </Switch>
       </div>
     </AuthContextProvider>
-        <Route path="/review/:reviewId" component={Review} />
   );
 }
 
