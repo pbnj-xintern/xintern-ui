@@ -62,12 +62,12 @@ const Homepage = () => {
         <div>
             <div style={{
                 backgroundImage: `url('/images/homepage-backdrop.jpeg')`,
-                height: '75vh',
+                height: '81vh',
                 backgroundSize: 'cover',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                opacity: 0.95
+                opacity: 0.98
             }}>
                 <h1 style={{ color: 'white', fontSize: "3em", fontWeight: "200" }}>See what other students said about their internships!<SearchBar search={true} /></h1>
             </div>

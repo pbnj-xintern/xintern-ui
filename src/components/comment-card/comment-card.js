@@ -1,6 +1,7 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
 import {  Comment, Tooltip, Icon, Card } from 'antd'
 import moment from 'moment'
+import { Link } from 'react-router-dom'
 
 const CommentCard = props => {
 
@@ -48,7 +49,7 @@ const CommentCard = props => {
             }}>
             <Comment
                 actions={actions}
-                author={<a>USERNAME HERE</a>}
+                author={<Link to={`/user/${props.author._id}`}>{props.author.username}</Link>}
                 content={props.content}
                 datetime={
                     <Tooltip title={moment(props.createdAt).format('YYYY-MM-DD HH:mm:ss')}>

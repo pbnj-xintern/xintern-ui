@@ -6,7 +6,7 @@ import { useLocation, Link } from 'react-router-dom'
 import axios from 'axios'
 import moment from 'moment'
 import CommentSection from '../../layouts/comment-section/comment-section'
-import mockData from './mock-comments'
+// import mockData from './mock-comments'
 
 const { TextArea } = Input
 
@@ -28,7 +28,7 @@ const getPopulatedComments = async (reviewId) => {
         let response = await axios.get(`https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/comments/${reviewId}`)
         if (response.data.error) {
             console.error("no comments to pull")
-            return {}
+            return []
         }
         console.log("response data:\n", response.data)
         return response.data
@@ -56,7 +56,8 @@ const Review = () => {
         rating: {},
         company: {},
         user: {}
-    })    
+    })
+    const [commentsList, setCommentsList] = useState([])
     const [commentInput, setCommentInput] = useState("")
     const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -68,7 +69,11 @@ const Review = () => {
         const fetchReview = async () => {
             setReviewObj(await getReviewById(reviewId))
         }
+        const fetchComments = async () => {
+            setCommentsList(await getPopulatedComments(reviewId))
+        }
         fetchReview()
+        fetchComments()
     }, [reviewId])
 
     const handleSubmit = () => {
@@ -130,7 +135,7 @@ const Review = () => {
                 <div css={styles.MetadataContainer}>
                     <Row style={{ height: "100%", width: "100%" }}>
                         <Col xl={{ span: 6 }}>
-                            <Link to="/user/1"><p css={styles.MetaText} style={{ paddingLeft: "0.5%", width: "fit-content" }}>{reviewObj.user.username}</p></Link>
+                            <Link to={`/user/${reviewObj.user._id}`}><p css={styles.MetaText} style={{ paddingLeft: "0.5%", width: "fit-content" }}>{reviewObj.user.username}</p></Link>
                         </Col>
                         <Col xl={{ span: 18 }}>
                             <p css={styles.MetaText}>{moment(reviewObj.createdAt).format('llll')}</p>
@@ -187,7 +192,7 @@ const Review = () => {
                 <div css={styles.CommentsContainer}>
                     <Row style={{ height: "100%", width: "100%" }}>
                         <Col xl={{ span: 24 }} style={{ paddingTop: "1%" }}>
-                            <CommentSection data={mockData} />
+                            <CommentSection data={commentsList} />
                         </Col>
                     </Row>
                 </div>

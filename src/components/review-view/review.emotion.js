@@ -119,7 +119,7 @@ export const RatingContainer = css`
         width: 22.5%;
     }
     @media (min-width: 1200px) {
-        height: 82.5%; 
+        height: 83%; 
         width: 18%;
     }
 `
