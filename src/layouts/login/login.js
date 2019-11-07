@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { Row, Col, Card, Form, Icon, Input, Button, Checkbox } from 'antd'
 import { toast } from 'react-toastify'
 import Axios from 'axios'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import { useAuthState } from '../../state/auth-state'
 
 const outerDiv = {
     paddingTop: '15%',
     height: '100vh',
     width: '100vw',
-    background: 'linear-gradient(4deg, #FFF 60%, rgb(21, 97, 173) 60%)',
+    background: 'linear-gradient(8deg, #FFF 60%, rgb(21, 97, 173) 60%)'
     display: "flex",
     justifyContent: "center",
     alignItems: "center"
@@ -20,13 +20,17 @@ const cardShadow = {
     margin: '0.3em'
 }
 
-const Login = () => {
+const Login = props => {
 
     const [authState, changeAuthState] = useAuthState();
     const [formDisable, setLoading] = useState(false)
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [toHome, setToHome] = useState(false)
+
+    useEffect(() => {
+        setUsername(props.location ? props.location.state.username : '')
+    }, [])
 
     const changeUsername = e => {
         setUsername(e.target.value)
@@ -80,7 +84,6 @@ const Login = () => {
                             <Form.Item>
                                 <Input
                                     disabled={formDisable}
-                                    shape="round"
                                     prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                     placeholder="Username"
                                     onChange={changeUsername}
@@ -104,9 +107,11 @@ const Login = () => {
                                 </Button>
                             </Form.Item>
                             <Form.Item>
-                                <Button type="secondary" block>
-                                    Sign Up
-                                </Button>
+                                <Link to='/signup'>
+                                    <Button type="secondary" block>
+                                        Sign Up
+                                    </Button>
+                                </Link>
                             </Form.Item>
                         </Form>
                     </Card>

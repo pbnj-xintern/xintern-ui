@@ -43,7 +43,7 @@ const Navbar = (props) => {
     const unauthItems = [
 
         <Menu.Item style={menuItemStyle} key="2">
-            <Link to={`/signup`}>Signup</Link>
+            <Link to={`/signup`}><Icon type="user-add" />Signup</Link>
         </Menu.Item>
         ,
         <Menu.Item style={menuItemStyle} key="3">
@@ -51,8 +51,6 @@ const Navbar = (props) => {
         </Menu.Item>
 
     ]
-
-    console.log('authstate', authState)
 
     return (
         <Menu
