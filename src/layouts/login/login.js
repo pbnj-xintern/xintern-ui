@@ -29,7 +29,7 @@ const Login = props => {
     const [toHome, setToHome] = useState(false)
 
     useEffect(() => {
-        setUsername(props.location ? props.location.state.username : '')
+        setUsername(props.location.state ? props.location.state.username : '')
     }, [])
 
     const changeUsername = e => {
