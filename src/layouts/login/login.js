@@ -9,7 +9,7 @@ const outerDiv = {
     paddingTop: '15%',
     height: '100vh',
     width: '100vw',
-    background: 'linear-gradient(8deg, #FFF 60%, rgb(21, 97, 173) 60%)'
+    background: 'linear-gradient(8deg, #FFF 60%, rgb(21, 97, 173) 60%)',
     display: "flex",
     justifyContent: "center",
     alignItems: "center"

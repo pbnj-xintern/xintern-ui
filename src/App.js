@@ -35,8 +35,8 @@ function App() {
           <Route path="/signup" component={Signup} />
           <Route path="/me" component={Homepage} />
           <Route path="/review/:reviewId" component={Review} />
-          <PrivateRoute path="/company/:companyId/review/create" component={CreateReview} />
-          <PrivateRoute path="/review/create" component={CreateReview} />
+          <Route path="/company/:companyId/review/create" component={CreateReview} />
+          <Route path="/review/create" component={CreateReview} />
         </Switch>
       </div>
     </AuthContextProvider>
