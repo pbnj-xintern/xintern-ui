@@ -81,11 +81,14 @@ export const CompanyInfoCol = css`
 export const CompanyText = css`
     font-weight: 200;
     margin: 0em 0em;
-    padding-left: 4%;
+    padding-left: 5%;
     font-size: 25px;
-    width: fit-content;
+    width: 250px;
     color: black;
-    padding-top: 2.5%;
     height: 100%;
     // margin-left: 0;
+
+    &:hover {
+        color: darkblue;
+    }
 `

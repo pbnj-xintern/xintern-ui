@@ -29,7 +29,7 @@ const BrowseCompanies = () => {
     return (
         <Row>
             <Col md={{ span: 16, offset: 4 }} xs={{ span: 24 }}>
-                <h1 style={{ fontWeight: "500", marginTop: '7%' }}>Browse Companies</h1>
+                <h1 style={{ fontWeight: "500", marginTop: '12%' }}>Browse Companies</h1>
                 {console.log('companies:', allCompanies)}
                 {allCompanies ?
                     <List
