@@ -72,9 +72,9 @@ const Homepage = () => {
                 <h1 style={{ color: 'white', fontSize: "3em", fontWeight: "200" }}>See what other students said about their internships!<SearchBar search={true} /></h1>
             </div>
             {!isTopCompaniesEmpty &&
-                <Row>
+                <Row css={styles.outerCarouselDiv} style={{paddingTop: '5%', paddingBottom: '5%'}}>
                     <Col xl={{ span: 22, offset: 1 }} md={{ span: 20, offset: 2 }} sm={{ span: 24 }}>
-                        <h1 style={{ fontWeight: "500", marginTop: '7%' }}>Check out these Top Companies!</h1>
+                        <h1 style={{ fontWeight: "500" }}>Check out these Top Companies!</h1>
                         <Carousel autoplay>
                             {
                                 topCompanies.map((div, i) =>
@@ -95,9 +95,9 @@ const Homepage = () => {
                     </Col>
                 </Row>
             }
-            <Row>
+            <Row style={{background: "#F5FcFF"}}>
                 <Col md={{ span: 16, offset: 4 }} xs={{ span: 24 }}>
-                    <h1 style={{ fontWeight: "500", marginTop: '7%' }}>Recent Reviews</h1>
+                    <h1 style={{ fontWeight: "500", marginTop: '5%' }}>Recent Reviews</h1>
                     {recentReviews ?
                         <List
                             split={false}
