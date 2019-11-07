@@ -168,3 +168,11 @@ export const ReviewPosSalCol = css`
     height: 100%;
     display: flex;
 `
+export const CompanyNameLinkStyle = css`
+    color: black;
+
+    &:hover {
+        color: darkblue;
+        border-bottom: 1px solid darkblue;
+    }
+`

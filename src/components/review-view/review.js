@@ -96,7 +96,7 @@ const Review = () => {
                         </Col>
                         <Col xl={{ span: 21 }} css={styles.CompanyNameCol}>
                             <div style={{ display: "flex", flexDirection: "row", width: "100%", height: "100%", alignItems: "center" }}>
-                                <h1 style={{ fontWeight: "500", paddingRight: "4%", marginBottom: "0" }}>{reviewObj.company.name}</h1>
+                                <h1 style={{ fontWeight: "500", paddingRight: "4%", marginBottom: "0" }}><Link to={`/company/${reviewObj.company._id}`} css={styles.CompanyNameLinkStyle}>{reviewObj.company.name}</Link></h1>
                                 <h1 style={{ fontWeight: "100", fontSize: "22px", marginBottom: "0", marginTop: "3.5px" }}>{reviewObj.company.location}</h1>
                             </div>
                         </Col>

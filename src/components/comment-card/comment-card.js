@@ -1,6 +1,7 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
 import {  Comment, Tooltip, Icon, Card } from 'antd'
 import moment from 'moment'
+import * as styles from './comment-card.emotion'
 import { Link } from 'react-router-dom'
 
 const CommentCard = props => {
@@ -41,7 +42,8 @@ const CommentCard = props => {
                 // marginLeft: '1em',
                 marginRight: '1em',
                 boxShadow: props.parentComment ? 'none' : '6px 10px 31px -17px rgba(0,0,0,0.3)',
-                borderLeft: '1px solid black'
+                borderLeft: '1px solid black',
+                // borderRadius: '0'
             }}
             bodyStyle={{
                 padding: "0",
@@ -49,7 +51,7 @@ const CommentCard = props => {
             }}>
             <Comment
                 actions={actions}
-                author={<Link to={`/user/${props.author._id}`}>{props.author.username}</Link>}
+                author={<Link to={`/user/${props.author._id}`} css={styles.UsernameLink}>{props.author.username}</Link>}
                 content={props.content}
                 datetime={
                     <Tooltip title={moment(props.createdAt).format('YYYY-MM-DD HH:mm:ss')}>
