@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import Homepage from './layouts/homepage/homepage'
 import Navbar from './components/navbar/navbar'
+import CreateReview from './layouts/create-review/create-review'
 import 'antd/dist/antd.css';
 import { Switch, Route, Redirect } from 'react-router-dom'
 import './App.css';
