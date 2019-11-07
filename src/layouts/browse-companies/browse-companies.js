@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Row, Col, List } from 'antd'
 import axios from 'axios'
-import CompanyListCard from '../../components/company-list-card/CompanyListCard'
+import CompanyListCard from '../../components/company-list-card/company-list-card'
 
 const getAllCompanies = async () => {
     try {
