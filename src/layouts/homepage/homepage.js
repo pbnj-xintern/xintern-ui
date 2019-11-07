@@ -21,7 +21,6 @@ const getTopCompanies = async () => {
                 formattedData.push([])
             formattedData[formattedData.length - 1].push(company)
         })
-        console.log('formattedData', formattedData)
         return formattedData
     } catch (err) {
         console.error("Could not get recent reviews")
@@ -57,8 +56,6 @@ const Homepage = () => {
     }, [])
 
     var isTopCompaniesEmpty = topCompanies === [] || topCompanies === undefined;
-
-    console.log('topcom', topCompanies)
 
     return (
         <div>

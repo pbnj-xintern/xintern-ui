@@ -3,6 +3,7 @@ import { Row, Col, Card, Form, Icon, Input, Button, Checkbox } from 'antd'
 import { toast } from 'react-toastify'
 import Axios from 'axios'
 import { Redirect } from 'react-router-dom'
+import { useAuthState } from '../../state/auth-state'
 
 const outerDiv = {
     paddingTop: '20em',
@@ -18,6 +19,12 @@ const cardShadow = {
 
 const Login = () => {
 
+    const [authState, changeAuthState] = useAuthState();
+    const [formDisable, setLoading] = useState(false)
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [toHome, setToHome] = useState(false)
+
     const changeUsername = e => {
         setUsername(e.target.value)
     }
@@ -26,7 +33,7 @@ const Login = () => {
         setPassword(e.target.value)
     }
 
-    const login = async () => {
+    const loginfn = async () => {
         setLoading(true)
         let response = await Axios.post('https://3u3ckfdn26.execute-api.us-east-2.amazonaws.com/dev/user/login', { username: username, password: password })
             .catch(e => {
@@ -41,20 +48,16 @@ const Login = () => {
         }
 
         if (response.status === 200) {
-            console.log('response.data', response.data)
             let token = response.data.token
             localStorage.setItem('token', token)
             toast.success('Successfully logged in!')
+
+            changeAuthState({ type: 'CHANGE_AUTH_STATE', isAuth: true })
             setToHome(true)
         }
 
         setLoading(false)
     }
-
-    const [formDisable, setLoading] = useState(false)
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const [toHome, setToHome] = useState(false)
 
     return toHome ? <Redirect to='/' /> : (
         <div style={outerDiv}>
@@ -86,7 +89,7 @@ const Login = () => {
                             <Form.Item>
                                 <Button
                                     disabled={formDisable}
-                                    type="primary" onClick={login} block>
+                                    type="primary" onClick={loginfn} block>
                                     Log in
                                 </Button>
                             </Form.Item>

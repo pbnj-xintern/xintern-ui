@@ -1,15 +1,19 @@
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Menu, Icon } from 'antd';
 import SearchBar from '../search-bar/index'
 import { Redirect, Link } from 'react-router-dom'
 import { toast } from 'react-toastify';
+import { useAuthState } from '../../state/auth-state'
 
 const menuStyle = { position: 'fixed', zIndex: 1, width: '100%' }
 const menuItemStyle = { float: 'right' }
 
 const Navbar = (props) => {
 
+    // HOOKS
+    const [authState, changeAuthState] = useAuthState();
+    
     const [isTop, setIsTop] = useState({})
     useEffect(() => {
         window.onscroll = () => {
@@ -19,19 +23,20 @@ const Navbar = (props) => {
         }
     }, [])
 
-
+    //FUNCTIONS
     const logout = () => {
         if (window.confirm("Are you sure you want to log out?")) {
             localStorage.clear()
-            localStorage.getItem('token') && toast.info('Successfully logged out')
+            toast.info('Successfully logged out')
+            changeAuthState({ type: "CHANGE_AUTH_STATE", isAuth: false })
         }
     }
 
 
     const authItems = [
-        <Menu.Item onClick={logout} style={menuItemStyle} key="2"><Icon type='logout'/>Logout</Menu.Item>,
+        <Menu.Item onClick={logout} style={menuItemStyle} key="2"><Icon type='logout' />Logout</Menu.Item>,
         <Menu.Item style={menuItemStyle} key="3">
-            <Link to={`/me`}><Icon type='user'/>My Profile</Link>
+            <Link to={`/me`}><Icon type='user' />My Profile</Link>
         </Menu.Item>
     ]
 
@@ -42,10 +47,11 @@ const Navbar = (props) => {
         </Menu.Item>
         ,
         <Menu.Item style={menuItemStyle} key="3">
-            <Link to={`/login`}><Icon type='login'/>Login</Link>
+            <Link to={`/login`}><Icon type='login' />Login</Link>
         </Menu.Item>
     ]
 
+    console.log('authstate', authState)
 
     return (
         <Menu
@@ -64,7 +70,7 @@ const Navbar = (props) => {
 
             <SearchBar search={props.search} />
             {
-                props.isAuth ?
+                authState.isAuth ?
                     authItems :
                     unauthItems
             }

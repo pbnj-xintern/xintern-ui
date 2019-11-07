@@ -11,7 +11,7 @@ const SearchBar = props => {
             <Search
                 placeholder="input search text"
                 enterButton="Search"
-                onSearch={value => console.log(value)}
+                onSearch={() => { }}
                 style={{ width: '50%', marginTop: '1em' }}
             /> : null
 
