@@ -90,7 +90,7 @@ const Review = () => {
         if (reviewObj.currency === "CAD" || reviewObj.currency === "USD") {
             formattedSalary = (salary/100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
         } else {
-            formattedSalary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            formattedSalary = salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
         }
         return formattedSalary
     }
