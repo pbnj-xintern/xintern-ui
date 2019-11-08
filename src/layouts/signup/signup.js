@@ -70,7 +70,7 @@ const Signup = () => {
     };
 
     const outerDiv = {
-        paddingTop: '10em',
+        paddingTop: '3%',
         height: '100vh',
         width: '100vw',
         background: 'linear-gradient(110deg, #FCF7F8 60%, #241623 60%)'
