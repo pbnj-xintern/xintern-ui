@@ -81,12 +81,10 @@ const Homepage = () => {
                                     <div key={i} css={styles.CarouselDiv}>
                                         <Row type="flex" justify="space-around" align="middle">
                                             {
-                                                div.map((company, i) => {
-                                                    console.log('company obj:', company)
-                                                    return (<Col key={i} md={4} sm={24}>
+                                                div.map((company, i) =>
+                                                    <Col key={i} md={4} sm={24}>
                                                         <SmallCompanyCard {...company} />
-                                                    </Col>)
-                                                    }
+                                                    </Col>                                          
                                                 )
                                             }
                                         </Row>
