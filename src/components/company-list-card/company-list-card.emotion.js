@@ -13,7 +13,6 @@ export const CardContainer = css`
     border-bottom: 0.5px solid lightgray;
     // border: 0.5px solid lightgray;
     padding: 16px 2em;
-    cursor: pointer;
 
     &:hover{
         border-top: 0.5px darkblue solid;
