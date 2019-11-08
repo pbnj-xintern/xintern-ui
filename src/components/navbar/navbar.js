@@ -41,7 +41,6 @@ const Navbar = (props) => {
     ]
 
     const unauthItems = [
-
         <Menu.Item style={menuItemStyle} key="2">
             <Link to={`/signup`}><Icon type="user-add" />Signup</Link>
         </Menu.Item>

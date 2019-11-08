@@ -8,7 +8,7 @@ const Signup = () => {
 
     const [formDisable, setLoading] = useState(false)
     const [successfulSignup, setSuccessfulSignup] = useState(false)
-    const [formInfo, setFormInfo] = useState({
+    const initialFormInfo = {
         //mandatory
         username: '',
         password: '',
@@ -20,7 +20,8 @@ const Signup = () => {
         lastName: '',
         age: 0,
         isShowInfo: false,
-    })
+    }
+    const [formInfo, setFormInfo] = useState({ ...initialFormInfo })
 
     const inputRules = {
         //mandatory
@@ -70,7 +71,7 @@ const Signup = () => {
     };
 
     const outerDiv = {
-        paddingTop: '3%',
+        paddingTop: '4%',
         height: '100vh',
         width: '100vw',
         background: 'linear-gradient(110deg, #FCF7F8 60%, #241623 60%)'
@@ -93,7 +94,7 @@ const Signup = () => {
         let includeCheck = true
 
         if (inputRules[key].required)
-            requiredCheck = value !== null && value !== ''
+            requiredCheck = value !== null && (value !== '' || value !== 0)
 
         if (inputRules[key].maxLength)
             maxLimitCheck = value.toString().length <= inputRules[key].maxLength
@@ -138,6 +139,16 @@ const Signup = () => {
             setLoading(false)
             return
         }
+
+        //deleting the empty unrequired fields
+        let body = { ...formInfo }
+        Object.keys(formInfo).forEach(k => {
+            let isFieldRequired = inputRules[k] ? inputRules[k].required : false
+            if (!isFieldRequired && formInfo[k] === initialFormInfo[k])
+                delete body[k]
+        })
+
+        console.log('body is ', body)
 
         let response = await Axios
             .post('https://3u3ckfdn26.execute-api.us-east-2.amazonaws.com/dev/user', formInfo)
