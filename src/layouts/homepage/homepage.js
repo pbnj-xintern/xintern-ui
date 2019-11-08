@@ -84,7 +84,7 @@ const Homepage = () => {
                                                 div.map((company, i) =>
                                                     <Col key={i} md={4} sm={24}>
                                                         <SmallCompanyCard {...company} />
-                                                    </Col>
+                                                    </Col>                                          
                                                 )
                                             }
                                         </Row>
