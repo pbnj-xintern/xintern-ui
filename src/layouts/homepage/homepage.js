@@ -36,7 +36,7 @@ const getRecentReviews = async () => {
         }
         return response.data
     } catch (err) {
-        console.error("Could not get recent reviews", err)
+        console.error("Could not get recent reviews", err.message)
     }
 }
 
