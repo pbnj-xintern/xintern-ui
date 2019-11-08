@@ -9,7 +9,7 @@ const outerDiv = {
     paddingTop: '15%',
     height: '100vh',
     width: '100vw',
-    background: 'linear-gradient(8deg, #FFF 60%, rgb(21, 97, 173) 60%)'
+    background: 'linear-gradient(8deg, #FFF 60%, rgb(21, 97, 173) 60%)',
     display: "flex",
     justifyContent: "center",
     alignItems: "center"
@@ -29,7 +29,7 @@ const Login = props => {
     const [toHome, setToHome] = useState(false)
 
     useEffect(() => {
-        setUsername(props.location ? props.location.state.username : '')
+        setUsername(props.location.state ? props.location.state.username : '')
     }, [])
 
     const changeUsername = e => {

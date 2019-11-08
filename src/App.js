@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { AuthContextProvider } from './state/auth-state'
 import Navbar from './components/navbar/navbar'
+import CreateReview from './layouts/create-review/create-review'
 
 // CSS
 import 'antd/dist/antd.css';
@@ -34,6 +35,8 @@ function App() {
           <Route path="/signup" component={Signup} />
           <Route path="/me" component={Homepage} />
           <Route path="/review/:reviewId" component={Review} />
+          <Route path="/company/:companyId/review/create" component={CreateReview} />
+          <Route path="/review/create" component={CreateReview} />
         </Switch>
       </div>
     </AuthContextProvider>
