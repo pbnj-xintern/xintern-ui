@@ -4,7 +4,6 @@ import { toast } from 'react-toastify'
 import { AuthContextProvider } from './state/auth-state'
 import Navbar from './components/navbar/navbar'
 import CreateReview from './layouts/create-review/create-review'
-import CompanyReviews from './layouts/company-reviews/company-reviews'
 
 // CSS
 import 'antd/dist/antd.css';
