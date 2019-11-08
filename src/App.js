@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import { AuthContextProvider } from './state/auth-state'
 import Navbar from './components/navbar/navbar'
 import CreateReview from './layouts/create-review/create-review'
+import CompanyReviews from './layouts/company-reviews/company-reviews'
 
 // CSS
 import 'antd/dist/antd.css';
@@ -17,6 +18,7 @@ import BrowseCompanies from './layouts/browse-companies/browse-companies';
 import Review from './components/review-view/review'
 import Login from './layouts/login/login';
 import Signup from './layouts/signup/signup';
+import CompanyReviews from './layouts/company-reviews/company-reviews';
 
 toast.configure({
   position: toast.POSITION.TOP_CENTER,
@@ -37,6 +39,7 @@ function App() {
           <Route path="/review/:reviewId" component={Review} />
           <Route path="/company/:companyId/review/create" component={CreateReview} />
           <Route path="/review/create" component={CreateReview} />
+          <Route path="/company/:companyId/reviews" component={CompanyReviews} />
         </Switch>
       </div>
     </AuthContextProvider>
