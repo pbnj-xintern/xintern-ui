@@ -14,7 +14,7 @@ const CompanyListCard = (props) => {
     return (
         <Card css={styles.CardContainer} bordered={false} bodyStyle={styles.CardBodyStyle}>
             <Row style={{ height: '100%' }}>
-                <Link to={`/company/${props._id}`}>
+                <Link to={`/company/${props._id}/reviews`}>
                     <Col lg={{ span: 4 }} xl={{ span: 3 }} css={styles.CompanyLogoCol}>
                         <div css={styles.CompanyLogoContainer}>
                             <img src={props.logo} style={{ objectFit: 'contain', width: '75%' }} alt="no_logo" />
