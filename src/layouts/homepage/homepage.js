@@ -74,7 +74,7 @@ const Homepage = () => {
             {!isTopCompaniesEmpty &&
                 <Row css={styles.outerCarouselDiv} style={{paddingTop: '5%', paddingBottom: '5%'}}>
                     <Col xl={{ span: 22, offset: 1 }} md={{ span: 20, offset: 2 }} sm={{ span: 24 }}>
-                        <h1 style={{ fontWeight: "500" }}>Check out these Top Companies!</h1>
+                        <h1 style={{ fontWeight: "500", paddingBottom: "3%" }}>Check out these Top Companies!</h1>
                         <Carousel autoplay>
                             {
                                 topCompanies.map((div, i) =>
