@@ -69,7 +69,7 @@ const Homepage = () => {
                 justifyContent: 'center',
                 opacity: 0.98
             }}>
-                <h1 style={{ color: 'white', fontSize: "3em", fontWeight: "200" }}>See what other students said about their internships!<SearchBar search={true} /></h1>
+                <h1 style={{ color: 'white', fontSize: "3em", fontWeight: "200" }}>See what other students said about their internships!<br></br><SearchBar search={true} /></h1>
             </div>
             {!isTopCompaniesEmpty &&
                 <Row css={styles.outerCarouselDiv} style={{paddingTop: '5%', paddingBottom: '5%'}}>

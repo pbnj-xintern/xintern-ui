@@ -9,8 +9,9 @@ const SearchBar = props => {
     return (
         props.search ?
             <Search
-                placeholder="input search text"
-                enterButton="Search"
+                size='large'
+                id='home-search'
+                placeholder="Search for a company or position"
                 onSearch={() => { }}
                 style={{ width: '50%', marginTop: '1em' }}
             /> : null
