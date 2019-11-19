@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Col, List } from 'antd'
+import { Row, Col, List, Icon } from 'antd'
 import axios from 'axios'
 import CompanyListCard from '../../components/company-list-card/company-list-card'
 
@@ -18,19 +18,23 @@ const getAllCompanies = async () => {
 
 const BrowseCompanies = () => {
     let [allCompanies, setAllCompanies] = useState([])
+    let [isLoading, setLoading] = useState([])
 
     useEffect(() => {
+        setLoading(true)
         const fetchAllCompanies = async () => {
             setAllCompanies(await getAllCompanies())
+            setLoading(false)
         }
         fetchAllCompanies()
     }, [])
 
+    const headerStyle = { fontWeight: "500", marginTop: '13%' }
+
     return (
         <Row>
             <Col md={{ span: 16, offset: 4 }} xs={{ span: 24 }}>
-                <h1 style={{ fontWeight: "500", marginTop: '13%' }}>Browse Companies</h1>
-                {console.log('companies:', allCompanies)}
+                {isLoading ? <h1 style={headerStyle}>Fetching Companies <Icon type='loading'/></h1>: <h1 style={headerStyle}>Browse Companies</h1>}
                 {allCompanies ?
                     <List
                         split={false}
@@ -38,10 +42,10 @@ const BrowseCompanies = () => {
                         dataSource={allCompanies.map((company) => <CompanyListCard {...company} />)}
                         renderItem={item => <List.Item style={{ padding: "0 !important" }}>{item}</List.Item>}
                     /> :
-                    <h2>No Companies Found</h2>
+                    <h2>{!isLoading && "No Companies Found"} </h2>
                 }
             </Col>
-        </Row>      
+        </Row>
     )
 }
 
