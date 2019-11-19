@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { AuthContextProvider } from './state/auth-state'
 import Navbar from './components/navbar/navbar'
+import Footer from './components/footer/footer'
 import CreateReview from './layouts/create-review/create-review'
 
 // CSS
@@ -40,6 +41,7 @@ function App() {
           <Route path="/review/create" component={CreateReview} />
           <Route path="/company/:companyId/reviews" component={CompanyReviews} />
         </Switch>
+        <Footer />
       </div>
     </AuthContextProvider>
   );
