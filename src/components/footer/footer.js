@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom'
 
 const Footer = () => {
     let location = useLocation()
-    console.log("location pathname:", location.pathname)
     return (
         (location.pathname === "/login" || location.pathname === "/signup") ? null : 
         (<Row style={{ height: "65px" }}>

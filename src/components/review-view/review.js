@@ -30,7 +30,6 @@ const getPopulatedComments = async (reviewId) => {
             console.error("no comments to pull")
             return []
         }
-        console.log("response data:\n", response.data)
         return response.data
     } catch (err) {
         console.error("error getting comments")
@@ -44,7 +43,6 @@ const getReviewById = async (reviewId) => {
             console.error("no review to pull")
             return {}
         }
-        console.log("response data:\n", response.data)
         return response.data
     } catch (err) {
         console.error("error getting a populated review")
@@ -78,7 +76,6 @@ const Review = () => {
     }, [reviewId])
 
     const handleSubmit = () => {
-        console.log("hello")
     }
 
     const handleChange = e => {

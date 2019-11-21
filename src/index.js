@@ -9,6 +9,12 @@ import axios from 'axios'
 const ENV_PATH = process.env.NODE_ENV === "development"? "dev/" : ""
 axios.defaults.baseURL = "https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/" + ENV_PATH
 
+axios.interceptors.request.use(function (config) {
+    const token = localStorage.getItem('token');
+    config.headers['Authorization'] =  token ? "Bearer " + token : null;
+    return config;
+});
+
 ReactDOM.render(<Router><App /></Router>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
