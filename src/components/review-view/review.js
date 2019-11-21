@@ -1,6 +1,6 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
 import React, { useState, useEffect } from 'react'
-import { Comment, Avatar, Row, Col, Form, Input, Button } from 'antd'
+import { Comment, Avatar, Row, Col, Form, Input, Button, Icon } from 'antd'
 import * as styles from './review.emotion'
 import { useLocation, Link } from 'react-router-dom'
 import axios from 'axios'
@@ -27,12 +27,11 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
 
 const getPopulatedComments = async (reviewId) => {
     try {
-        let response = await axios.get(`https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/comments/${reviewId}`)
+        let response = await axios.get(`/comments/${reviewId}`)
         if (response.data.error) {
             console.error("no comments to pull")
             return []
         }
-        console.log("response data:\n", response.data)
         return response.data
     } catch (err) {
         console.error("error getting comments")
@@ -41,12 +40,11 @@ const getPopulatedComments = async (reviewId) => {
 
 const getReviewById = async (reviewId) => {
     try {
-        let response = await axios.get(`https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/review/${reviewId}`)
+        let response = await axios.get(`/review/${reviewId}`)
         if (response.data.error) {
             console.error("no review to pull")
             return {}
         }
-        console.log("response data:\n", response.data)
         return response.data
     } catch (err) {
         console.error("error getting a populated review")
@@ -57,7 +55,9 @@ const Review = () => {
     const [reviewObj, setReviewObj] = useState({
         rating: {},
         company: {},
-        user: {}
+        user: {},
+        upvotes: [],
+        downvotes: []
     })
 
     // const [salaryValue, setSalaryValue] = useState(0)
@@ -66,8 +66,7 @@ const Review = () => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isReviewUpvote, setIsReviewUpvote] = useState(false)
     const [isReviewDownvote, setIsReviewDownvote] = useState(false)
-
-
+    const [isReviewVotePending, setReviewVotePending] = useState(false)
 
 
     const axiosInstance = axios.create({
@@ -88,8 +87,8 @@ const Review = () => {
     }
 
     const reviewEndpoint = {
-        UP: `https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/review/${reviewId}/upvote`,
-        DOWN: `https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/review/${reviewId}/downvote`
+        UP: `/review/${reviewId}/upvote`,
+        DOWN: `/review/${reviewId}/downvote`
     }
 
 
@@ -100,13 +99,8 @@ const Review = () => {
 
             let review = await getReviewById(reviewId);
             setReviewObj(review)
-            if (review.upvotes.includes(userId)) {
-                setIsReviewUpvote(true)
-            }
-            if (review.downvotes.includes(userId)) {
-                setIsReviewDownvote(true);
-            }
-
+            setIsReviewUpvote(review.upvotes.includes(userId))
+            setIsReviewDownvote(review.downvotes.includes(userId));
         }
         const fetchComments = async () => {
             setCommentsList(await getPopulatedComments(reviewId))
@@ -116,7 +110,6 @@ const Review = () => {
     }, [reviewId])
 
     const handleSubmit = () => {
-
     }
 
     const handleChange = e => {
@@ -127,41 +120,29 @@ const Review = () => {
     const handleVote = async (item, type, endpoint) => {
         if (!localStorage.getItem('uid')) {
             if (!toast.isActive('vote'))
-                toast("Login to upvote/downvote!", {
+                toast.error("Login to upvote/downvote!", {
                     toastId: "vote"
                 });
 
         } else {
-            if (item == voteItem.REVIEW) {
-                axiosInstance.patch(endpoint)
-                    .then(res => {
-                        if (type == voteType.DOWN) {
-                            if (isReviewDownvote) {
-                                setIsReviewDownvote(false)
-                            } else if (isReviewUpvote) {
-                                setIsReviewUpvote(false)
-                                setIsReviewDownvote(true)
-                            } else {
-                                setIsReviewDownvote(true)
-                            }
-                        } else if (type == voteType.UP) {
-                            if (isReviewDownvote) {
-                                setIsReviewDownvote(false)
-                                setIsReviewUpvote(true)
-                            } else if (isReviewUpvote) {
-                                setIsReviewUpvote(false)
-                            } else {
-                                setIsReviewUpvote(true)
-                            }
-                        }
+            setReviewVotePending(true)
+            axiosInstance.patch(endpoint)
+                .then(res => {
+                    let uid = localStorage.getItem('uid');
+                    let message = type == voteType.UP ? "Successfully upvoted." : "Successfully downvoted."
 
-                        setReviewObj({
-                            ...reviewObj,
-                            upvotes: res.data.upvotes,
-                            downvotes: res.data.downvotes
-                        })
+                    setReviewVotePending(false)
+
+                    setIsReviewUpvote(res.data.upvotes.includes(uid))
+                    setIsReviewDownvote(res.data.downvotes.includes(uid))
+
+                    toast.success(message)
+                    setReviewObj({
+                        ...reviewObj,
+                        upvotes: res.data.upvotes,
+                        downvotes: res.data.downvotes
                     })
-            }
+                })
         }
     }
 
@@ -174,7 +155,6 @@ const Review = () => {
         }
         return formattedSalary
     }
-
     return (
         <Row style={{ height: "100%", width: "100%", paddingTop: "7%", paddingBottom: "3%", overflowY: "scroll" }}>
             <Col xl={{ span: 16, offset: 4 }} css={styles.ReviewViewCol}>
@@ -185,11 +165,35 @@ const Review = () => {
                                 <img src={reviewObj.company.logo} style={{ objectFit: 'contain', width: '75%' }} alt="no_logo" />
                             </div>
                         </Col>
-                        <Col xl={{ span: 21 }} css={styles.CompanyNameCol}>
+                        <Col xl={{ span: 18 }} css={styles.CompanyNameCol}>
                             <div style={{ display: "flex", flexDirection: "row", width: "100%", height: "100%", alignItems: "center" }}>
                                 <h1 style={{ fontWeight: "500", paddingRight: "4%", marginBottom: "0" }}><Link to={`/company/${reviewObj.company._id}/reviews`} css={styles.CompanyNameLinkStyle}>{reviewObj.company.name}</Link></h1>
                                 <h1 style={{ fontWeight: "100", fontSize: "22px", marginBottom: "0", marginTop: "3.5px" }}>{reviewObj.company.location}</h1>
                             </div>
+                        </Col>
+                        <Col xl={{ span: 3 }}>
+                            <Row style={{ height: "100%", width: "100%" }}>
+                                <Button.Group size='large'>
+                                    <Button
+                                        loading={isReviewVotePending}
+                                        onClick={() => handleVote(voteItem.REVIEW, voteType.UP, reviewEndpoint.UP)}
+                                        ghost={!isReviewUpvote}
+                                        style={{ color: isReviewUpvote ? '#fff' : '#07bc0c', backgroundColor: '#07bc0c', borderColor: '#07bc0c' }}
+                                    >
+                                        <Icon type='up'></Icon>
+                                        {(reviewObj.upvotes) ? reviewObj.upvotes.length : 0}
+                                    </Button>
+                                    <Button
+                                        loading={isReviewVotePending}
+                                        onClick={() => handleVote(voteItem.REVIEW, voteType.DOWN, reviewEndpoint.DOWN)}
+                                        ghost={!isReviewDownvote}
+                                        style={{ color: isReviewDownvote ? '#fff' : '#ff4d4f', backgroundColor: '#ff4d4f', borderColor: '#ff4d4f' }}
+                                    >
+                                        <Icon type='down'></Icon>
+                                        {(reviewObj.downvotes) ? reviewObj.downvotes.length : 0}
+                                    </Button>
+                                </Button.Group>
+                            </Row>
                         </Col>
                     </Row>
                 </div>
@@ -226,7 +230,12 @@ const Review = () => {
                 <div css={styles.MetadataContainer}>
                     <Row style={{ height: "100%", width: "100%" }}>
                         <Col xl={{ span: 6 }}>
-                            <Link to={`/user/${reviewObj.user._id}`}><p css={styles.MetaText} style={{ paddingLeft: "0.5%", width: "fit-content" }}>{reviewObj.user.username}</p></Link>
+                            <Link to={`/user/${reviewObj.user._id}`}>
+                                <p css={styles.MetaText} style={{ paddingLeft: "0.5%", width: "fit-content" }}>
+                                    <Icon type="user" style={{ marginRight: '1em' }}></Icon>
+                                    {reviewObj.user.username}
+                                </p>
+                            </Link>
                         </Col>
                         <Col xl={{ span: 18 }}>
                             <p css={styles.MetaText}>{moment(reviewObj.createdAt).format('llll')}</p>
@@ -238,22 +247,6 @@ const Review = () => {
                         <Col xl={{ span: 24 }}>
                             <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                                 <p style={{ textAlign: "justify", color: "black", fontWeight: "500", fontSize: "16px", marginBottom: "0" }}>"{reviewObj.content}"</p>
-                            </div>
-                        </Col>
-                    </Row>
-                </div>
-                <div css={styles.UpvoteDownvoteContainer}>
-                    <Row style={{ height: "100%", width: "100%" }}>
-                        <Col xl={{ span: 2 }}>
-                            <div style={{ display: "flex", cursor: "pointer", width: "fit-content" }}>
-                                <p css={styles.MetaText} style={{ paddingLeft: "0.5%", fontWeight: "700", fontSize: "14px" }}>{(reviewObj.upvotes) ? reviewObj.upvotes.length : 0}</p>
-                                <svg onClick={() => handleVote(voteItem.REVIEW, voteType.UP, reviewEndpoint.UP)} stroke="green" fill={isReviewUpvote ? "" : "transparent"} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 2 26 26"><path d="M7 11h-6l11-11 11 11h-6v13h-10z" /></svg>
-                            </div>
-                        </Col>
-                        <Col xl={{ span: 22 }}>
-                            <div style={{ display: "flex", cursor: "pointer", width: "fit-content" }}>
-                                <p css={styles.MetaText} style={{ fontWeight: "700", fontSize: "14px" }}>{(reviewObj.downvotes) ? reviewObj.downvotes.length : 0}</p>
-                                <svg onClick={() => handleVote(voteItem.REVIEW, voteType.DOWN, reviewEndpoint.DOWN)} stroke="red" fill={isReviewDownvote ? "" : "transparent"} style={{ transform: "rotate(180deg)" }} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 -3 25.5 25.5"><path d="M7 11h-6l11-11 11 11h-6v13h-10z" /></svg>
                             </div>
                         </Col>
                     </Row>

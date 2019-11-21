@@ -5,7 +5,7 @@ import CompanyListCard from '../../components/company-list-card/company-list-car
 
 const getAllCompanies = async () => {
     try {
-        let response = await axios.get('https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/company/all')
+        let response = await axios.get('/company/all')
         if (response.data.length == 0 || response.data.error) {
             console.error("no companies")
             return []

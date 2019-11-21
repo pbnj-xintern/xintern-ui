@@ -8,7 +8,7 @@ import { Row, Col, List } from 'antd'
 
 const getReviewsByCompany = async (companyId) => {
     try {
-        let response = await axios.get(`https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/company/${companyId}/reviews`)
+        let response = await axios.get(`/company/${companyId}/reviews`)
         if (response.data.length == 0 || response.data.error) {
             console.error("no company reviews")
             return []
