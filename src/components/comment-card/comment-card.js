@@ -13,7 +13,7 @@ const CommentCard = props => {
         <span key="comment-basic-like">
             <Tooltip title="Upvotes">
                 <Icon
-                    type="like"
+                    type="up"
                     theme={'filled'}
                     onClick={upvote}
                 />
@@ -23,7 +23,7 @@ const CommentCard = props => {
         <span key=' key="comment-basic-dislike"'>
             <Tooltip title="Downvotes">
                 <Icon
-                    type="dislike"
+                    type="down"
                     theme={'outlined'}
                     onClick={downvote}
                 />

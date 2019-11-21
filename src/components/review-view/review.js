@@ -1,6 +1,6 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
 import React, { useState, useEffect } from 'react'
-import { Comment, Avatar, Row, Col, Form, Input, Button } from 'antd'
+import { Comment, Avatar, Row, Col, Form, Input, Button, Icon } from 'antd'
 import * as styles from './review.emotion'
 import { useLocation, Link } from 'react-router-dom'
 import axios from 'axios'
@@ -13,11 +13,11 @@ const { TextArea } = Input
 const Editor = ({ onChange, onSubmit, submitting, value }) => (
     <div>
         <Form.Item>
-        <TextArea rows={4} onChange={onChange} value={value} />
+            <TextArea rows={4} onChange={onChange} value={value} />
         </Form.Item>
         <Form.Item>
-        <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
-            Add Comment
+            <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
+                Add Comment
         </Button>
         </Form.Item>
     </div>
@@ -25,7 +25,7 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
 
 const getPopulatedComments = async (reviewId) => {
     try {
-        let response = await axios.get(`https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/comments/${reviewId}`)
+        let response = await axios.get(`/comments/${reviewId}`)
         if (response.data.error) {
             console.error("no comments to pull")
             return []
@@ -35,11 +35,11 @@ const getPopulatedComments = async (reviewId) => {
     } catch (err) {
         console.error("error getting comments")
     }
-} 
+}
 
 const getReviewById = async (reviewId) => {
     try {
-        let response = await axios.get(`https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/review/${reviewId}`)
+        let response = await axios.get(`/review/${reviewId}`)
         if (response.data.error) {
             console.error("no review to pull")
             return {}
@@ -49,7 +49,7 @@ const getReviewById = async (reviewId) => {
     } catch (err) {
         console.error("error getting a populated review")
     }
-}   
+}
 
 const Review = () => {
     const [reviewObj, setReviewObj] = useState({
@@ -88,12 +88,15 @@ const Review = () => {
     const formatSalary = (salary) => {
         let formattedSalary = 0
         if (reviewObj.currency === "CAD" || reviewObj.currency === "USD") {
-            formattedSalary = (salary/100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            formattedSalary = (salary / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
         } else {
             formattedSalary = salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
         }
         return formattedSalary
     }
+
+    const isUpvoted = false;
+    const isDownvoted = false;
 
     return (
         <Row style={{ height: "100%", width: "100%", paddingTop: "7%", paddingBottom: "3%", overflowY: "scroll" }}>
@@ -105,11 +108,29 @@ const Review = () => {
                                 <img src={reviewObj.company.logo} style={{ objectFit: 'contain', width: '75%' }} alt="no_logo" />
                             </div>
                         </Col>
-                        <Col xl={{ span: 21 }} css={styles.CompanyNameCol}>
+                        <Col xl={{ span: 18 }} css={styles.CompanyNameCol}>
                             <div style={{ display: "flex", flexDirection: "row", width: "100%", height: "100%", alignItems: "center" }}>
                                 <h1 style={{ fontWeight: "500", paddingRight: "4%", marginBottom: "0" }}><Link to={`/company/${reviewObj.company._id}/reviews`} css={styles.CompanyNameLinkStyle}>{reviewObj.company.name}</Link></h1>
                                 <h1 style={{ fontWeight: "100", fontSize: "22px", marginBottom: "0", marginTop: "3.5px" }}>{reviewObj.company.location}</h1>
                             </div>
+                        </Col>
+                        <Col xl={{ span: 3 }}>
+                            <Row style={{ height: "100%", width: "100%" }}>
+                                <Button.Group size='large'>
+                                    <Button ghost={!isUpvoted} style={{ color: isUpvoted ? '#fff' : '#07bc0c', backgroundColor: '#07bc0c', borderColor: '#07bc0c' }}>
+                                        <Icon type='up'></Icon>
+                                        {/* <svg stroke="green" fill="transparent" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 2 26 26"><path d="M7 11h-6l11-11 11 11h-6v13h-10z" /></svg> */}
+                                        {(reviewObj.upvotes) ? reviewObj.upvotes.length : 0}
+                                    </Button>
+                                    <Button ghost={!isDownvoted} style={{ color: isDownvoted ? '#fff' : '#ff4d4f', backgroundColor: '#ff4d4f', borderColor: '#ff4d4f' }}>
+                                        <Icon type='down'></Icon>
+                                        {/* <svg stroke="red" fill="transparent" style={{ transform: "rotate(180deg)" }} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 -3 25.5 25.5">
+                                            <path d="M7 11h-6l11-11 11 11h-6v13h-10z" />
+                                        </svg> */}
+                                        {(reviewObj.downvotes) ? reviewObj.downvotes.length : 0}
+                                    </Button>
+                                </Button.Group>
+                            </Row>
                         </Col>
                     </Row>
                 </div>
@@ -146,7 +167,12 @@ const Review = () => {
                 <div css={styles.MetadataContainer}>
                     <Row style={{ height: "100%", width: "100%" }}>
                         <Col xl={{ span: 6 }}>
-                            <Link to={`/user/${reviewObj.user._id}`}><p css={styles.MetaText} style={{ paddingLeft: "0.5%", width: "fit-content" }}>{reviewObj.user.username}</p></Link>
+                            <Link to={`/user/${reviewObj.user._id}`}>
+                                <p css={styles.MetaText} style={{ paddingLeft: "0.5%", width: "fit-content" }}>
+                                    <Icon type="user" style={{ marginRight: '1em' }}></Icon>
+                                    {reviewObj.user.username}
+                                </p>
+                            </Link>
                         </Col>
                         <Col xl={{ span: 18 }}>
                             <p css={styles.MetaText}>{moment(reviewObj.createdAt).format('llll')}</p>
@@ -158,22 +184,6 @@ const Review = () => {
                         <Col xl={{ span: 24 }}>
                             <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                                 <p style={{ textAlign: "justify", color: "black", fontWeight: "500", fontSize: "16px", marginBottom: "0" }}>"{reviewObj.content}"</p>
-                            </div>
-                        </Col>
-                    </Row>
-                </div>
-                <div css={styles.UpvoteDownvoteContainer}>
-                    <Row style={{ height: "100%", width: "100%" }}>
-                        <Col xl={{ span: 2 }}>
-                            <div style={{ display: "flex", cursor: "pointer", width: "fit-content" }}>
-                                <p css={styles.MetaText} style={{ paddingLeft: "0.5%", fontWeight: "700", fontSize: "14px" }}>{(reviewObj.upvotes) ? reviewObj.upvotes.length : 0}</p>
-                                <svg stroke="green" fill="transparent" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 2 26 26"><path d="M7 11h-6l11-11 11 11h-6v13h-10z"/></svg>
-                            </div>
-                        </Col>
-                        <Col xl={{ span: 22 }}>
-                            <div style={{ display: "flex", cursor: "pointer", width: "fit-content" }}>
-                                <p css={styles.MetaText} style={{ fontWeight: "700", fontSize: "14px" }}>{(reviewObj.downvotes) ? reviewObj.downvotes.length : 0}</p>
-                                <svg stroke="red" fill="transparent" style={{ transform: "rotate(180deg)" }} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 -3 25.5 25.5"><path d="M7 11h-6l11-11 11 11h-6v13h-10z"/></svg>                                    
                             </div>
                         </Col>
                     </Row>
