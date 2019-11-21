@@ -68,11 +68,6 @@ const Review = () => {
     const [isReviewDownvote, setIsReviewDownvote] = useState(false)
     const [isReviewVotePending, setReviewVotePending] = useState(false)
 
-
-    const axiosInstance = axios.create({
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-    });
-
     const location = useLocation()
     const reviewId = location.pathname.substring(8, location.pathname.length)
 
@@ -126,7 +121,7 @@ const Review = () => {
 
         } else {
             setReviewVotePending(true)
-            axiosInstance.patch(endpoint)
+            axios.patch(endpoint)
                 .then(res => {
                     let uid = localStorage.getItem('uid');
                     let message = type == voteType.UP ? "Successfully upvoted." : "Successfully downvoted."
