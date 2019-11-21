@@ -70,8 +70,7 @@ const Review = () => {
 
 
 
-    const axiousInstance = axios.create({
-
+    const axiosInstance = axios.create({
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
     });
 
@@ -134,7 +133,7 @@ const Review = () => {
 
         } else {
             if (item == voteItem.REVIEW) {
-                axiousInstance.patch(endpoint)
+                axiosInstance.patch(endpoint)
                     .then(res => {
                         if (type == voteType.DOWN) {
                             if (isReviewDownvote) {
