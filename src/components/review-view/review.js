@@ -6,6 +6,8 @@ import { useLocation, Link } from 'react-router-dom'
 import axios from 'axios'
 import moment from 'moment'
 import CommentSection from '../../layouts/comment-section/comment-section'
+import { toast } from 'react-toastify'
+import { totalmem } from 'os'
 // import mockData from './mock-comments'
 
 const { TextArea } = Input
@@ -53,20 +55,52 @@ const Review = () => {
     const [reviewObj, setReviewObj] = useState({
         rating: {},
         company: {},
-        user: {}
+        user: {},
+        upvotes: [],
+        downvotes: []
     })
+
     // const [salaryValue, setSalaryValue] = useState(0)
     const [commentsList, setCommentsList] = useState([])
     const [commentInput, setCommentInput] = useState("")
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [isReviewUpvote, setIsReviewUpvote] = useState(false)
+    const [isReviewDownvote, setIsReviewDownvote] = useState(false)
+    const [isReviewVotePending, setReviewVotePending] = useState(false)
+
+
+    const axiosInstance = axios.create({
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+    });
 
     const location = useLocation()
     const reviewId = location.pathname.substring(8, location.pathname.length)
 
+    const voteItem = {
+        COMMENT: "COMMENT",
+        REVIEW: "REVIEW"
+    }
+
+    const voteType = {
+        UP: "UP",
+        DOWN: "DOWN"
+    }
+
+    const reviewEndpoint = {
+        UP: `/review/${reviewId}/upvote`,
+        DOWN: `/review/${reviewId}/downvote`
+    }
+
+
     useEffect(() => {
+        const userId = localStorage.getItem('uid');
         window.scrollTo({ top: 0 })
         const fetchReview = async () => {
-            setReviewObj(await getReviewById(reviewId))
+
+            let review = await getReviewById(reviewId);
+            setReviewObj(review)
+            setIsReviewUpvote(review.upvotes.includes(userId))
+            setIsReviewDownvote(review.downvotes.includes(userId));
         }
         const fetchComments = async () => {
             setCommentsList(await getPopulatedComments(reviewId))
@@ -82,6 +116,36 @@ const Review = () => {
         setCommentInput(e.target.value)
     }
 
+
+    const handleVote = async (item, type, endpoint) => {
+        if (!localStorage.getItem('uid')) {
+            if (!toast.isActive('vote'))
+                toast.error("Login to upvote/downvote!", {
+                    toastId: "vote"
+                });
+
+        } else {
+            setReviewVotePending(true)
+            axiosInstance.patch(endpoint)
+                .then(res => {
+                    let uid = localStorage.getItem('uid');
+                    let message = type == voteType.UP ? "Successfully upvoted." : "Successfully downvoted."
+
+                    setReviewVotePending(false)
+
+                    setIsReviewUpvote(res.data.upvotes.includes(uid))
+                    setIsReviewDownvote(res.data.downvotes.includes(uid))
+
+                    toast.success(message)
+                    setReviewObj({
+                        ...reviewObj,
+                        upvotes: res.data.upvotes,
+                        downvotes: res.data.downvotes
+                    })
+                })
+        }
+    }
+
     const formatSalary = (salary) => {
         let formattedSalary = 0
         if (reviewObj.currency === "CAD" || reviewObj.currency === "USD") {
@@ -91,10 +155,6 @@ const Review = () => {
         }
         return formattedSalary
     }
-
-    const isUpvoted = false;
-    const isDownvoted = false;
-
     return (
         <Row style={{ height: "100%", width: "100%", paddingTop: "7%", paddingBottom: "3%", overflowY: "scroll" }}>
             <Col xl={{ span: 16, offset: 4 }} css={styles.ReviewViewCol}>
@@ -114,16 +174,22 @@ const Review = () => {
                         <Col xl={{ span: 3 }}>
                             <Row style={{ height: "100%", width: "100%" }}>
                                 <Button.Group size='large'>
-                                    <Button ghost={!isUpvoted} style={{ color: isUpvoted ? '#fff' : '#07bc0c', backgroundColor: '#07bc0c', borderColor: '#07bc0c' }}>
+                                    <Button
+                                        loading={isReviewVotePending}
+                                        onClick={() => handleVote(voteItem.REVIEW, voteType.UP, reviewEndpoint.UP)}
+                                        ghost={!isReviewUpvote}
+                                        style={{ color: isReviewUpvote ? '#fff' : '#07bc0c', backgroundColor: '#07bc0c', borderColor: '#07bc0c' }}
+                                    >
                                         <Icon type='up'></Icon>
-                                        {/* <svg stroke="green" fill="transparent" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 2 26 26"><path d="M7 11h-6l11-11 11 11h-6v13h-10z" /></svg> */}
                                         {(reviewObj.upvotes) ? reviewObj.upvotes.length : 0}
                                     </Button>
-                                    <Button ghost={!isDownvoted} style={{ color: isDownvoted ? '#fff' : '#ff4d4f', backgroundColor: '#ff4d4f', borderColor: '#ff4d4f' }}>
+                                    <Button
+                                        loading={isReviewVotePending}
+                                        onClick={() => handleVote(voteItem.REVIEW, voteType.DOWN, reviewEndpoint.DOWN)}
+                                        ghost={!isReviewDownvote}
+                                        style={{ color: isReviewDownvote ? '#fff' : '#ff4d4f', backgroundColor: '#ff4d4f', borderColor: '#ff4d4f' }}
+                                    >
                                         <Icon type='down'></Icon>
-                                        {/* <svg stroke="red" fill="transparent" style={{ transform: "rotate(180deg)" }} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 -3 25.5 25.5">
-                                            <path d="M7 11h-6l11-11 11 11h-6v13h-10z" />
-                                        </svg> */}
                                         {(reviewObj.downvotes) ? reviewObj.downvotes.length : 0}
                                     </Button>
                                 </Button.Group>
