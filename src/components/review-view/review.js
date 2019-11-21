@@ -160,13 +160,13 @@ const Review = () => {
                                 <img src={reviewObj.company.logo} style={{ objectFit: 'contain', width: '75%' }} alt="no_logo" />
                             </div>
                         </Col>
-                        <Col xl={{ span: 18 }} css={styles.CompanyNameCol}>
+                        <Col xl={{ span: 17 }} css={styles.CompanyNameCol}>
                             <div style={{ display: "flex", flexDirection: "row", width: "100%", height: "100%", alignItems: "center" }}>
                                 <h1 style={{ fontWeight: "500", paddingRight: "4%", marginBottom: "0" }}><Link to={`/company/${reviewObj.company._id}/reviews`} css={styles.CompanyNameLinkStyle}>{reviewObj.company.name}</Link></h1>
                                 <h1 style={{ fontWeight: "100", fontSize: "22px", marginBottom: "0", marginTop: "3.5px" }}>{reviewObj.company.location}</h1>
                             </div>
                         </Col>
-                        <Col xl={{ span: 3 }}>
+                        <Col xl={{ span: 4 }}>
                             <Row style={{ height: "100%", width: "100%" }}>
                                 <Button.Group size='large'>
                                     <Button
