@@ -60,7 +60,6 @@ const Review = () => {
         downvotes: []
     })
 
-    // const [salaryValue, setSalaryValue] = useState(0)
     const [commentsList, setCommentsList] = useState([])
     const [commentInput, setCommentInput] = useState("")
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -143,7 +142,8 @@ const Review = () => {
 
     const formatSalary = (salary) => {
         let formattedSalary = 0
-        if (reviewObj.currency === "CAD" || reviewObj.currency === "USD") {
+        let currenciesWithCents = ["CAD", 'USD', 'AUD', 'EUR']
+        if (currenciesWithCents.includes(reviewObj.currency)) {
             formattedSalary = (salary / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
         } else {
             formattedSalary = salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -197,7 +197,11 @@ const Review = () => {
                         <Col xl={{ span: 12 }} css={styles.ReviewPosSalCol}>
                             <div css={styles.ReviewPositionSalaryContainer}>
                                 <h3 css={styles.MetaText} style={{ marginBottom: "2.5%" }}><b style={{ paddingRight: "2%" }}>Position:</b> {reviewObj.position}</h3>
-                                <h3 css={styles.MetaText}><b style={{ paddingRight: "4.5%" }}>Salary:</b> ${reviewObj.salary ? formatSalary(reviewObj.salary) : "N/A"} {reviewObj.currency}</h3>
+                                <h3 css={styles.MetaText}>
+                                    <b style={{ paddingRight: "4.5%" }}>Salary:</b>
+                                    ${reviewObj.salary ? formatSalary(reviewObj.salary) : "N/A"} {reviewObj.currency}
+                                        {reviewObj.payPeriod && ' ' + reviewObj.payPeriod.toLowerCase()}
+                                </h3>
                             </div>
                         </Col>
                         <Col lg={{ span: 24 }} xl={{ span: 12 }} css={styles.ReviewRatingCol}>

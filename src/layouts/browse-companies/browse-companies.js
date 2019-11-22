@@ -52,7 +52,7 @@ const BrowseCompanies = () => {
             setFilteredCompanies(
                 allCompanies.filter(c => c.name.replace(/[\W_]+/g, '').toLowerCase().includes(filterTerm))
             )
-        }, 750));
+        }, 500));
     }
 
     const headerStyle = { fontWeight: "500" }
