@@ -1,7 +1,8 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
 import React, { useEffect, useState } from 'react'
-import { Row, Col, Form, Icon, Input, Button, Tooltip } from 'antd'
+import { Row, Col, Form, Icon, Input, Button, Tooltip, Select } from 'antd'
 import * as styles from './create-review.emotion' 
+import { useLocation } from 'react-router-dom'
 
 
 const hasErrors = (fieldsError) => {
@@ -9,8 +10,9 @@ const hasErrors = (fieldsError) => {
 }
 
 const CreateReviewForm = (props) => {
-
     const { getFieldDecorator } = props.form
+    let location = useLocation()
+    let companyName = location.pathname.split("/")[2]
 
     // useEffect(() => {
     //     props.form.validateFields()
@@ -48,7 +50,7 @@ const CreateReviewForm = (props) => {
             <Col xl={{ span: 16, offset: 4 }} css={styles.CreateReviewCol}>
                 <h1>Create a Review</h1> 
                 <Form {...formItemLayout} onSubmit={handleSubmit}>
-                    <Form.Item label="E-mail">
+                    <Form.Item label="E-mail" labelCol={{ span: 3, offset: 3 }} labelAlign="left">
                     {getFieldDecorator('email', {
                         rules: [
                         {
