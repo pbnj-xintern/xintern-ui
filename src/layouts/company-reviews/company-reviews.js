@@ -22,7 +22,7 @@ const getReviewsByCompany = async (companyId) => {
 const CompanyReviews = () => {
     const [reviewList, setReviewList] = useState([])
     const location = useLocation()
-    let companyId = location.pathname.split("/")[2]
+    let companyName = location.pathname.split("/")[2]
 
     useEffect(() => {
         const fetchCompanyReviews = async () => {
