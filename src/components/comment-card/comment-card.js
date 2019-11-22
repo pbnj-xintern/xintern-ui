@@ -1,9 +1,10 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
-import { Input, Form, Button, Comment, Tooltip, Icon, Card } from 'antd'
+import { Modal, Input, Form, Button, Comment, Tooltip, Icon, Card } from 'antd'
 import moment from 'moment'
 import * as styles from './comment-card.emotion'
 import { Link } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
+
 
 
 
@@ -21,9 +22,6 @@ const CommentCard = props => {
     const [replyTo, setReplyTo] = useState("")
     const [replyToProp, setReplyToProp] = useState({})
     const [commentInput, setCommentInput] = useState("")
-    let replyToCB = () => { }
-
-
     const { TextArea } = Input
     const ReplyModal = () => {
         return (
@@ -38,17 +36,31 @@ const CommentCard = props => {
 
 
             >
+                <div>
+                    <TextArea rows={4} onChange={handleChange} value={commentInput} />
+                    <Button styles={"left: 10%"} htmlType="submit" loading={false} onClick={handleSubmit} type="primary">
+                        Add Comment
+                </Button>
+                </div>
 
-
-                <Editor
-                    onChange={handleChange}
-                    onSubmit={handleSubmit}
-                    submitting={isSubmitting}
-                    value={commentInput} />
             </Modal>
         )
     }
 
+    function countDown() {
+        const modal = Modal.success({
+            title: <div>
+                <TextArea rows={4} onChange={handleChange} value={commentInput} />
+                <Button styles={"left: 10%"} htmlType="submit" loading={false} onClick={handleSubmit} type="primary">
+                    Add Comment
+                </Button>
+            </div>,
+            content: commentInput
+
+            ,
+        });
+
+    }
 
     const Editor = ({ onChange, onSubmit, submitting, value }) => (
         <div>
@@ -56,7 +68,7 @@ const CommentCard = props => {
                 <TextArea rows={4} onChange={onChange} value={value} />
             </Form.Item>
             <Form.Item>
-                <Button styles={"left: 10%"} htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
+                <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
                     Add Comment
         </Button>
             </Form.Item>
@@ -64,8 +76,9 @@ const CommentCard = props => {
     )
 
     const handleChange = e => {
-        console.log(modalVisible)
+        console.log('handlechange is fired')
         setCommentInput(e.target.value)
+        console.log(e.target.value)
     }
     const handleSubmit = () => {
         console.log("hello")
@@ -93,9 +106,8 @@ const CommentCard = props => {
             </Tooltip>
             <span style={{ paddingLeft: 8, cursor: 'auto' }}>{props.downvotes.length}</span>
         </span>,
-        <span key="comment-basic-reply-to" onClick={() => { setModalVisible(true); setReplyTo(props.author.username); setReplyToProp(props) }}>Reply to this comment</span>,
+        <span key="comment-basic-reply-to" onClick={() => setModalVisible(true)}>Reply to this comment</span>,
     ];
-
 
     return (
         <Card bordered={false}
@@ -122,15 +134,24 @@ const CommentCard = props => {
                     </Tooltip>
                 }
             >
+                <Comment
+                                
+                                content={
+                                    <Editor
+                                        onChange={handleChange}
+                                        onSubmit={handleSubmit}
+                                        submitting={isSubmitting}
+                                        value={commentInput}
+                                    />
+                                }
+                            />
+                
                 {props.replies && props.replies.map(reply => <CommentCard {...reply} />)}
 
             </Comment>
-            {/* {modalVisible ? <ReplyModal /> : <ReplyModal />} */}
-            <ReplyModal />
+            
 
         </Card>
-
-
     )
 }
 
