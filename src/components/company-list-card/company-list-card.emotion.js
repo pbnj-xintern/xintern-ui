@@ -82,7 +82,7 @@ export const CompanyText = css`
     margin: 0em 0em;
     padding-left: 5%;
     font-size: 25px;
-    width: 250px;
+    width: 600px;
     color: black;
     height: 100%;
     // margin-left: 0;

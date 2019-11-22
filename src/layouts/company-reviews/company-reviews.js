@@ -6,9 +6,9 @@ import ReviewListCard from '../../components/review-list-card/review-list-card'
 
 import { Row, Col, List } from 'antd'
 
-const getReviewsByCompany = async (companyId) => {
+const getReviewsByCompany = async (companyName) => {
     try {
-        let response = await axios.get(`/company/${companyId}/reviews`)
+        let response = await axios.get(`/companies/${companyName}/reviews`)
         if (response.data.length == 0 || response.data.error) {
             console.error("no company reviews")
             return []
@@ -22,11 +22,11 @@ const getReviewsByCompany = async (companyId) => {
 const CompanyReviews = () => {
     const [reviewList, setReviewList] = useState([])
     const location = useLocation()
-    let companyId = location.pathname.split("/")[2]
+    let companyName = location.pathname.split("/")[2]
 
     useEffect(() => {
         const fetchCompanyReviews = async () => {
-            setReviewList(await getReviewsByCompany(companyId))
+            setReviewList(await getReviewsByCompany(companyName))
         }
         fetchCompanyReviews()
     }, [])
