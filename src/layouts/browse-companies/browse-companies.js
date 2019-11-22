@@ -65,17 +65,27 @@ const BrowseCompanies = () => {
     }
 
     const getSidebarButtons = () => {
-        let buttonList = [];
-        buttonList.push(<li
-            id='rolodex'
-            onClick={() => jumpToId('#')}
-            style={{
-                cursor: 'pointer',
-                transition: 'all .1s ease-in-out'
-            }}
-        >
-            #
-        </li>)
+        let buttonList = [
+            <li
+                id='rolodex'
+                onClick={() => window.scrollTo({ top: 0 })}
+                style={{
+                    cursor: 'default',
+                    transition: 'all .2s ease-in-out'
+                }}>
+                <b>Jump To:</b>
+            </li>,
+            <li
+                id='rolodex'
+                onClick={() => jumpToId('#')}
+                style={{
+                    cursor: 'pointer',
+                    transition: 'all .2s ease-in-out'
+                }}
+            >
+                #
+            </li>
+        ];
         for (var i = 0; i < 26; i++) {
             let letter = String.fromCharCode(65 + i)
             buttonList.push(<li
@@ -95,30 +105,6 @@ const BrowseCompanies = () => {
     return (
         <div>
             <Row>
-                <Col md={1} style={{
-                    position: 'sticky',
-                    width: '60px',
-                    top: '10%',
-                    right: '0',
-                    zIndex: '100'
-                }}>
-                    {!isLoading &&
-                        <ul style={{
-                            listStyleType: 'none',
-                            fontWeight: '15px'
-                        }}>
-                            <li
-                                id='rolodex'
-                                style={{
-                                    cursor: 'default',
-                                    transition: 'all .2s ease-in-out'
-                                }}>
-                                <b>Jump To:</b>
-                            </li>
-                            {getSidebarButtons()}
-                        </ul>
-                    }
-                </Col>
                 <Col md={23}>
                     <Row style={{ paddingTop: '5%' }} >
                         {
@@ -151,6 +137,22 @@ const BrowseCompanies = () => {
                                     renderItem={item => <List.Item className={item.cname} style={{ padding: "0 !important" }}>{item.domElement}</List.Item>}
                                 /> :
                                 <h2>{!isLoading && "No Companies Found"} </h2>
+                            }
+                        </Col>
+                        <Col md={1} style={{
+                            position: 'sticky',
+                            width: '60px',
+                            top: '10%',
+                            right: '0',
+                            zIndex: '100'
+                        }}>
+                            {!isLoading &&
+                                <ul style={{
+                                    listStyleType: 'none',
+                                    fontWeight: '15px'
+                                }}>
+                                    {getSidebarButtons()}
+                                </ul>
                             }
                         </Col>
                     </Row>
