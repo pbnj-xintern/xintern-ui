@@ -14,7 +14,7 @@ const CompanyListCard = (props) => {
     return (
         <Card css={styles.CardContainer} bordered={false} bodyStyle={styles.CardBodyStyle}>
             <Row style={{ height: '100%' }}>
-                <Link to={`/company/${props._id}/reviews`}>
+                <Link to={`/company/${props.name}/reviews`}>
                     <Col lg={{ span: 4 }} xl={{ span: 3 }} css={styles.CompanyLogoCol}>
                         <div css={styles.CompanyLogoContainer}>
                             <img src={props.logo} style={{ objectFit: 'contain', width: '75%' }} alt="no_logo" />
@@ -23,7 +23,7 @@ const CompanyListCard = (props) => {
                 </Link>
                 <Col lg={{ span: 20 }} xl={{ span: 21 }} css={styles.CompanyInfoCol}>
                     <div css={styles.CompanyInfoContainer}>
-                        <Link to={`/company/${props._id}/reviews`}>
+                        <Link to={`/company/${props.name}/reviews`}>
                             <h4 css={styles.CompanyText}>{props.name}</h4>  
                         </Link>
                         <Button onClick={handleOnCreateReview} style={{ position: "absolute", right: "0" }}>Create Review</Button>                      
