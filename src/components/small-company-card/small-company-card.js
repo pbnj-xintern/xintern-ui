@@ -8,7 +8,7 @@ const SmallCompanyCard = props => {
 
     return (
         <Card bordered={false} bodyStyle={styles.BodyStyle} css={styles.Card}>
-            <Link to={`/company/${props._id}/reviews`}>
+            <Link to={`/company/${props.name}/reviews`}>
                 <Row>
                     <Col md={{ span: 24 }} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
                         <div css={styles.ImageContainer}>

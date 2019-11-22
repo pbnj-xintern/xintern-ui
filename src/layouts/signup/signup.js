@@ -148,8 +148,6 @@ const Signup = () => {
                 delete body[k]
         })
 
-        console.log('body is ', body)
-
         let response = await Axios
             .post('https://3u3ckfdn26.execute-api.us-east-2.amazonaws.com/dev/user', formInfo)
             .catch(e => {

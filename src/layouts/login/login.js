@@ -29,7 +29,10 @@ const Login = props => {
     const [toHome, setToHome] = useState(false)
 
     useEffect(() => {
-        setUsername(props.location.state ? props.location.state.username : '')
+        console.log('props.location', props.location)
+        if (props.location.state) {
+            setUsername(props.location.state.username || '')
+        }
     }, [])
 
     const changeUsername = e => {
@@ -57,6 +60,7 @@ const Login = props => {
         if (response.status === 200) {
             let token = response.data.token
             localStorage.setItem('token', token)
+            localStorage.setItem('uid', response.data.uid)
             toast.success('Successfully logged in!')
 
             changeAuthState({ type: 'CHANGE_AUTH_STATE', isAuth: true })
@@ -86,6 +90,7 @@ const Login = props => {
                                     disabled={formDisable}
                                     prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                     placeholder="Username"
+                                    value={username}
                                     onChange={changeUsername}
                                 />
                             </Form.Item>
@@ -94,6 +99,7 @@ const Login = props => {
                                     disabled={formDisable}
                                     prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                     type="password"
+                                    value={password}
                                     placeholder="Password"
                                     onChange={changePassword}
                                     onKeyPress={handleEnterKey}

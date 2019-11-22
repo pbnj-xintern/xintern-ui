@@ -9,7 +9,7 @@ import axios from 'axios'
 
 const getTopCompanies = async () => {
     try {
-        let res = await axios.get('https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/topCompanies')
+        let res = await axios.get('/companies/top')
         if (res.status === 500) {
             console.error('Could not get top companies')
             return []
@@ -29,7 +29,7 @@ const getTopCompanies = async () => {
 
 const getRecentReviews = async () => {
     try {
-        let response = await axios.get('https://mmu5kk85li.execute-api.us-east-2.amazonaws.com/dev/review/recent')
+        let response = await axios.get('/review/recent')
         if (response.data.length == 0 || response.data.error) {
             console.error("no recent reviews")
             return []
@@ -69,7 +69,7 @@ const Homepage = () => {
                 justifyContent: 'center',
                 opacity: 0.98
             }}>
-                <h1 style={{ color: 'white', fontSize: "3em", fontWeight: "200" }}>See what other students said about their internships!<SearchBar search={true} /></h1>
+                <h1 style={{ color: 'white', fontSize: "3em", fontWeight: "200" }}>See what other students said about their internships!<br></br><SearchBar search={true} /></h1>
             </div>
             {!isTopCompaniesEmpty &&
                 <Row css={styles.outerCarouselDiv} style={{paddingTop: '5%', paddingBottom: '5%'}}>
