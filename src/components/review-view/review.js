@@ -1,6 +1,6 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
 import React, { useState, useEffect } from 'react'
-import { Comment, Avatar, Row, Col, Form, Input, Button, Icon } from 'antd'
+import { Modal, Comment, Avatar, Row, Col, Form, Input, Button, Icon } from 'antd'
 import * as styles from './review.emotion'
 import { useLocation, Link } from 'react-router-dom'
 import axios from 'axios'
@@ -70,7 +70,7 @@ const Review = () => {
 
     const location = useLocation()
     const reviewId = location.pathname.substring(8, location.pathname.length)
-
+    let [replyTo, setReplyTo] = useState("")
     const voteItem = {
         COMMENT: "COMMENT",
         REVIEW: "REVIEW"
@@ -85,6 +85,8 @@ const Review = () => {
         UP: `/review/${reviewId}/upvote`,
         DOWN: `/review/${reviewId}/downvote`
     }
+
+
 
 
     useEffect(() => {
@@ -105,12 +107,28 @@ const Review = () => {
     }, [reviewId])
 
     const handleSubmit = () => {
+        let uid = localStorage.getItem('uid');
+        if (uid){
+            axios.post(`review/${reviewId}/comment`, {
+                parent_comment_id: replyTo,
+                content: commentInput,
+                author: uid
+            }).then(res => {
+                res.data.comment.author = {username: "You"}
+                setCommentsList(commentsList.concat(res.data.comment))
+                setCommentInput("");
+                setReplyTo("")
+            })
+        }else if (!toast.isActive('vote')){
+            toast.error("Login to upvote/downvote!", {
+                toastId: "vote"
+            });   
+        }
     }
 
     const handleChange = e => {
         setCommentInput(e.target.value)
     }
-
 
     const handleVote = async (item, type, endpoint) => {
         if (!localStorage.getItem('uid')) {
@@ -125,12 +143,9 @@ const Review = () => {
                 .then(res => {
                     let uid = localStorage.getItem('uid');
                     let message = type == voteType.UP ? "Successfully upvoted." : "Successfully downvoted."
-
                     setReviewVotePending(false)
-
                     setIsReviewUpvote(res.data.upvotes.includes(uid))
                     setIsReviewDownvote(res.data.downvotes.includes(uid))
-
                     toast.success(message)
                     setReviewObj({
                         ...reviewObj,
@@ -150,6 +165,7 @@ const Review = () => {
         }
         return formattedSalary
     }
+
     return (
         <Row style={{ height: "100%", width: "100%", paddingTop: "7%", paddingBottom: "3%", overflowY: "scroll" }}>
             <Col xl={{ span: 16, offset: 4 }} css={styles.ReviewViewCol}>
@@ -160,13 +176,13 @@ const Review = () => {
                                 <img src={reviewObj.company.logo} style={{ objectFit: 'contain', width: '75%' }} alt="no_logo" />
                             </div>
                         </Col>
-                        <Col xl={{ span: 18 }} css={styles.CompanyNameCol}>
+                        <Col xl={{ span: 17 }} css={styles.CompanyNameCol}>
                             <div style={{ display: "flex", flexDirection: "row", width: "100%", height: "100%", alignItems: "center" }}>
                                 <h1 style={{ fontWeight: "500", paddingRight: "4%", marginBottom: "0" }}><Link to={`/company/${reviewObj.company._id}/reviews`} css={styles.CompanyNameLinkStyle}>{reviewObj.company.name}</Link></h1>
                                 <h1 style={{ fontWeight: "100", fontSize: "22px", marginBottom: "0", marginTop: "3.5px" }}>{reviewObj.company.location}</h1>
                             </div>
                         </Col>
-                        <Col xl={{ span: 3 }}>
+                        <Col xl={{ span: 4 }}>
                             <Row style={{ height: "100%", width: "100%" }}>
                                 <Button.Group size='large'>
                                     <Button
@@ -271,7 +287,7 @@ const Review = () => {
                 <div css={styles.CommentsContainer}>
                     <Row style={{ height: "100%", width: "100%" }}>
                         <Col xl={{ span: 24 }} style={{ paddingTop: "1%" }}>
-                            <CommentSection data={commentsList} />
+                            <CommentSection data={commentsList} postReply = {author => console.log(author)}/>
                         </Col>
                     </Row>
                 </div>
