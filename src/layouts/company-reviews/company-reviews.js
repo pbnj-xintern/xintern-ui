@@ -1,15 +1,15 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
-import React, { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { Col, List, Row } from 'antd'
 import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import ReviewListCard from '../../components/review-list-card/review-list-card'
 
-import { Row, Col, List } from 'antd'
 
 const getReviewsByCompany = async (companyName) => {
     try {
         let response = await axios.get(`/companies/${companyName}/reviews`)
-        if (response.data.length == 0 || response.data.error) {
+        if (response.data.length === 0 || response.data.error) {
             console.error("no company reviews")
             return []
         }

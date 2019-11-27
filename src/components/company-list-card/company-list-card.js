@@ -1,5 +1,4 @@
-/** @jsx jsx */ import { jsx, css } from '@emotion/core'
-import React, { useState, useEffect } from 'react'
+/** @jsx jsx */ import { jsx } from '@emotion/core'
 import * as styles from './company-list-card.emotion'
 import { Card, Row, Col, Button } from 'antd'
 import { Link, useHistory } from 'react-router-dom'

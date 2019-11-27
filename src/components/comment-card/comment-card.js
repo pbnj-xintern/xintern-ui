@@ -20,8 +20,8 @@ const CommentCard = props => {
 
     useEffect(() => {
         let initialUid = localStorage.getItem('uid')
-        setUpvotes(props.upvotes)
-        setDownvotes(props.downvotes)
+        setUpvotes(props.upvotes || [])
+        setDownvotes(props.downvotes || [])
         setIsUpvoted(initialUid ? props.upvotes.includes(localStorage.getItem('uid')) : false)
         setIsDownvoted(initialUid ? props.downvotes.includes(localStorage.getItem('uid')) : false)
     }, [])
@@ -85,7 +85,7 @@ const CommentCard = props => {
                 marginTop: '0.5em',
                 marginBottom: '0.5em',
                 marginRight: '1em',
-                boxShadow: props.parentComment ? 'none' : '6px 10px 31px -17px rgba(0,0,0,0.1)',
+                boxShadow: props.parentComment ? 'none' : '6px 10px 31px -17px rgba(0,0,0,0.05)',
                 borderLeft: '1px solid black',
             }}
             bodyStyle={{

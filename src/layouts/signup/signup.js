@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { Row, Col, Card, Form, Icon, Input, InputNumber, Button, Checkbox, Tooltip } from 'antd'
-import { toast } from 'react-toastify'
+import { Button, Card, Checkbox, Col, Form, Icon, Input, Row, Tooltip } from 'antd'
 import Axios from 'axios'
+import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const Signup = () => {
 
@@ -111,7 +111,7 @@ const Signup = () => {
         if (inputRules[key].includeArr) {
             let originalLength = inputRules[key].includeArr.length
             let newLength = inputRules[key].includeArr.filter(substr => value.toLowerCase().includes(substr)).length
-            includeCheck = originalLength == newLength
+            includeCheck = originalLength === newLength
         }
 
         let valid = maxLimitCheck && minLimitCheck && minCheck && maxCheck && requiredCheck && includeCheck
@@ -161,14 +161,14 @@ const Signup = () => {
             return
         }
 
-        if (response.status != 201) {
+        if (response.status !== 201) {
             console.error(response.status, response.message)
             toast.error('Could not create an account')
             setLoading(false)
             return
         }
 
-        if (response.status = 201) {
+        if (response.status === 201) {
             toast('Welcome to xIntern!')
             setSuccessfulSignup(true)
             setLoading(false)

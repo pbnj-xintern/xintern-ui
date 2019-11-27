@@ -1,6 +1,5 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
-import React, { useState } from 'react'
-import { Row, Col, Card } from 'antd'
+import { Card, Col, Row } from 'antd'
 import { Link } from 'react-router-dom'
 import * as styles from './small-company-card.emotion'
 

@@ -30,7 +30,7 @@ const getTopCompanies = async () => {
 const getRecentReviews = async () => {
     try {
         let response = await axios.get('/review/recent')
-        if (response.data.length == 0 || response.data.error) {
+        if (response.data.length === 0 || response.data.error) {
             console.error("no recent reviews")
             return []
         }

@@ -1,8 +1,8 @@
 
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Menu, Icon } from 'antd';
 import SearchBar from '../search-bar/index'
-import { Redirect, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { useAuthState } from '../../state/auth-state'
 
@@ -13,7 +13,7 @@ const Navbar = (props) => {
 
     // HOOKS
     const [authState, changeAuthState] = useAuthState();
-    
+
     const [isTop, setIsTop] = useState({})
     useEffect(() => {
         window.onscroll = () => {
@@ -25,16 +25,16 @@ const Navbar = (props) => {
 
     //FUNCTIONS
     const logout = () => {
-        if (window.confirm("Are you sure you want to log out?")) {
-            localStorage.clear()
-            toast.info('Successfully logged out')
-            changeAuthState({ type: "CHANGE_AUTH_STATE", isAuth: false })
-        }
+        localStorage.clear()
+        toast.info('Successfully logged out')
+        changeAuthState({ type: "CHANGE_AUTH_STATE", isAuth: false })
     }
 
 
     const authItems = [
-        <Menu.Item onClick={logout} style={menuItemStyle} key="2"><Icon type='logout' />Logout</Menu.Item>,
+        <Menu.Item onClick={logout} style={menuItemStyle} key="2">
+            <Link to={`/`}><Icon type='logout' />Logout</Link>
+        </Menu.Item>,
         <Menu.Item style={menuItemStyle} key="3">
             <Link to={`/me`}><Icon type='user' />My Profile</Link>
         </Menu.Item>
@@ -59,7 +59,8 @@ const Navbar = (props) => {
                 ...menuStyle,
                 lineHeight: isTop ? '64px' : '40px',
                 backgroundColor: isTop ? '#1561ad' : 'rgba(0,0,0,0.6)',
-                transition: 'all .1s ease-in-out'
+                transition: 'all .1s ease-in-out',
+                boxShadow: isTop ? 'none' : '10px 10px 31px -17px rgba(0,0,0,0.7)'
             }}
         >
             <Menu.Item style={{ float: 'left' }} key="1">
@@ -75,9 +76,7 @@ const Navbar = (props) => {
                     authItems :
                     unauthItems
             }
-        </Menu>
-
-
+        </Menu >
     )
 }
 

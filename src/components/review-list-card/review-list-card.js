@@ -1,25 +1,26 @@
-/** @jsx jsx */ import { jsx, css } from '@emotion/core'
-import React, { useState, useEffect } from 'react'
-import * as styles from './review-list-card.emotion'
+/** @jsx jsx */ import { jsx } from '@emotion/core'
+import { Anchor, Card, Col, Row } from 'antd'
 import moment from 'moment'
+import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import * as styles from './review-list-card.emotion'
 
-import { Card, Row, Col, Anchor } from 'antd'
 
 const ReviewListCard = (props) => {
     const [reviewObj, setReviewObj] = useState({})
-    const { Link } = Anchor
+
+    const getAllMetrics = (props) => {
+        let allRatings = [props.rating.culture, props.rating.mentorship, props.rating.impact, props.rating.interview]
+        allRatings = allRatings.filter(rating => rating !== null)
+        let upvotesCount = props.upvotes.length
+        let downvotesCount = props.downvotes.length
+        let commentsCount = props.comments.length
+        let overallRating = ((allRatings.reduce((a, b) => a + b, 0)) / allRatings.length).toFixed(1)
+        return { overallRating, upvotesCount, downvotesCount, commentsCount }
+    }
 
     useEffect(() => {
-        const getAllMetrics = (props) => {
-            let allRatings = [props.rating.culture, props.rating.mentorship, props.rating.impact, props.rating.interview]
-            allRatings = allRatings.filter(rating => rating !== null)
-            let upvotesCount = props.upvotes.length
-            let downvotesCount = props.downvotes.length
-            let commentsCount = props.comments.length
-            let overallRating = ((allRatings.reduce((a, b) => a + b, 0)) / allRatings.length).toFixed(1)
-            return { overallRating, upvotesCount, downvotesCount, commentsCount }
-        }
+
         let metrics = getAllMetrics(props)
         let formattedCreatedAt = moment(props.createdAt).format("llll")
         setReviewObj({

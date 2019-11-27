@@ -1,14 +1,12 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
-import React, { useState, useEffect } from 'react'
-import { Comment, Avatar, Row, Col, Form, Input, Button, Icon } from 'antd'
-import * as styles from './review.emotion'
-import { useLocation, Link } from 'react-router-dom'
+import { Avatar, Button, Col, Comment, Form, Icon, Input, Row } from 'antd'
 import axios from 'axios'
 import moment from 'moment'
-import CommentSection from '../../layouts/comment-section/comment-section'
+import { useEffect, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { totalmem } from 'os'
-// import mockData from './mock-comments'
+import CommentSection from '../../layouts/comment-section/comment-section'
+import * as styles from './review.emotion'
 
 const { TextArea } = Input
 
@@ -123,7 +121,7 @@ const Review = () => {
             axios.patch(endpoint)
                 .then(res => {
                     let uid = localStorage.getItem('uid');
-                    let message = type == voteType.UP ? "Successfully upvoted." : "Successfully downvoted."
+                    let message = type === voteType.UP ? "Successfully upvoted." : "Successfully downvoted."
 
                     setReviewVotePending(false)
 

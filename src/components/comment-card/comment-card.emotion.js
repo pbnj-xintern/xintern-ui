@@ -7,3 +7,10 @@ export const UsernameLink = css`
         color: #1890ff;
     }
 `
+
+export const CommentCardHover = css`
+
+    &:hover {
+        border: 1px solid rgba(0,0,0,0.1)
+    }
+`

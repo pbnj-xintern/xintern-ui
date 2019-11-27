@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { AuthContextProvider } from './state/auth-state'
 import Navbar from './components/navbar/navbar'
