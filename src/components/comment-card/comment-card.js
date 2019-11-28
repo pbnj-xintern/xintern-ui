@@ -1,5 +1,5 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
-import { Modal, Input, Form, Button, Comment, Tooltip, Icon, Card } from 'antd'
+import {Input, Form, Button, Comment, Tooltip, Icon, Card } from 'antd'
 import moment from 'moment'
 import * as styles from './comment-card.emotion'
 import { Link } from 'react-router-dom'

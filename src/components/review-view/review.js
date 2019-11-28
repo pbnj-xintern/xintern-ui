@@ -118,7 +118,6 @@ const Review = () => {
                 if (!reply) {
                     setCommentsList(commentsList.concat(res.data.comment))
                     setCommentInput("");
-                    //setReplyTo("")
                 }else{
 
                     setCommentsList(bfs(reply, res.data.comment));
