@@ -6,7 +6,7 @@ const CommentSection = props => {
     return (
         <div>
             {
-                props.data.map(comment => <CommentCard {...comment} />)
+                props.data.map(comment => <CommentCard {...comment} postReply={props.postReply}/>)
             }
         </div>
     )

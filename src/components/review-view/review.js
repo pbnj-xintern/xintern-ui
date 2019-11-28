@@ -101,7 +101,73 @@ const Review = () => {
         fetchComments()
     }, [reviewId])
 
-    const handleSubmit = () => {
+    const handleSubmit = (reply, comment) => {
+        let uid = localStorage.getItem('uid');
+        console.log({
+            parent_comment_id: reply,
+            content: commentInput,
+            author: uid
+        }, "commentinput")
+        if (uid) {
+            axios.post(`review/${reviewId}/comment`, {
+                parent_comment_id: reply,
+                content: commentInput || comment,
+                author: uid
+            }).then(res => {
+                res.data.comment.author = { username: "You" }
+                if (!reply) {
+                    setCommentsList(commentsList.concat(res.data.comment))
+                    setCommentInput("");
+                    //setReplyTo("")
+                }else{
+
+                    setCommentsList(bfs(reply, res.data.comment));
+                    setCommentInput("")
+
+                    
+                }
+                
+
+            })
+        } else if (!toast.isActive('vote')) {
+            toast.error("Login to upvote/downvote!", {
+                toastId: "vote"
+            });
+        }
+    }
+    const replyCB = (comment, author, parentComment) => {
+        console.log(comment)
+        // setReplyComment(comment)
+        handleSubmit(parentComment, comment)
+    }
+
+    function bfs(key, comment) {
+        let newList = commentsList.concat();
+        for (var el in newList) {
+            console.log(key, 'key')
+            if (bfs_helper(newList[el], key, comment)) {
+                return newList
+            }
+        }
+        // console.log("looking for", key)
+        return newList;
+    }
+    function bfs_helper(el, key, comment) {
+        let queue = [el];
+        while (queue.length > 0) {
+            let node = queue.shift();
+            if (node._id === key) {
+                console.log('exit')
+                node.replies = !node.replies ? [comment] : node.replies.concat(comment)
+                return true;
+            }
+            if (node.replies) {
+                console.log(node.replies, 'replies')
+                queue = queue.concat(node.replies)
+            }
+            
+        }
+        return false
     }
 
     const handleChange = e => {
@@ -261,7 +327,7 @@ const Review = () => {
                                 content={
                                     <Editor
                                         onChange={handleChange}
-                                        onSubmit={handleSubmit}
+                                        onSubmit={() => handleSubmit("")}
                                         submitting={isSubmitting}
                                         value={commentInput}
                                     />
@@ -273,7 +339,9 @@ const Review = () => {
                 <div css={styles.CommentsContainer}>
                     <Row style={{ height: "100%", width: "100%" }}>
                         <Col xl={{ span: 24 }} style={{ paddingTop: "1%" }}>
-                            <CommentSection data={commentsList} />
+                        <CommentSection data={commentsList} 
+                             postReply={(comment, author, parentComment) => replyCB(comment, author, parentComment)} 
+                            />
                         </Col>
                     </Row>
                 </div>
