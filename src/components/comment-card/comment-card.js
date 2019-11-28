@@ -19,7 +19,6 @@ const CommentCard = props => {
     let [isUpvoted, setIsUpvoted] = useState(false)
     const [commentInput, setCommentInput] = useState("")
     const [editorVisible, setEditorVisible] = useState(false)
-    const [commentPendingList, setCommentPendingList] = useState({})
     const [loading, setLoading] = useState(false)
     const { TextArea } = Input
 
