@@ -101,7 +101,7 @@ const Review = () => {
         fetchComments()
     }, [reviewId])
 
-    const handleSubmit = (reply, comment) => {
+    const handleSubmit = (reply, comment, handleAfterReply) => {
         let uid = localStorage.getItem('uid');
         console.log({
             parent_comment_id: reply,
@@ -123,6 +123,10 @@ const Review = () => {
 
                     setCommentsList(bfs(reply, res.data.comment));
                     setCommentInput("")
+                    if(handleAfterReply){
+                        handleAfterReply()
+                        console.log(handleAfterReply)
+                    }
 
                     
                 }
@@ -135,16 +139,14 @@ const Review = () => {
             });
         }
     }
-    const replyCB = (comment, author, parentComment) => {
-        console.log(comment)
-        // setReplyComment(comment)
-        handleSubmit(parentComment, comment)
+    const replyCB = (comment, author, parentComment, afterReplyCB) => {
+        console.log(afterReplyCB)
+        handleSubmit(parentComment, comment, afterReplyCB)
     }
 
     function bfs(key, comment) {
         let newList = commentsList.concat();
         for (var el in newList) {
-            console.log(key, 'key')
             if (bfs_helper(newList[el], key, comment)) {
                 return newList
             }
@@ -157,12 +159,10 @@ const Review = () => {
         while (queue.length > 0) {
             let node = queue.shift();
             if (node._id === key) {
-                console.log('exit')
                 node.replies = !node.replies ? [comment] : node.replies.concat(comment)
                 return true;
             }
             if (node.replies) {
-                console.log(node.replies, 'replies')
                 queue = queue.concat(node.replies)
             }
             
@@ -340,7 +340,7 @@ const Review = () => {
                     <Row style={{ height: "100%", width: "100%" }}>
                         <Col xl={{ span: 24 }} style={{ paddingTop: "1%" }}>
                         <CommentSection data={commentsList} 
-                             postReply={(comment, author, parentComment) => replyCB(comment, author, parentComment)} 
+                             postReply={(comment, author, parentComment, afterReply) => replyCB(comment, author, parentComment, afterReply)} 
                             />
                         </Col>
                     </Row>

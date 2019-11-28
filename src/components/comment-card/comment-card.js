@@ -20,6 +20,7 @@ const CommentCard = props => {
     const [commentInput, setCommentInput] = useState("")
     const [editorVisible, setEditorVisible] = useState(false)
     const [commentPendingList, setCommentPendingList] = useState({})
+    const [loading, setLoading] = useState(false)
     const { TextArea } = Input
 
     useEffect(() => {
@@ -33,15 +34,16 @@ const CommentCard = props => {
     const handleChange = e => {
         setCommentInput(e.target.value)
     }
+    function afterReply() {
+        console.log("called");
+        setLoading(false)
+        setEditorVisible(false)
+    }
 
     const handleReply = (props) => {
-        // props.postReply({
-        //     content: commentInput,
-        //     author : "you",
-        //     parentComment : props._id,
-        // })
-        props.postReply(commentInput, "you", props._id)
-        setEditorVisible(false)
+        setLoading(true)
+        props.postReply(commentInput, "you", props._id, afterReply)
+       
     }
 
     var voteComment = type => {
@@ -127,7 +129,7 @@ const CommentCard = props => {
                             <TextArea rows={4} onChange={handleChange} value={commentInput} />
                         </Form.Item>
                         <Form.Item>
-                            <Button htmlType="submit" onClick={() => handleReply(props)} type="primary" >
+                            <Button htmlType="submit" onClick={() => handleReply(props)} type="primary" loading={loading}>
                                 Add Comment
                             </Button>
                         </Form.Item>
