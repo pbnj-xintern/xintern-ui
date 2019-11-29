@@ -10,24 +10,12 @@ import * as styles from './review.emotion'
 
 const { TextArea } = Input
 
-const Editor = ({ onChange, onSubmit, submitting, value }) => (
-    <div>
-        <Form.Item>
-            <TextArea rows={4} onChange={onChange} value={value} />
-        </Form.Item>
-        <Form.Item>
-            <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
-                Add Comment
-        </Button>
-        </Form.Item>
-    </div>
-)
+
 
 const getPopulatedComments = async (reviewId) => {
     try {
         let response = await axios.get(`/comments/${reviewId}`)
         if (response.data.error) {
-            console.error("no comments to pull")
             return []
         }
         return response.data
@@ -48,7 +36,31 @@ const getReviewById = async (reviewId) => {
         console.error("error getting a populated review")
     }
 }
+const Editor = props => {
+    const [isLoading, setIsLoading] = useState(false)
+    const [comment, setComment] = useState("")
 
+    const handleChange = e => {
+        setComment(e.target.value)
+    }
+
+    const afterCommentCB = () => {
+        setIsLoading(false)
+    }
+
+    return (
+        <div>
+            <Form.Item>
+                <TextArea rows={4} onChange={handleChange} value={comment} disabled={isLoading} />
+            </Form.Item>
+            <Form.Item>
+                <Button htmlType="submit" loading={isLoading} onClick={() => {props.submissionHandler(comment, afterCommentCB); setComment(""); setIsLoading(true)}} type="primary">
+                    Add Comment
+                                            </Button>
+            </Form.Item>
+        </div>
+    )
+}
 const Review = () => {
     const [reviewObj, setReviewObj] = useState({
         rating: {},
@@ -64,7 +76,7 @@ const Review = () => {
     const [isReviewUpvote, setIsReviewUpvote] = useState(false)
     const [isReviewDownvote, setIsReviewDownvote] = useState(false)
     const [isReviewVotePending, setReviewVotePending] = useState(false)
-
+    const [commentLoading, setCommentLoading] = useState(false)
     const location = useLocation()
     const reviewId = location.pathname.substring(8, location.pathname.length)
 
@@ -101,12 +113,61 @@ const Review = () => {
         fetchComments()
     }, [reviewId])
 
-    const handleSubmit = () => {
+    const handleSubmit = (reply, comment, cb) => {
+        let uid = localStorage.getItem('uid');
+        if (uid) {
+            setIsSubmitting(true);
+            axios.post(`review/${reviewId}/comment`, {
+                parent_comment_id: reply,
+                content: commentInput || comment,
+                author: uid
+            }).then(res => {
+                res.data.comment.author = { username: "You" }
+                if (!reply) {
+                    setCommentsList(commentsList.concat(res.data.comment))
+                    setCommentInput("");
+                } else {
+                    setIsSubmitting(false)
+                    setCommentsList(bfs(reply, res.data.comment));
+                    setCommentInput("")
+                }
+                cb()
+            })
+        } else if (!toast.isActive('vote')) {
+            toast.error("Login to upvote/downvote!", {
+                toastId: "vote"
+            });
+        }
+    }
+    const replyCB = (comment, author, parentComment, afterReplyCB) => {
+        handleSubmit(parentComment, comment, afterReplyCB)
     }
 
-    const handleChange = e => {
-        setCommentInput(e.target.value)
+    function bfs(key, comment) {
+        let newList = commentsList.concat();
+        for (var el in newList) {
+            if (bfs_helper(newList[el], key, comment)) {
+                return newList
+            }
+        }
+        return newList;
     }
+    function bfs_helper(el, key, comment) {
+        let queue = [el];
+        while (queue.length > 0) {
+            let node = queue.shift();
+            if (node._id === key) {
+                node.replies = !node.replies ? [comment] : node.replies.concat(comment)
+                return true;
+            }
+            if (node.replies) {
+                queue = queue.concat(node.replies)
+            }
+
+        }
+        return false
+    }
+
 
 
     const handleVote = async (item, type, endpoint) => {
@@ -138,6 +199,12 @@ const Review = () => {
         }
     }
 
+    const submitComment = (text, cb) => {
+        handleSubmit("", text, cb);
+
+    }
+
+
     const formatSalary = (salary) => {
         let formattedSalary = 0
         let currenciesWithCents = ["CAD", 'USD', 'AUD', 'EUR']
@@ -148,6 +215,7 @@ const Review = () => {
         }
         return formattedSalary
     }
+
     return (
         <Row style={{ height: "100%", width: "100%", paddingTop: "7%", paddingBottom: "3%", overflowY: "scroll" }}>
             <Col xl={{ span: 16, offset: 4 }} css={styles.ReviewViewCol}>
@@ -198,7 +266,7 @@ const Review = () => {
                                 <h3 css={styles.MetaText}>
                                     <b style={{ paddingRight: "4.5%" }}>Salary:</b>
                                     ${reviewObj.salary ? formatSalary(reviewObj.salary) : "N/A"} {reviewObj.currency}
-                                        {reviewObj.payPeriod && ' ' + reviewObj.payPeriod.toLowerCase()}
+                                    {reviewObj.payPeriod && ' ' + reviewObj.payPeriod.toLowerCase()}
                                 </h3>
                             </div>
                         </Col>
@@ -259,12 +327,8 @@ const Review = () => {
                                     />
                                 }
                                 content={
-                                    <Editor
-                                        onChange={handleChange}
-                                        onSubmit={handleSubmit}
-                                        submitting={isSubmitting}
-                                        value={commentInput}
-                                    />
+                                    <Editor  submissionHandler={(text, cb) => submitComment(text, cb)}/>
+                                    
                                 }
                             />
                         </Col>
@@ -273,7 +337,9 @@ const Review = () => {
                 <div css={styles.CommentsContainer}>
                     <Row style={{ height: "100%", width: "100%" }}>
                         <Col xl={{ span: 24 }} style={{ paddingTop: "1%" }}>
-                            <CommentSection data={commentsList} />
+                            <CommentSection data={commentsList}
+                                postReply={(comment, author, parentComment, afterReply) => replyCB(comment, author, parentComment, afterReply)}
+                            />
                         </Col>
                     </Row>
                 </div>
