@@ -132,6 +132,8 @@ const Review = () => {
                     setCommentInput("")
                 }
                 cb()
+                toast.success("Comment Posted")
+                
             })
         } else if (!toast.isActive('vote')) {
             toast.error("Login to Comment!", {
