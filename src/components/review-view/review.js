@@ -54,7 +54,7 @@ const Editor = props => {
                 <TextArea rows={4} onChange={handleChange} value={comment} disabled={isLoading} />
             </Form.Item>
             <Form.Item>
-                <Button htmlType="submit" loading={isLoading} onClick={() => {props.submissionHandler(comment, afterCommentCB); setComment(""); setIsLoading(true)}} type="primary">
+                <Button htmlType="submit" loading={isLoading} onClick={() => {setIsLoading(true); props.submissionHandler(comment, afterCommentCB); setComment(""); }} type="primary">
                     Add Comment
                                             </Button>
             </Form.Item>
@@ -134,9 +134,11 @@ const Review = () => {
                 cb()
             })
         } else if (!toast.isActive('vote')) {
-            toast.error("Login to upvote/downvote!", {
+            toast.error("Login to Comment!", {
                 toastId: "vote"
             });
+
+            cb()
         }
     }
     const replyCB = (comment, author, parentComment, afterReplyCB) => {
