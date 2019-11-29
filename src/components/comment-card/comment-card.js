@@ -34,9 +34,8 @@ const CommentCard = props => {
         setCommentInput(e.target.value)
     }
     function afterReply() {
-        console.log("called");
-        setLoading(false)
         setEditorVisible(false)
+        setLoading(false)
     }
 
     const handleReply = (props) => {
@@ -46,7 +45,6 @@ const CommentCard = props => {
     }
 
     var voteComment = type => {
-        //path: review/{review_id}/comment/{comment_id}/upvote
         let uid = localStorage.getItem('uid')
         let token = localStorage.getItem('token')
         if (!uid || !token) {
@@ -125,10 +123,10 @@ const CommentCard = props => {
                     editorVisible &&
                     <div style={{ paddingRight: '4%' }}>
                         <Form.Item>
-                            <TextArea rows={4} onChange={handleChange} value={commentInput} />
+                            <TextArea rows={4} onChange={handleChange} value={commentInput} disabled={loading} />
                         </Form.Item>
                         <Form.Item>
-                            <Button htmlType="submit" onClick={() => handleReply(props)} type="primary" loading={loading}>
+                            <Button htmlType="submit" onClick={() => handleReply(props)} type="primary" loading={loading} >
                                 Add Comment
                             </Button>
                         </Form.Item>
