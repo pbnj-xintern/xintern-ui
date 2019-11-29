@@ -123,7 +123,7 @@ const CommentCard = props => {
                     editorVisible &&
                     <div style={{ paddingRight: '4%' }}>
                         <Form.Item>
-                            <TextArea rows={4} onChange={handleChange} value={commentInput} disabled={loading} />
+                            <TextArea rows={4} onChange={handleChange} onPressEnter={() => handleReply(props)} value={commentInput} disabled={loading} />
                         </Form.Item>
                         <Form.Item>
                             <Button htmlType="submit" onClick={() => handleReply(props)} type="primary" loading={loading} >
