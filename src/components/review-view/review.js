@@ -48,13 +48,19 @@ const Editor = props => {
         setIsLoading(false)
     }
 
+    const submit = () => {
+        setIsLoading(true); 
+        props.submissionHandler(comment, afterCommentCB); 
+        setComment(""); 
+    }
+
     return (
         <div>
             <Form.Item>
-                <TextArea rows={4} onChange={handleChange} value={comment} disabled={isLoading} />
+                <TextArea rows={4} onChange={handleChange} value={comment} disabled={isLoading} onPressEnter={() => submit()} />
             </Form.Item>
             <Form.Item>
-                <Button htmlType="submit" loading={isLoading} onClick={() => {setIsLoading(true); props.submissionHandler(comment, afterCommentCB); setComment(""); }} type="primary">
+                <Button htmlType="submit" loading={isLoading} onClick={() => submit()} type="primary">
                     Add Comment
                                             </Button>
             </Form.Item>
