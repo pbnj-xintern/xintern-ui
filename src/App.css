@@ -1,8 +1,13 @@
 @import '~antd/dist/antd.css';
 
+body { 
+  font-family: 'Noto Sans', sans-serif;
+}
+
 .App {
   text-align: center;
   height: 100%;
+  min-height: 100vh;
   background-color: white;
   width: 100%;
 }
@@ -35,4 +40,30 @@
 
 h1{
   font-weight: 100;
+}
+
+.ant-comment-actions {
+  justify-content: left;
+  float: left;
+}
+
+.ant-comment-content-detail {
+  text-align: left;
+}
+
+#home-search:focus, 
+#home-search:hover {
+  opacity: 1;
+}
+
+
+#home-search {
+  opacity: 0.7;
+  transition: all .3s ease-in-out
+}
+
+#rolodex:hover {
+  color: #61dafb;
+  font-weight: bold;
+  font-size: 22px;
 }

@@ -7,3 +7,9 @@ export const CarouselDiv = css`
 export const SearchBar = css`
     width: 40vw;
 `
+
+export const outerCarouselDiv = css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
