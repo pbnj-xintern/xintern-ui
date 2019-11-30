@@ -93,16 +93,25 @@ const CreateReviewForm = (props) => {
 
     //createReview endpoint
     const handleSubmit = async e => {
+        setIsLoading(true)
         console.log('payload changed:\n', payload)
         e.preventDefault()
         let response = await axios.post("/review", payload)
         console.log('create review res:\n', response.data)
-        if (response.status === 201) {
-            toast(response.data.message)
-            history.push(`/company/${companyName}/reviews`)
-        } else if (response.status !== 201 || !response) {
+        if (!response) {
             toast.error("Something went wrong. Could not post Review.")
+            setIsLoading(false)
             return
+        }
+        if (response.status !== 201) {
+            toast.error("Could not create Review.")
+            setIsLoading(false)
+            return
+        }
+        if (response.status === 201) {
+            toast("Review created!")
+            setIsLoading(false)
+            history.push(`/company/${companyName}/reviews`)
         }
     }
 
@@ -110,7 +119,7 @@ const CreateReviewForm = (props) => {
         <Row style={{ height: "100%", width: "100%", paddingTop: "7%", paddingBottom: "3%"}} >
             <Col xl={{ span: 16, offset: 4 }} css={styles.CreateReviewCol}>
                 <h1 style ={{ paddingTop: "5%", paddingBottom: "3%" }}>{(companyName) ? `${companyName}: Create a Review` : "Create a Review"}</h1> 
-                <Form {...formItemLayout} onSubmit={handleSubmit}>
+                <Form {...formItemLayout} onSubmit={handleSubmit} >
                     <Row style={{ paddingBottom: "0.5%" }}>
                         <Col xl={{ span: 11, offset: 1 }}>
                             <Form.Item label="Company" labelCol={{ span: 6, offset: 1 }} labelAlign="left">
@@ -190,7 +199,7 @@ const CreateReviewForm = (props) => {
                         </Col>
                     </Row>            
                     <Form.Item {...tailFormItemLayout}>
-                        <Button type="primary" htmlType="submit">
+                        <Button type="primary" htmlType="submit" loading={isLoading}>
                             Create Review
                         </Button>
                     </Form.Item>
