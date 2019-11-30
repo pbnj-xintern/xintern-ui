@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Col, Card, Form, Icon, Input, Button, Checkbox } from 'antd'
+import { Row, Col, Card, Form, Icon, Input, Button } from 'antd'
 import { toast } from 'react-toastify'
 import Axios from 'axios'
 import { Redirect, Link } from 'react-router-dom'
@@ -29,7 +29,6 @@ const Login = props => {
     const [toHome, setToHome] = useState(false)
 
     useEffect(() => {
-        console.log('props.location', props.location)
         if (props.location.state) {
             setUsername(props.location.state.username || '')
         }
@@ -76,7 +75,7 @@ const Login = props => {
         }
     }
 
-    return toHome ? <Redirect to='/' /> : (
+    return toHome || authState.isAuth ? <Redirect to='/' /> : (
         <div style={outerDiv}>
             <Row style={{ height: "100%", width: "100%" }}>
                 <Col md={{ offset: 4, span: 6 }} sm={24}>

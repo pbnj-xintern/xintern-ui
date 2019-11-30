@@ -1,5 +1,5 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
-import { Comment, Tooltip, Icon, Card } from 'antd'
+import {Input, Form, Button, Comment, Tooltip, Icon, Card } from 'antd'
 import moment from 'moment'
 import * as styles from './comment-card.emotion'
 import { Link } from 'react-router-dom'
@@ -17,17 +17,34 @@ const CommentCard = props => {
     let [votePending, setVotePending] = useState(false)
     let [isDownvoted, setIsDownvoted] = useState(false)
     let [isUpvoted, setIsUpvoted] = useState(false)
+    const [commentInput, setCommentInput] = useState("")
+    const [editorVisible, setEditorVisible] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const { TextArea } = Input
 
     useEffect(() => {
         let initialUid = localStorage.getItem('uid')
-        setUpvotes(props.upvotes)
-        setDownvotes(props.downvotes)
+        setUpvotes(props.upvotes || [])
+        setDownvotes(props.downvotes || [])
         setIsUpvoted(initialUid ? props.upvotes.includes(localStorage.getItem('uid')) : false)
         setIsDownvoted(initialUid ? props.downvotes.includes(localStorage.getItem('uid')) : false)
     }, [])
 
+    const handleChange = e => {
+        setCommentInput(e.target.value)
+    }
+    function afterReply() {
+        setEditorVisible(false)
+        setLoading(false)
+    }
+
+    const handleReply = (props) => {
+        setLoading(true)
+        props.postReply(commentInput, "you", props._id, afterReply)
+       
+    }
+
     var voteComment = type => {
-        //path: review/{review_id}/comment/{comment_id}/upvote
         let uid = localStorage.getItem('uid')
         let token = localStorage.getItem('token')
         if (!uid || !token) {
@@ -75,7 +92,7 @@ const CommentCard = props => {
             </Tooltip>
             <span style={{ paddingLeft: 8, cursor: 'auto' }}>{downvotes.length}</span>
         </span>,
-        <span key="comment-basic-reply-to">Reply to this comment</span>,
+        <span key="comment-basic-reply-to" onClick={() => setEditorVisible(!editorVisible)}>Reply to this comment</span>,
     ];
 
 
@@ -85,7 +102,7 @@ const CommentCard = props => {
                 marginTop: '0.5em',
                 marginBottom: '0.5em',
                 marginRight: '1em',
-                boxShadow: props.parentComment ? 'none' : '6px 10px 31px -17px rgba(0,0,0,0.1)',
+                boxShadow: props.parentComment ? 'none' : '6px 10px 31px -17px rgba(0,0,0,0.05)',
                 borderLeft: '1px solid black',
             }}
             bodyStyle={{
@@ -102,7 +119,20 @@ const CommentCard = props => {
                     </Tooltip>
                 }
             >
-                {props.replies && props.replies.map(reply => <CommentCard {...reply} />)}
+                {
+                    editorVisible &&
+                    <div style={{ paddingRight: '4%' }}>
+                        <Form.Item>
+                            <TextArea rows={4} onChange={handleChange} onPressEnter={() => handleReply(props)} value={commentInput} disabled={loading} />
+                        </Form.Item>
+                        <Form.Item>
+                            <Button htmlType="submit" onClick={() => handleReply(props)} type="primary" loading={loading} >
+                                Add Comment
+                            </Button>
+                        </Form.Item>
+                    </div>
+                }
+                {props.replies && props.replies.map(reply => <CommentCard {...reply} postReply= {props.postReply} />)}
             </Comment>
         </Card>
     )

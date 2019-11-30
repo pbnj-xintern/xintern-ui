@@ -8,7 +8,7 @@ const { Search } = Input;
 const getAllCompanies = async () => {
     try {
         let response = await axios.get('/company/all')
-        if (response.data.length == 0 || response.data.error) {
+        if (response.data.length === 0 || response.data.error) {
             console.error("no companies")
             return []
         }
