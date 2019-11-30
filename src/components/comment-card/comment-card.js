@@ -120,7 +120,7 @@ const CommentCard = props => {
                 }
             >
                 {
-                    editorVisible &&
+                    editorVisible && !props.showReplies &&
                     <div style={{ paddingRight: '4%' }}>
                         <Form.Item>
                             <TextArea rows={4} onChange={handleChange} onPressEnter={() => handleReply(props)} value={commentInput} disabled={loading} />
@@ -132,7 +132,7 @@ const CommentCard = props => {
                         </Form.Item>
                     </div>
                 }
-                {props.replies && props.replies.map(reply => <CommentCard {...reply} postReply= {props.postReply} />)}
+                {props.replies && !props.showReplies && props.replies.map(reply => <CommentCard {...reply} postReply= {props.postReply} />)}
             </Comment>
         </Card>
     )
