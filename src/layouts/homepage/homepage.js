@@ -1,12 +1,12 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
-import { useState, useEffect } from 'react'
-import { Row, Col, Carousel, List } from 'antd'
-import SmallCompanyCard from '../../components/small-company-card/small-company-card'
-import SearchBar from '../../components/search-bar/index'
-import * as styles from './homepage.emotion'
-import ReviewListCard from '../../components/review-list-card/review-list-card'
+import { Carousel, Col, List, Row, Input } from 'antd'
 import axios from 'axios'
-
+import { useEffect, useState } from 'react'
+import { Redirect } from 'react-router-dom'
+import ReviewListCard from '../../components/review-list-card/review-list-card'
+import SmallCompanyCard from '../../components/small-company-card/small-company-card'
+import * as styles from './homepage.emotion'
+const { Search } = Input
 const getTopCompanies = async () => {
     try {
         let res = await axios.get('/companies/top')
@@ -43,6 +43,8 @@ const getRecentReviews = async () => {
 const Homepage = () => {
     let [recentReviews, setRecentReviews] = useState([])
     let [topCompanies, setTopCompanies] = useState([])
+    let [toSearchRes, setToSearchRes] = useState(false)
+    let [searchTerm, setSearchTerm] = useState('')
 
     useEffect(() => {
         window.scrollTo({ top: 0 })
@@ -56,61 +58,78 @@ const Homepage = () => {
         fetchRecentReviews()
     }, [])
 
+
+    const onSearch = userInput => {
+        setSearchTerm(userInput)
+        setToSearchRes(true)
+    }
+
     var isTopCompaniesEmpty = topCompanies === [] || topCompanies === undefined;
 
-    return (
-        <div>
-            <div style={{
-                backgroundImage: `url('/images/homepage-backdrop.jpeg')`,
-                height: '81vh',
-                backgroundSize: 'cover',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                opacity: 0.98
-            }}>
-                <h1 style={{ color: 'white', fontSize: "3em", fontWeight: "200" }}>See what other students said about their internships!<br></br><SearchBar search={true} /></h1>
-            </div>
-            {!isTopCompaniesEmpty &&
-                <Row css={styles.outerCarouselDiv} style={{paddingTop: '5%', paddingBottom: '5%'}}>
-                    <Col xl={{ span: 22, offset: 1 }} md={{ span: 20, offset: 2 }} sm={{ span: 24 }}>
-                        <h1 style={{ fontWeight: "500", paddingBottom: "3%" }}>Check out these Top Companies!</h1>
-                        <Carousel autoplay>
-                            {
-                                topCompanies.map((div, i) =>
-                                    <div key={i} css={styles.CarouselDiv}>
-                                        <Row type="flex" justify="space-around" align="middle">
-                                            {
-                                                div.map((company, i) =>
-                                                    <Col key={i} md={4} sm={24}>
-                                                        <SmallCompanyCard {...company} />
-                                                    </Col>                                          
-                                                )
-                                            }
-                                        </Row>
-                                    </div>
-                                )
-                            }
-                        </Carousel>
+    return toSearchRes ?
+        <Redirect to={{
+            pathname: `/search?term=${searchTerm}`
+        }} /> : (
+            <div>
+                <div style={{
+                    backgroundImage: `url('/images/homepage-backdrop.jpeg')`,
+                    height: '81vh',
+                    backgroundSize: 'cover',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    opacity: 0.98
+                }}>
+                    <h1 style={{ color: 'white', fontSize: "3em", fontWeight: "200" }}>See what other students said about their internships!<br></br>
+                        <Search
+                            size='large'
+                            id='home-search'
+                            placeholder="Search for a company or position"
+                            onSearch={onSearch}
+                            style={{ width: '50%', marginTop: '1em' }}
+                        />
+                    </h1>
+                </div>
+                {!isTopCompaniesEmpty &&
+                    <Row css={styles.outerCarouselDiv} style={{ paddingTop: '5%', paddingBottom: '5%' }}>
+                        <Col xl={{ span: 22, offset: 1 }} md={{ span: 20, offset: 2 }} sm={{ span: 24 }}>
+                            <h1 style={{ fontWeight: "500", paddingBottom: "3%" }}>Check out these Top Companies!</h1>
+                            <Carousel autoplay>
+                                {
+                                    topCompanies.map((div, i) =>
+                                        <div key={i} css={styles.CarouselDiv}>
+                                            <Row style={{ paddingBottom: '2em' }} type="flex" justify="space-around" align="middle">
+                                                {
+                                                    div.map((company, i) =>
+                                                        <Col key={i} md={4} sm={24}>
+                                                            <SmallCompanyCard {...company} />
+                                                        </Col>
+                                                    )
+                                                }
+                                            </Row>
+                                        </div>
+                                    )
+                                }
+                            </Carousel>
+                        </Col>
+                    </Row>
+                }
+                <Row style={{ backgroundColor: 'white' }}>
+                    <Col md={{ span: 16, offset: 4 }} xs={{ span: 24 }} style={{ paddingBottom: "4%" }}>
+                        <h1 style={{ fontWeight: "500", marginTop: '5%' }}>Recent Reviews</h1>
+                        {recentReviews ?
+                            <List
+                                split={false}
+                                size="large"
+                                dataSource={recentReviews.map((review) => <ReviewListCard {...review} />)}
+                                renderItem={item => <List.Item style={{ padding: "0 !important" }}>{item}</List.Item>}
+                            /> :
+                            <h2>No reviews</h2>
+                        }
                     </Col>
                 </Row>
-            }
-            <Row style={{ background: "#F5FcFF" }}> 
-                <Col md={{ span: 16, offset: 4 }} xs={{ span: 24 }} style={{ paddingBottom: "4%" }}>
-                    <h1 style={{ fontWeight: "500", marginTop: '5%' }}>Recent Reviews</h1>
-                    {recentReviews ?
-                        <List
-                            split={false}
-                            size="large"
-                            dataSource={recentReviews.map((review) => <ReviewListCard {...review} />)}
-                            renderItem={item => <List.Item style={{ padding: "0 !important" }}>{item}</List.Item>}
-                        /> :
-                        <h2>No reviews</h2>
-                    }
-                </Col>
-            </Row>
-        </div>
-    )
+            </div>
+        )
 }
 
 export default Homepage

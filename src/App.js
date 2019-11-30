@@ -19,6 +19,8 @@ import Review from './components/review-view/review'
 import Login from './layouts/login/login';
 import Signup from './layouts/signup/signup';
 import CompanyReviews from './layouts/company-reviews/company-reviews';
+import SearchRes from './layouts/search-res/SearchRes';
+import BrowsePositions from './layouts/browse-positions/browse-positions';
 
 toast.configure({
   position: toast.POSITION.TOP_CENTER,
@@ -40,6 +42,8 @@ function App() {
           <Route path="/company/:companyId/review/create" component={CreateReview} />
           <Route path="/review/create" component={CreateReview} />
           <Route path="/company/:companyId/reviews" component={CompanyReviews} />
+          <Route path="/search?term=:term" component={SearchRes} />
+          <Route path="/positions" component={BrowsePositions} />
         </Switch>
         <Footer />
       </div>
