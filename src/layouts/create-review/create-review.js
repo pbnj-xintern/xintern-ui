@@ -34,7 +34,7 @@ const getCompanyLocations = async (companyName) => {
 const CreateReviewForm = (props) => {
     let location = useLocation()
     let history = useHistory()
-    let companyName = location.pathname.split("/")[2]
+    let pathCompanyName = location.pathname.split("/")[2]
 
     const { Option } = Select
     const { TextArea } = Input
@@ -48,7 +48,7 @@ const CreateReviewForm = (props) => {
         mentorship: 0,
         impact: 0,
         interview: 0,
-        company_name: (companyName === "create") ? "" : companyName,
+        company_name: (pathCompanyName !== "create") ? pathCompanyName : "",
         location: "",
         salary: 0,
         content: "",
@@ -62,9 +62,10 @@ const CreateReviewForm = (props) => {
 
     useEffect(() => {
         window.scrollTo({ top: 0 })
+
         const fetchCompanyLocations = async () => {
-            if (companyName !== "create") {
-                setCompanyLocations(await getCompanyLocations(companyName))
+            if (pathCompanyName !== "create") {
+                setCompanyLocations(await getCompanyLocations(pathCompanyName))
             } else {
                 setCompanyLocations(await getCompanyLocations(payload.company_name))
             }
@@ -130,7 +131,7 @@ const CreateReviewForm = (props) => {
             if (response.status === 201) {
                 toast("Review created!")
                 setIsLoading(false)
-                history.push(`/company/${companyName}/reviews`)
+                history.push(`/company/${payload.company_name}/reviews`)
             }
             console.log('loading state:', isLoading)
         } catch (err) {
@@ -140,23 +141,29 @@ const CreateReviewForm = (props) => {
         }
     }
 
-    const stateCallback = (companyName, companyLocation) => {
-        setIsModalHidden(true)
+    const stateCallback = {
+        modalActiveFn: () => setIsModalHidden(true),
+        changePayload: (n, l) => setPayload({
+            ...payload,
+            company_name: n,
+            location: l
+        })
     }
 
     return (
         <Row style={{ height: "100%", width: "100%", paddingTop: "7%", paddingBottom: "3%", background: "#F5FcFF" }} >
             <Col xl={{ span: 16, offset: 4 }} css={styles.CreateReviewCol}>
-                <h1 style={{ paddingTop: "5%", paddingBottom: "3%" }}>{(companyName !== "create") ? `${companyName}: Review` : "Create a Review!"}</h1>
+                <h1 style={{ paddingTop: "5%", paddingBottom: "3%" }}>{(pathCompanyName !== "create") ? `${pathCompanyName}: Review` : "Create a Review!"}</h1>
                 <Form {...formItemLayout} onSubmit={handleSubmit} >
                     <Row style={{ paddingBottom: "0.5%" }}>
                         <Col xl={{ span: 11, offset: 1 }}>
                             <Form.Item label="Company" labelCol={{ span: 6, offset: 1 }} labelAlign="left">
-                                {(companyName !== "create") ?
-                                    <Select showSearch defaultValue={companyName} disabled>
-                                        <Option value={companyName}>{companyName}</Option>
+                                {(pathCompanyName !== "create") ?
+                                    <Select disabled defaultValue={pathCompanyName}>
+                                        <Option value={pathCompanyName}>{pathCompanyName}</Option>
                                     </Select> :
                                     <Select showSearch
+                                        value={payload.company_name}
                                         placeholder="Select a Company"
                                         onChange={e => onFieldChange(e, 'company_name')}
                                         dropdownRender={menu => (
@@ -177,11 +184,19 @@ const CreateReviewForm = (props) => {
                                         {companyList.map((company, i) => <Option key={i} value={company.name}>{company.name}</Option>)}
                                     </Select>}
                             </Form.Item>
-                            <AddCompanyModal stateCallback={stateCallback} isHidden={isModalHidden} hideModal={hideModal} />
+                            <AddCompanyModal
+                                stateCallback={stateCallback}
+                                isHidden={isModalHidden}
+                                hideModal={hideModal}
+                            />
                         </Col>
                         <Col xl={{ span: 8, offset: 0 }}>
                             <Form.Item label="Location" labelCol={{ span: 7, offset: 1 }} labelAlign="left">
-                                <Select showSearch disabled={(companyLocations.includes(payload.location))} placeholder="Select a Location" onChange={e => onFieldChange(e, 'location')}>
+                                <Select 
+                                    showSearch 
+                                    placeholder="Select a Location" 
+                                    onChange={e => onFieldChange(e, 'location')}
+                                    value={payload.location}>
                                     {companyLocations.map((location, i) => <Option key={i} value={location}>{location}</Option>)}
                                 </Select>
                             </Form.Item>

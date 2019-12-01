@@ -50,7 +50,7 @@ const SearchRes = () => {
 
     return (
         <div style={{ backgroundColor: '#f2f2f2', paddingTop: '5%', paddingBottom: '5%', minHeight: '95vh' }}>
-            <h1>Search Results</h1>
+            <h1 style={{ paddingTop: "1%" }} >Search Results for "{searchTerm}"</h1>
             <Row>
                 <Col md={12} style={{ padding: '2em' }}>
                     <Card>
