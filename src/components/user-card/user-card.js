@@ -21,7 +21,9 @@ const getUserInfoByUsername = async usernameArgs => {
 
 const UserCard = props => {
 
-    const [userInfo, setUserInfo] = useState({})
+    const [userInfo, setUserInfo] = useState({
+        isShowInfo: true
+    })
     const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
@@ -29,9 +31,9 @@ const UserCard = props => {
 
         const fetchAndSetUserInfo = async usernameArg => {
             setUserInfo(await getUserInfoByUsername(usernameArg))
+            setIsLoading(false)
         }
         fetchAndSetUserInfo(props.username)
-        setIsLoading(false)
     }, [props.username])
 
 
@@ -44,14 +46,14 @@ const UserCard = props => {
                         {isLoading &&
                             <Icon type='loading'></Icon>
                         }
-                        {userInfo.isShowInfo ?
+                        {userInfo.isShowInfo === true ?
                             <div>
                                 <p><b>School</b>: {userInfo.institution || 'N/A'}</p>
-                                <p><b>Joined at</b>: {moment(userInfo.createdAt).format('MMM DD YYYY') || 'N/A'}</p>
+                                <p><b>Joined at</b>: {userInfo.createdAt ? moment(userInfo.createdAt).format('MMM DD YYYY') : 'N/A'}</p>
                                 <p><b>Program</b>: {userInfo.program || 'N/A'}</p>
                                 <p><b>Email</b>: {userInfo.email || 'N/A'}</p>
                             </div> :
-                            <h2>User has decided to keep their information anonymous<br/><Icon type="stop" /></h2>
+                            <h2>User has decided to keep their information anonymous<br /><Icon type="stop" /></h2>
                         }
                     </Card>
                 </Col>
