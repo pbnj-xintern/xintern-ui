@@ -2,7 +2,10 @@
 import * as styles from './user-profile.emotion'
 import { Tabs } from 'antd'
 import { useEffect, useState } from 'react'
+import ProfileComment from '../../components/profile-comment/profile-comment';
+import ProfileReview from '../../components/profile-review/profile-review'
 const { TabPane } = Tabs;
+
 
 const Userprofile = props => {
 
@@ -12,13 +15,10 @@ const Userprofile = props => {
 
             <Tabs >
                 <TabPane tab="Comments" key="1">
-                    Content of Tab Pane 1
+                    <ProfileComment />
             </TabPane>
                 <TabPane tab="Reviews" key="2">
-                    Content of Tab Pane 2
-             </TabPane>
-                <TabPane tab="Tab 3" key="3">
-                    Content of Tab Pane 3
+                    <ProfileReview />
              </TabPane>
             </Tabs>
         </div>

@@ -36,11 +36,13 @@ function App() {
           <Route path="/companies" component={BrowseCompanies} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
-          <Route path="/me" component={Userprofile} />
+          
           <Route path="/review/:reviewId" component={Review} />
           <Route path="/company/:companyId/review/create" component={CreateReview} />
           <Route path="/review/create" component={CreateReview} />
           <Route path="/company/:companyId/reviews" component={CompanyReviews} />
+          <Route path="/profile/:username" component={Userprofile} />
+
         </Switch>
         <Footer />
       </div>

@@ -60,6 +60,7 @@ const Login = props => {
             let token = response.data.token
             localStorage.setItem('token', token)
             localStorage.setItem('uid', response.data.uid)
+            localStorage.setItem('username', username)
             toast.success('Successfully logged in!')
 
             changeAuthState({ type: 'CHANGE_AUTH_STATE', isAuth: true })

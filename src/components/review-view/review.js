@@ -305,7 +305,7 @@ const Review = () => {
                 <div css={styles.MetadataContainer}>
                     <Row style={{ height: "100%", width: "100%" }}>
                         <Col xl={{ span: 6 }}>
-                            <Link to={`/user/${reviewObj.user._id}`}>
+                            <Link to={`/profile/${reviewObj.user.username}`}>
                                 <p css={styles.MetaText} style={{ paddingLeft: "0.5%", width: "fit-content" }}>
                                     <Icon type="user" style={{ marginRight: '1em' }}></Icon>
                                     {reviewObj.user.username}
