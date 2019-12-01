@@ -13,9 +13,10 @@ const Navbar = (props) => {
 
     // HOOKS
     const [authState, changeAuthState] = useAuthState();
-
+    const [username, setUsername] = useState("")
     const [isTop, setIsTop] = useState({})
     useEffect(() => {
+        setUsername(localStorage.getItem('username'))
         window.onscroll = () => {
             window.pageYOffset < 30 ?
                 setIsTop(true) :
@@ -36,7 +37,7 @@ const Navbar = (props) => {
             <Link to={`/`}><Icon type='logout' />Logout</Link>
         </Menu.Item>,
         <Menu.Item style={menuItemStyle} key="3">
-            <Link to={`/me`}><Icon type='user' />My Profile</Link>
+            <a href={`/profile/${username}`}><Icon type='user' />My Profile</a>
         </Menu.Item>
     ]
 

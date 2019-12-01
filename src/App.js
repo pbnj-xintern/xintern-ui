@@ -5,7 +5,11 @@ import { AuthContextProvider } from './state/auth-state'
 import Navbar from './components/navbar/navbar'
 import Footer from './components/footer/footer'
 import CreateReview from './layouts/create-review/create-review'
+
+import Userprofile from './layouts/user-profile/user-profile'
+
 import CreateReviewButton from './components/create-review-button/create-review-button'
+
 
 // CSS
 import 'antd/dist/antd.css';
@@ -39,7 +43,8 @@ function App() {
           <Route path="/companies" component={BrowseCompanies} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
-          <Route path="/me" component={Homepage} />
+
+          <Route path="/profile/:username" component={Userprofile} />
           <Route path="/review/:reviewId/details" component={Review} />
           <Route path="/company/:companyId/review/create" component={CreateReview} />
           <Route path="/review/create" component={CreateReview} />
@@ -47,6 +52,7 @@ function App() {
           <Route path="/search/:term" component={SearchRes} />
           <Route path="/all-positions/" component={BrowsePositions} />
           <Route path="/positions/:position_name" component={ReviewsOfPosition} />
+
         </Switch>
         <CreateReviewButton />
         <Footer />
