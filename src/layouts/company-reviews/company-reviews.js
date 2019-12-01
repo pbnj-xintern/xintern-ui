@@ -8,7 +8,7 @@ import ReviewListCard from '../../components/review-list-card/review-list-card'
 
 const getReviewsByCompany = async (companyName) => {
     try {
-        let response = await axios.get(`/companies/${companyName}/reviews`)
+        let response = await axios.get(`/review/company/${companyName}`)
         if (response.data.length === 0 || response.data.error) {
             console.error("no company reviews")
             return []
