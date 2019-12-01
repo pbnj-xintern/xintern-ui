@@ -1,6 +1,6 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
 
-import { Tabs, Row, Col, Card, List} from 'antd'
+import { Tabs, Row, Col, Card, List, Icon} from 'antd'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Comment from '../comment-card/comment-card'
@@ -9,12 +9,11 @@ import {useLocation } from 'react-router-dom'
 const { TabPane } = Tabs;
 
 const ProfileComment = props => {
-    const location = useLocation()
-    const [username, setUsername] = useState(location.pathname.split('profile/')[1])
     const [comments, setComments] = useState([])
-    const getCommentsByUsername = async username => {
+    const [isLoading, setIsLoading] = useState(false)
+    const getCommentsByUsername = async usernameArgs => {
         try {
-            let response = await axios.get(`/review/user/comment/${username}`)
+            let response = await axios.get(`/review/user/comment/${usernameArgs}`)
             if (response.data.error) {
                 return []
             }
@@ -25,20 +24,18 @@ const ProfileComment = props => {
     }
 
     useEffect(() => {
-        console.log(username)
+        setIsLoading(true)
+        console.log(props)
         const fetchComments = async () => {
-            let comments = await getCommentsByUsername(username)
+            let comments = await getCommentsByUsername(props.username)
             comments.sort((a,b) => {
-                
                 return moment(b.createdAt).unix() - moment(a.createdAt).unix()
             })
-            console.log(comments)
+            setIsLoading(false)
             setComments(comments);
-            console.log("setting comments")
         }
-
         fetchComments()
-    }, [])
+    }, [props.username])
 
 
     return (
@@ -47,14 +44,14 @@ const ProfileComment = props => {
             <Row>
                 <Col md={{ span: 17, offset: 4 }} sm={24}>
                     <Card>
-                {comments ?
+                {!isLoading ?
                 <List
                     split={false}
                     size="large"
                     dataSource={comments.map((comment) => <Comment {...comment} hideReplies={true} />)}
                     renderItem={item => <List.Item style={{ padding: "0 !important" }}>{item}</List.Item>}
                 /> :
-                <h2>No Company reviews</h2>
+                <Icon type='loading'/>
             }
             </Card>
 

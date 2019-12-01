@@ -49,9 +49,9 @@ const Editor = props => {
     }
 
     const submit = () => {
-        setIsLoading(true); 
-        props.submissionHandler(comment, afterCommentCB); 
-        setComment(""); 
+        setIsLoading(true);
+        props.submissionHandler(comment, afterCommentCB);
+        setComment("");
     }
 
     return (
@@ -139,7 +139,7 @@ const Review = () => {
                 }
                 cb()
                 toast.success("Comment Posted")
-                
+
             })
         } else if (!toast.isActive('vote')) {
             toast.error("Login to Comment!", {
@@ -306,7 +306,9 @@ const Review = () => {
                 <div css={styles.MetadataContainer}>
                     <Row style={{ height: "100%", width: "100%" }}>
                         <Col xl={{ span: 6 }}>
-                            <Link to={`/profile/${reviewObj.user.username}`}>
+                            <Link to={{
+                                pathname: `/profile/${reviewObj.user.username}`
+                            }} >
                                 <p css={styles.MetaText} style={{ paddingLeft: "0.5%", width: "fit-content" }}>
                                     <Icon type="user" style={{ marginRight: '1em' }}></Icon>
                                     {reviewObj.user.username}
@@ -332,8 +334,8 @@ const Review = () => {
                         <Col xl={{ span: 24 }}>
                             <Comment
                                 content={
-                                    <Editor  submissionHandler={(text, cb) => submitComment(text, cb)}/>
-                                    
+                                    <Editor submissionHandler={(text, cb) => submitComment(text, cb)} />
+
                                 }
                             />
                         </Col>

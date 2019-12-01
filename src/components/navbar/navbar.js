@@ -37,7 +37,9 @@ const Navbar = (props) => {
             <Link to={`/`}><Icon type='logout' />Logout</Link>
         </Menu.Item>,
         <Menu.Item style={menuItemStyle} key="3">
-            <a href={`/profile/${username}`}><Icon type='user' />My Profile</a>
+            <Link to={{
+                pathname: `/profile/${username}`
+            }} ><Icon type='user' />My Profile</Link>
         </Menu.Item>
     ]
 
@@ -65,7 +67,7 @@ const Navbar = (props) => {
             }}
         >
             <Menu.Item style={{ float: 'left' }} key="1">
-                <Link to={`/`}><b style={{fontWeight: 'bolder', fontSize: '18px'}}>xintern.co</b></Link>
+                <Link to={`/`}><b style={{ fontWeight: 'bolder', fontSize: '18px' }}>xintern.co</b></Link>
             </Menu.Item>
             <Menu.Item style={{ float: 'left' }} key="4">
                 <Link to={`/companies`}>Companies</Link>

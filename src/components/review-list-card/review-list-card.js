@@ -38,7 +38,7 @@ const ReviewListCard = (props) => {
             comments_count: metrics.commentsCount,
             review_ratings: props.rating
         })
-    }, [])
+    }, [props])
 
     return (
         <Card css={styles.CardContainer} bordered={false} bodyStyle={styles.CardBodyStyle}>
