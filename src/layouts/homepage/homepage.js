@@ -9,7 +9,7 @@ import axios from 'axios'
 
 const getTopCompanies = async () => {
     try {
-        let res = await axios.get('/companies/top')
+        let res = await axios.get('/company/top')
         if (res.status === 500) {
             console.error('Could not get top companies')
             return []

@@ -44,7 +44,7 @@ const Login = props => {
 
     const loginfn = async () => {
         setLoading(true)
-        let response = await Axios.post('https://3u3ckfdn26.execute-api.us-east-2.amazonaws.com/dev/user/login', { username: username, password: password })
+        let response = await Axios.post('/user/login', { username: username, password: password })
             .catch(e => {
                 console.error('Could not log in', e.nessage)
                 return null
