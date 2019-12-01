@@ -55,7 +55,7 @@ const ReviewListCard = (props) => {
                             <h4 css={styles.ReviewText} style={{ fontWeight: "250", paddingBottom: "1%", fontStyle: "normal" }}>{reviewObj.position && reviewObj.position}</h4>
                             {/* "{reviewObj.content && reviewObj.content.substring(0, 35) + "..."}" */}
                             <div style={{ display: "flex", flexDirection: "row" }}>
-                                <h4 css={styles.ReviewText} style={{ marginBottom: "2%", fontWeight: "400", color: "darkblue" }}>{reviewObj.company_name}</h4>
+                                <h4 css={styles.ReviewText} style={{ marginBottom: "1%", fontWeight: "400", color: "darkblue" }}>{reviewObj.company_name}</h4>
                                 <h4 css={styles.LocationText}>{reviewObj.company_location}</h4>
                             </div>
                             <div css={styles.MetaDataContainer}>
