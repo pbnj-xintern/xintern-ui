@@ -46,18 +46,18 @@ const ProfileComment = props => {
         <div>
             <Row>
                 <Col md={{ span: 17, offset: 4 }} sm={24}>
+                    <h1 style={{ fontWeight: "500"}}>{`${username}'s Comments`}</h1>
                     <Card>
-                {comments ?
-                <List
-                    split={false}
-                    size="large"
-                    dataSource={comments.map((comment) => <Comment {...comment} hideReplies={true} />)}
-                    renderItem={item => <List.Item style={{ padding: "0 !important" }}>{item}</List.Item>}
-                /> :
-                <h2>No Company reviews</h2>
-            }
-            </Card>
-
+                        {comments ?
+                            <List
+                                split={false}
+                                size="large"
+                                dataSource={comments.map((comment) => <Comment {...comment} hideReplies={true} />)}
+                                renderItem={item => <List.Item style={{ padding: "0 !important" }}>{item}</List.Item>}
+                            /> :
+                            <h2>No Comments</h2>
+                        }
+                    </Card>
                     {/* <Card>
                         
                         {comments !== [] && comments.map(comment => <Comment {...comment} hideReplies={true} />)}
