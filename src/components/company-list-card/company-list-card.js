@@ -7,7 +7,7 @@ const CompanyListCard = (props) => {
     const history = useHistory()
 
     const handleOnCreateReview = () => {
-        history.push(`/company/${props._id}/review/create`)
+        history.push(`/company/${props.name}/review/create`)
     }
 
     return (

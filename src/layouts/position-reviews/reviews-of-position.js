@@ -12,6 +12,7 @@ const ReviewsOfPosition = () => {
     let positionName = location.pathname.split("positions/")[1].trim()
 
     useEffect(() => {
+        window.scrollTo({ top: 0 })
         const fetchCompanyReviews = async () => {
             let response = await axios.get(`/review/position-name/${encodeURIComponent(positionName)}`)
             .catch(e => {
@@ -31,9 +32,9 @@ const ReviewsOfPosition = () => {
     }, [])
 
     return (
-        <Row style={{ background: "#F5FcFF", height: "100%" }}>
+        <Row style={{ background: "#F5FcFF", minHeight: "100vh", paddingBottom: "4%" }}>
             <Col md={{ span: 16, offset: 4 }} xs={{ span: 24 }}>
-                <h1 style={{ fontWeight: "500", marginTop: '13%' }}>{positionName} Reviews</h1>
+                <h1 style={{ fontWeight: "500", marginTop: '13%', paddingBottom: "1%" }}>{positionName} Reviews</h1>
                 {reviewList ?
                     <List
                         split={false}

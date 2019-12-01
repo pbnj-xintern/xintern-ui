@@ -56,6 +56,7 @@ export const ReviewViewCol = css`
     height: 100%;
     padding: 0px 30px 0px 30px;
     border: 1px solid lightgray;
+    box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.56);
     // border-bottom: 0;
     // border-top: 0;
 `

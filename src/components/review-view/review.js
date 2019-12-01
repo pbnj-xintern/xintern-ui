@@ -84,7 +84,7 @@ const Review = () => {
     const [isReviewVotePending, setReviewVotePending] = useState(false)
     const [commentLoading, setCommentLoading] = useState(false)
     const location = useLocation()
-    const reviewId = location.pathname.substring(8, location.pathname.length)
+    const reviewId = location.pathname.split("/")[2]
 
     const voteItem = {
         COMMENT: "COMMENT",
@@ -218,11 +218,12 @@ const Review = () => {
     const formatSalary = (salary) => {
         let formattedSalary = 0
         let currenciesWithCents = ["CAD", 'USD', 'AUD', 'EUR']
-        if (currenciesWithCents.includes(reviewObj.currency)) {
-            formattedSalary = (salary / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-        } else {
-            formattedSalary = salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-        }
+        formattedSalary = salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        // if (currenciesWithCents.includes(reviewObj.currency)) {
+        //     formattedSalary = (salary / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        // } else {
+        //     formattedSalary = salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        // }
         return formattedSalary
     }
 

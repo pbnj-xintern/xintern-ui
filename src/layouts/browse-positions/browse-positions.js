@@ -14,6 +14,7 @@ const BrowsePositions = () => {
     let [typingTimer, setTypingTimer] = useState(null)
 
     useEffect(() => {
+        window.scrollTo({ top: 0 })
         setLoading(true)
         const fetchAllPositions = async () => {
             let response = await axios.get('/review/positions')
@@ -50,8 +51,8 @@ const BrowsePositions = () => {
     const headerStyle = { fontWeight: "500" }
 
     return (
-        <div>
-            <Row style={{ paddingTop: '5%' }} >
+        <div style={{ minHeight: "100vh", background: "#F5FcFF" }}>
+            <Row style={{ paddingTop: '7%', paddingBottom: '2%' }} >
                 {
                     isLoading ?
                         <h1 style={headerStyle}>Fetching Positions <Icon type='loading' /></h1> :
