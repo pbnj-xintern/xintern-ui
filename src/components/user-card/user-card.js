@@ -7,28 +7,30 @@ import moment from 'moment'
 const { TabPane } = Tabs;
 
 
+const getUserInfoByUsername = async usernameArgs => {
+    try {
+        let response = await axios.get(`/user/${usernameArgs}`)
+        if (response.data.error) {
+            return []
+        }
+        return response.data
+    } catch (err) {
+        console.error("error getting comments")
+    }
+}
 
 const UserCard = props => {
 
     const [userInfo, setUserInfo] = useState({})
     const [isLoading, setIsLoading] = useState(false)
-    useEffect(async () => {
+
+    useEffect(() => {
         setIsLoading(true)
 
-        const getUserInfoByUsername = async usernameArgs => {
-            try {
-                let response = await axios.get(`/user/${usernameArgs}`)
-                if (response.data.error) {
-                    return []
-                }
-                console.log(response.data)
-                setUserInfo(response.data)
-                return response.data
-            } catch (err) {
-                console.error("error getting comments")
-            }
+        const fetchAndSetUserInfo = async usernameArg => {
+            setUserInfo(await getUserInfoByUsername(usernameArg))
         }
-        setUserInfo(await getUserInfoByUsername(props.username))
+        fetchAndSetUserInfo(props.username)
         setIsLoading(false)
     }, [props.username])
 
@@ -49,15 +51,9 @@ const UserCard = props => {
                                 <p><b>Program</b>: {userInfo.program || 'N/A'}</p>
                                 <p><b>Email</b>: {userInfo.email || 'N/A'}</p>
                             </div> :
-                            <h2>User has decided to keep their information anonymous<Icon type="stop" /></h2>
+                            <h2>User has decided to keep their information anonymous<br/><Icon type="stop" /></h2>
                         }
                     </Card>
-
-                    {/* <Card>
-                        
-                        {comments !== [] && comments.map(comment => <Comment {...comment} hideReplies={true} />)}
-                    
-                    </Card> */}
                 </Col>
             </Row>
 
