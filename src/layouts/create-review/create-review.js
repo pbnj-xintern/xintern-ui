@@ -81,6 +81,10 @@ const CreateReviewForm = (props) => {
         }
     }
 
+    // const inputRules = {
+    //     company_name:
+    // }
+
     const onFieldChange = (e, key) => {
         let newPayload = { ...payload }
         if (key === "salary") {
@@ -92,33 +96,36 @@ const CreateReviewForm = (props) => {
     }
 
     //createReview endpoint
-    const handleSubmit = async e => {
+    const handleSubmit = async (e) => {
+        e.preventDefault()
         setIsLoading(true)
         console.log('payload changed:\n', payload)
-        e.preventDefault()
-        let response = await axios.post("/review", payload)
-        console.log('create review res:\n', response.data)
-        if (!response) {
-            toast.error("Something went wrong. Could not post Review.")
+        try {
+            let response = await axios.post("/review", payload)
+            console.log('create review res:\n', response.data)
+            if (!response) {
+                toast.error("Something went wrong. Could not post Review.")
+                setIsLoading(false)
+                return
+            }
+            
+            if (response.status === 201) {
+                toast("Review created!")
+                setIsLoading(false)
+                history.push(`/company/${companyName}/reviews`)
+            }
+            console.log('loading state:', isLoading)
+        } catch (err) {
+            console.error(err.message)
+            toast.error("Missing Fields. Could not create Review.")
             setIsLoading(false)
-            return
-        }
-        if (response.status !== 201) {
-            toast.error("Could not create Review.")
-            setIsLoading(false)
-            return
-        }
-        if (response.status === 201) {
-            toast("Review created!")
-            setIsLoading(false)
-            history.push(`/company/${companyName}/reviews`)
         }
     }
 
     return (
         <Row style={{ height: "100%", width: "100%", paddingTop: "7%", paddingBottom: "3%"}} >
             <Col xl={{ span: 16, offset: 4 }} css={styles.CreateReviewCol}>
-                <h1 style ={{ paddingTop: "5%", paddingBottom: "3%" }}>{(companyName) ? `${companyName}: Create a Review` : "Create a Review"}</h1> 
+                <h1 style ={{ paddingTop: "5%", paddingBottom: "3%" }}>{(companyName) ? `${companyName}: Review` : "Create a Review"}</h1> 
                 <Form {...formItemLayout} onSubmit={handleSubmit} >
                     <Row style={{ paddingBottom: "0.5%" }}>
                         <Col xl={{ span: 11, offset: 1 }}>
@@ -164,7 +171,7 @@ const CreateReviewForm = (props) => {
                     <Row style={{ paddingBottom: "1%" }}>
                         <Col xl={{ span: 24, offset: 0 }}>
                             <Form.Item label="Position" labelCol={{ span: 3, offset: 1 }} labelAlign="left" style={{ paddingLeft: "2%" }}>
-                                <Input placeholder="Software Developer" value={payload.position} onChange={e => { onFieldChange(e, 'position') } } />                                
+                                <Input placeholder={`"Software Developer"`} value={payload.position} onChange={e => { onFieldChange(e, 'position') } } />                                
                             </Form.Item>
                         </Col>
                     </Row>
@@ -199,7 +206,7 @@ const CreateReviewForm = (props) => {
                         </Col>
                     </Row>            
                     <Form.Item {...tailFormItemLayout}>
-                        <Button type="primary" htmlType="submit" loading={isLoading}>
+                        <Button type="primary" htmlType="submit" disabled={isLoading} loading={isLoading}>
                             Create Review
                         </Button>
                     </Form.Item>

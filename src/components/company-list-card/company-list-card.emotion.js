@@ -9,15 +9,15 @@ export const CardContainer = css`
     //height: 125px;
     // background-color: gray; //remove after
     // border-radius: 1em;
-    border-top: 0.5px solid lightgray;
-    border-bottom: 0.5px solid lightgray;
-    // border: 0.5px solid lightgray;
+    // border-top: 0.5px solid lightgray;
+    // border-bottom: 0.5px solid lightgray;
+    border: 0.5px solid lightgray;
     padding: 16px 2em;
 
     &:hover{
-        border-top: 0.5px darkblue solid;
-        border-bottom: 0.5px darkblue solid;
-        // border: 0.5px darkblue solid;
+        // border-top: 0.5px darkblue solid;
+        // border-bottom: 0.5px darkblue solid;
+        border: 0.5px darkblue solid;
     }
 
     @media (min-width: 992px) {

@@ -67,17 +67,20 @@ const BrowseCompanies = () => {
     const getSidebarButtons = () => {
         let buttonList = [
             <li
-                id='rolodex'
-                onClick={() => window.scrollTo({ top: 0 })}
-                style={{
-                    cursor: 'default',
-                    transition: 'all .2s ease-in-out'
-                }}>
+                // id='rolodex'
+                // onClick={() => window.scrollTo({ top: 0 })}
+                // style={{
+                //     cursor: 'default',
+                //     transition: 'all .2s ease-in-out'
+                // }}
+                style={{ marginBottom: "12%", marginTop: "18%" }}
+            >
                 <b>Jump To:</b>
             </li>,
             <li
                 id='rolodex'
-                onClick={() => jumpToId('#')}
+                // onClick={() => jumpToId('#')}
+                onClick={() => window.scrollTo({ top: 0 })}
                 style={{
                     cursor: 'pointer',
                     transition: 'all .2s ease-in-out'
@@ -106,7 +109,7 @@ const BrowseCompanies = () => {
         <div>
             <Row>
                 <Col md={23}>
-                    <Row style={{ paddingTop: '5%' }} >
+                    <Row style={{ paddingTop: '7%' }} >
                         {
                             isLoading ?
                                 <h1 style={headerStyle}>Fetching Companies <Icon type='loading' /></h1> :
@@ -149,7 +152,8 @@ const BrowseCompanies = () => {
                             {!isLoading &&
                                 <ul style={{
                                     listStyleType: 'none',
-                                    fontWeight: '15px'
+                                    fontWeight: '15px',
+                                    width: "max-content"
                                 }}>
                                     {getSidebarButtons()}
                                 </ul>
