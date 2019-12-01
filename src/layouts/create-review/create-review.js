@@ -1,6 +1,6 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
 import React, { useEffect, useState } from 'react'
-import { Row, Col, Form, Icon, Input, Button, Tooltip, Select, Rate } from 'antd'
+import { Row, Col, Form, Icon, Input, Button, Tooltip, Divider, Select, Rate } from 'antd'
 import * as styles from './create-review.emotion' 
 import axios from 'axios'
 import { toast } from 'react-toastify'
@@ -139,7 +139,24 @@ const CreateReviewForm = (props) => {
                                     <Select showSearch defaultValue={companyName} disabled>
                                         <Option value={companyName}>{companyName}</Option>
                                     </Select> : 
-                                    <Select showSearch placeholder="Select a Company" onChange={e => onFieldChange(e, 'company_name')}>
+                                    <Select showSearch 
+                                            placeholder="Select a Company" 
+                                            onChange={e => onFieldChange(e, 'company_name')}
+                                            dropdownRender={menu => (
+                                                <div>
+                                                    {menu}
+                                                    <Divider style={{ margin: '1.5px 0' }} />
+                                                    <div
+                                                        css={styles.AddCompanyDropdown}
+                                                        style={{ padding: '9.5px', cursor: 'pointer' }}
+                                                        onMouseDown={e => e.preventDefault()}
+                                                        // onClick={}
+                                                    >
+                                                        <Icon type="plus" /> Add Company
+                                                    </div>
+                                                </div>
+                                            )}
+                                    >
                                         {companyList.map((company, i) => <Option key={i} value={company.name}>{company.name}</Option> )}                                
                                     </Select>}                                
                             </Form.Item>
