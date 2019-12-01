@@ -1,11 +1,11 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
 
-import { Tabs, Row, Col, Card, List, Icon} from 'antd'
+import { Tabs, Row, Col, Card, List, Icon } from 'antd'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Comment from '../comment-card/comment-card'
 import moment from 'moment'
-import {useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 const { TabPane } = Tabs;
 
 const ProfileComment = props => {
@@ -28,7 +28,7 @@ const ProfileComment = props => {
         console.log(props)
         const fetchComments = async () => {
             let comments = await getCommentsByUsername(props.username)
-            comments.sort((a,b) => {
+            comments.sort((a, b) => {
                 return moment(b.createdAt).unix() - moment(a.createdAt).unix()
             })
             setIsLoading(false)
@@ -43,17 +43,18 @@ const ProfileComment = props => {
         <div>
             <Row>
                 <Col md={{ span: 17, offset: 4 }} sm={24}>
+                    <h1 style={{ fontWeight: "500" }}>{`${username}'s Comments`}</h1>
                     <Card>
-                {!isLoading ?
-                <List
-                    split={false}
-                    size="large"
-                    dataSource={comments.map((comment) => <Comment {...comment} hideReplies={true} />)}
-                    renderItem={item => <List.Item style={{ padding: "0 !important" }}>{item}</List.Item>}
-                /> :
-                <Icon type='loading'/>
-            }
-            </Card>
+                        {!isLoading ?
+                            <List
+                                split={false}
+                                size="large"
+                                dataSource={comments.map((comment) => <Comment {...comment} hideReplies={true} />)}
+                                renderItem={item => <List.Item style={{ padding: "0 !important" }}>{item}</List.Item>}
+                            /> :
+                            <Icon type='loading' />
+                        }
+                    </Card>
 
                     {/* <Card>
                         
