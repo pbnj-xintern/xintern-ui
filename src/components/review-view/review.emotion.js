@@ -155,6 +155,7 @@ export const CommentsContainer = css`
     display: flex;
     width: 100%;
     height: 100%;
+    padding-bottom: 20px;
 `
 export const ReviewPositionSalaryContainer = css`
     display: flex;
