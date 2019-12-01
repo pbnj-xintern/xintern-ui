@@ -73,7 +73,7 @@ const Homepage = () => {
             <div>
                 <div style={{
                     backgroundImage: `url('/images/homepage-backdrop.jpeg')`,
-                    height: '81vh',
+                    height: '90vh',
                     backgroundSize: 'cover',
                     display: 'flex',
                     alignItems: 'center',
