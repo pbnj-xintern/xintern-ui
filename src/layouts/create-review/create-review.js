@@ -38,6 +38,7 @@ const CreateReviewForm = (props) => {
 
     const [isLoading, setIsLoading] = useState(false)
     const [companyLocations, setCompanyLocations] = useState([])
+    const [companyList, setCompanyList] = useState([])
     const [payload, setPayload] = useState({
         culture: 0,
         mentorship: 0,
@@ -56,11 +57,19 @@ const CreateReviewForm = (props) => {
     const payPeriodOptions = ["MONTHLY", "HOURLY", "WEEKLY"]
 
     useEffect(() => {
-        const fetchCompanyLocations = async () => { 
-            setCompanyLocations(await getCompanyLocations(companyName))
+        const fetchCompanyLocations = async () => {
+            if (companyName !== "create") {
+                setCompanyLocations(await getCompanyLocations(companyName))
+            } else {
+                setCompanyLocations(await getCompanyLocations(payload.company_name))
+            }
+        }
+        const fetchAllCompanies = async () => {
+            setCompanyList(await getAllCompanies())
         }
         fetchCompanyLocations()
-    }, [])
+        fetchAllCompanies()
+    }, [payload.company_name])
 
     const formItemLayout = {
         labelCol: {
@@ -80,10 +89,6 @@ const CreateReviewForm = (props) => {
             xl: { span: 4, offset: 10 }
         }
     }
-
-    // const inputRules = {
-    //     company_name:
-    // }
 
     const onFieldChange = (e, key) => {
         let newPayload = { ...payload }
@@ -125,20 +130,23 @@ const CreateReviewForm = (props) => {
     return (
         <Row style={{ height: "100%", width: "100%", paddingTop: "7%", paddingBottom: "3%"}} >
             <Col xl={{ span: 16, offset: 4 }} css={styles.CreateReviewCol}>
-                <h1 style ={{ paddingTop: "5%", paddingBottom: "3%" }}>{(companyName) ? `${companyName}: Review` : "Create a Review"}</h1> 
+                <h1 style ={{ paddingTop: "5%", paddingBottom: "3%" }}>{(companyName !== "create") ? `${companyName}: Review` : "Create a Review!"}</h1> 
                 <Form {...formItemLayout} onSubmit={handleSubmit} >
                     <Row style={{ paddingBottom: "0.5%" }}>
                         <Col xl={{ span: 11, offset: 1 }}>
                             <Form.Item label="Company" labelCol={{ span: 6, offset: 1 }} labelAlign="left">
-                                {(companyName) ? 
+                                {(companyName !== "create") ? 
                                     <Select showSearch defaultValue={companyName} disabled>
                                         <Option value={companyName}>{companyName}</Option>
-                                    </Select> : null}                                
+                                    </Select> : 
+                                    <Select showSearch placeholder="Select a Company" onChange={e => onFieldChange(e, 'company_name')}>
+                                        {companyList.map((company, i) => <Option key={i} value={company.name}>{company.name}</Option> )}                                
+                                    </Select>}                                
                             </Form.Item>
                         </Col>
                         <Col xl={{ span: 8, offset: 0 }}>
                             <Form.Item label="Location" labelCol={{ span: 7, offset: 1 }} labelAlign="left">
-                                <Select showSearch placeholder="Select a Location" onChange={e => onFieldChange(e, 'location')}>
+                                <Select showSearch disabled={(companyLocations.includes(payload.location))} placeholder="Select a Location" onChange={e => onFieldChange(e, 'location')}>
                                     {companyLocations.map((location, i) => <Option key={i} value={location}>{location}</Option> )}                                
                                 </Select>                        
                             </Form.Item>

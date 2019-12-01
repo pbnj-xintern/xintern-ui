@@ -43,7 +43,7 @@ const ReviewListCard = (props) => {
     return (
         <Card css={styles.CardContainer} bordered={false} bodyStyle={styles.CardBodyStyle}>
             {/* <NavLink to={{ pathname: `/review/${reviewObj._id}`, reviewObject: {...reviewObj} }}> */}
-            <NavLink to={`/review/${reviewObj._id}`}>
+            <NavLink to={`/review/${reviewObj._id}/details`}>
                 <Row style={{ height: '100%' }}>
                     <Col lg={{ span: 4 }} xl={{ span: 3 }} css={styles.CompanyLogoCol}>
                         <div css={styles.CompanyLogoContainer}>
@@ -52,7 +52,7 @@ const ReviewListCard = (props) => {
                     </Col >
                     <Col lg={{ span: 20 }} xl={{ span: 11 }} css={styles.ReviewInfoCol}>
                         <div css={styles.ReviewInfoContainer}>
-                            <h4 css={styles.ReviewText} style={{ fontWeight: "250", paddingBottom: "1%", fontStyle: "normal" }}>{reviewObj.position && reviewObj.position}</h4>
+                            <h4 css={styles.ReviewText} style={{ fontSize: "20px", fontWeight: "250", paddingBottom: "1%", fontStyle: "normal" }}>{reviewObj.position && reviewObj.position}</h4>
                             {/* "{reviewObj.content && reviewObj.content.substring(0, 35) + "..."}" */}
                             <div style={{ display: "flex", flexDirection: "row" }}>
                                 <h4 css={styles.ReviewText} style={{ marginBottom: "1%", fontWeight: "400", color: "darkblue" }}>{reviewObj.company_name}</h4>
