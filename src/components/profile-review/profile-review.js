@@ -39,7 +39,6 @@ const ProfileReview = props => {
     return (
         <Row style={{ height: "100%" }}>
             <Col md={{ span: 16, offset: 4 }} xs={{ span: 24 }}>
-                <p>{JSON.stringify(reviewList)}</p>
                 <h1 style={{ fontWeight: "500" }}>{`${props.username}'s Reviews`}</h1>
                 {!isLoading ?
                     <List

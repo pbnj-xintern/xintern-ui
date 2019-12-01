@@ -1,0 +1,69 @@
+
+/** @jsx jsx */ import { jsx } from '@emotion/core';
+import { Card, Col, Icon, Row, Tabs } from 'antd';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import moment from 'moment'
+const { TabPane } = Tabs;
+
+
+
+const UserCard = props => {
+
+    const [userInfo, setUserInfo] = useState({})
+    const [isLoading, setIsLoading] = useState(false)
+    useEffect(async () => {
+        setIsLoading(true)
+
+        const getUserInfoByUsername = async usernameArgs => {
+            try {
+                let response = await axios.get(`/user/${usernameArgs}`)
+                if (response.data.error) {
+                    return []
+                }
+                console.log(response.data)
+                setUserInfo(response.data)
+                return response.data
+            } catch (err) {
+                console.error("error getting comments")
+            }
+        }
+        setUserInfo(await getUserInfoByUsername(props.username))
+        setIsLoading(false)
+    }, [props.username])
+
+
+    return (
+        <div>
+            <Row>
+                <Col md={{ span: 12, offset: 6 }} sm={24}>
+                    <h1 style={{ fontWeight: "500" }}>{props.username}'s Info</h1>
+                    <Card>
+                        {isLoading &&
+                            <Icon type='loading'></Icon>
+                        }
+                        {userInfo.isShowInfo ?
+                            <div>
+                                <p><b>School</b>: {userInfo.institution || 'N/A'}</p>
+                                <p><b>Joined at</b>: {moment(userInfo.createdAt).format('MMM DD YYYY') || 'N/A'}</p>
+                                <p><b>Program</b>: {userInfo.program || 'N/A'}</p>
+                                <p><b>Email</b>: {userInfo.email || 'N/A'}</p>
+                            </div> :
+                            <h2>User has decided to keep their information anonymous<Icon type="stop" /></h2>
+                        }
+                    </Card>
+
+                    {/* <Card>
+                        
+                        {comments !== [] && comments.map(comment => <Comment {...comment} hideReplies={true} />)}
+                    
+                    </Card> */}
+                </Col>
+            </Row>
+
+        </div>
+    )
+}
+
+
+export default UserCard

@@ -43,7 +43,7 @@ const ProfileComment = props => {
         <div>
             <Row>
                 <Col md={{ span: 17, offset: 4 }} sm={24}>
-                    <h1 style={{ fontWeight: "500" }}>{`${username}'s Comments`}</h1>
+                    <h1 style={{ fontWeight: "500" }}>{`${props.username}'s Comments`}</h1>
                     <Card>
                         {!isLoading ?
                             <List
