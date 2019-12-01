@@ -15,7 +15,7 @@ const CreateReviewButton = () => {
     }
 
     return (
-        (path.includes("/review/create")) ? null : 
+        (path.includes("/review/create") || path.includes("login") || path.includes("signup")) ? null : 
         <Tooltip trigger="hover" title="Create a Review!">
             <Button shape="circle" size="large" css={styles.ButtonStyles} onClick={handleOnClick}>
                 <Icon type="plus" css={styles.IconStyles} />
