@@ -33,7 +33,7 @@ const CompanyReviews = () => {
 
     return (
         <Row style={{ background: "#F5FcFF", height: "100%" }}>
-            <Col md={{ span: 16, offset: 4 }} xs={{ span: 24 }}>
+            <Col md={{ span: 16, offset: 4 }} xs={{ span: 24 }} style={{ paddingBottom: "4%", minHeight: "100vh" }}>
                 <h1 style={{ fontWeight: "500", marginTop: '13%' }}>{reviewList[0] ? reviewList[0].company.name : "Company"} Reviews</h1>
                 {reviewList ?
                     <List

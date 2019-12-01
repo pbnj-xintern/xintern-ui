@@ -106,7 +106,7 @@ const BrowseCompanies = () => {
     }
 
     return (
-        <div>
+        <div style={{ minHeight: "100vh", background: "#F5FcFF" }}>
             <Row>
                 <Col md={23}>
                     <Row style={{ paddingTop: '7%' }} >
@@ -125,7 +125,7 @@ const BrowseCompanies = () => {
                         />
                     </Row>
                     <Row style={{ paddingTop: '1%' }} >
-                        <Col md={{ span: 16, offset: 4 }} xs={{ span: 24 }}>
+                        <Col md={{ span: 16, offset: 4 }} xs={{ span: 24 }} style={{ paddingBottom: "4%" }}>
                             {filteredCompanies ?
                                 <List
                                     split={false}
