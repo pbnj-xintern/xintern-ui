@@ -1,5 +1,5 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
-import { Avatar, Button, Col, Comment, Form, Icon, Input, Row } from 'antd'
+import { Button, Col, Comment, Form, Icon, Input, Row } from 'antd'
 import axios from 'axios'
 import moment from 'moment'
 import { useEffect, useState } from 'react'
@@ -84,7 +84,7 @@ const Review = () => {
     const [isReviewVotePending, setReviewVotePending] = useState(false)
     const [commentLoading, setCommentLoading] = useState(false)
     const location = useLocation()
-    const reviewId = location.pathname.substring(8, location.pathname.length)
+    const reviewId = location.pathname.split("/")[2]
 
     const voteItem = {
         COMMENT: "COMMENT",
@@ -218,11 +218,12 @@ const Review = () => {
     const formatSalary = (salary) => {
         let formattedSalary = 0
         let currenciesWithCents = ["CAD", 'USD', 'AUD', 'EUR']
-        if (currenciesWithCents.includes(reviewObj.currency)) {
-            formattedSalary = (salary / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-        } else {
-            formattedSalary = salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-        }
+        formattedSalary = salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        // if (currenciesWithCents.includes(reviewObj.currency)) {
+        //     formattedSalary = (salary / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        // } else {
+        //     formattedSalary = salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        // }
         return formattedSalary
     }
 
@@ -330,12 +331,6 @@ const Review = () => {
                     <Row style={{ height: "100%", width: "100%" }}>
                         <Col xl={{ span: 24 }}>
                             <Comment
-                                avatar={
-                                    <Avatar
-                                        src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                                        alt="Han Solo"
-                                    />
-                                }
                                 content={
                                     <Editor  submissionHandler={(text, cb) => submitComment(text, cb)}/>
                                     

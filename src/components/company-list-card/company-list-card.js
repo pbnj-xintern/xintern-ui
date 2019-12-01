@@ -7,11 +7,11 @@ const CompanyListCard = (props) => {
     const history = useHistory()
 
     const handleOnCreateReview = () => {
-        history.push(`/company/${props._id}/review/create`)
+        history.push(`/company/${props.name}/review/create`)
     }
 
     return (
-        <Card css={styles.CardContainer} bordered={false} bodyStyle={styles.CardBodyStyle}>
+        <Card css={styles.CardContainer} bodyStyle={styles.CardBodyStyle}>
             <Row style={{ height: '100%' }}>
                 <Link to={`/company/${props.name}/reviews`}>
                     <Col lg={{ span: 4 }} xl={{ span: 3 }} css={styles.CompanyLogoCol}>
