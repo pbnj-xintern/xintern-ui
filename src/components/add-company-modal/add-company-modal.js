@@ -21,7 +21,8 @@ const AddCompanyModal = (props) => {
                 setIsLoading(false)
                 console.log(response.data)
                 hidden = true
-                toast.success("Company Added!")                
+                toast.success("Company Added!")   
+                props.stateCallback(companyPayload.name, companyPayload.location)             
             }
         } catch (err) {
             console.error(err.message)

@@ -74,7 +74,7 @@ const Signup = () => {
         paddingTop: '4%',
         height: '100vh',
         width: '100vw',
-        background: 'linear-gradient(110deg, #FCF7F8 60%, #241623 60%)'
+        background: 'linear-gradient(0deg, #FFF 60%, rgb(21, 97, 173) 60%)',
     }
 
     const cardShadow = {
