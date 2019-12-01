@@ -14,7 +14,7 @@ const { TextArea } = Input
 
 const getPopulatedComments = async (reviewId) => {
     try {
-        let response = await axios.get(`/comments/${reviewId}`)
+        let response = await axios.get(`/review/${reviewId}/comments`)
         if (response.data.error) {
             return []
         }
