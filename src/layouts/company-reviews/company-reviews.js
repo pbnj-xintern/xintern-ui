@@ -25,6 +25,7 @@ const CompanyReviews = () => {
     let companyName = location.pathname.split("/")[2]
 
     useEffect(() => {
+        window.scrollTo({ top: 0 })
         const fetchCompanyReviews = async () => {
             setReviewList(await getReviewsByCompany(companyName))
         }

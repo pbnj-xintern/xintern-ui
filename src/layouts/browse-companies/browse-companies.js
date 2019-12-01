@@ -25,6 +25,7 @@ const BrowseCompanies = () => {
     let [typingTimer, setTypingTimer] = useState(null)
 
     useEffect(() => {
+        window.scrollTo({ top: 0 })
         setLoading(true)
         const fetchAllCompanies = async () => {
             let allCompanies = await getAllCompanies()

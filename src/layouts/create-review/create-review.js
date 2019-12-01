@@ -59,6 +59,7 @@ const CreateReviewForm = (props) => {
     const payPeriodOptions = ["MONTHLY", "HOURLY", "WEEKLY"]
 
     useEffect(() => {
+        window.scrollTo({ top: 0 })
         const fetchCompanyLocations = async () => {
             if (companyName !== "create") {
                 setCompanyLocations(await getCompanyLocations(companyName))
@@ -138,7 +139,7 @@ const CreateReviewForm = (props) => {
     }
 
     return (
-        <Row style={{ height: "100%", width: "100%", paddingTop: "7%", paddingBottom: "3%"}} >
+        <Row style={{ height: "100%", width: "100%", paddingTop: "7%", paddingBottom: "3%", background: "#F5FcFF" }} >
             <Col xl={{ span: 16, offset: 4 }} css={styles.CreateReviewCol}>
                 <h1 style ={{ paddingTop: "5%", paddingBottom: "3%" }}>{(companyName !== "create") ? `${companyName}: Review` : "Create a Review!"}</h1> 
                 <Form {...formItemLayout} onSubmit={handleSubmit} >
