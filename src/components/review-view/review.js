@@ -228,7 +228,7 @@ const Review = () => {
     }
 
     return (
-        <Row style={{ height: "100%", width: "100%", paddingTop: "7%", paddingBottom: "3%", overflowY: "scroll" }}>
+        <Row style={{ minHeight: "100vh", width: "100%", paddingTop: "7%", paddingBottom: "3%", overflowY: "scroll" }}>
             <Col xl={{ span: 16, offset: 4 }} css={styles.ReviewViewCol}>
                 <div css={styles.CompanyContainer}>
                     <Row style={{ height: "100%", width: "100%" }}>
