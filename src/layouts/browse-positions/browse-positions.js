@@ -70,14 +70,15 @@ const BrowsePositions = () => {
                 {filteredPositions ?
                     filteredPositions.map(pos =>
                         <Col style={{ padding: '10px' }} md={4} sm={12}>
-                            <Link to={`/positions/${pos.positionName}`}></Link>
-                            <Card css={styles.PositionCard}>
-                                <div style={{ whiteSpace: "nowrap", overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                                    <b>{pos.positionName}</b>
-                                </div>
-                                <br />
-                                {pos.numReviews + ' Reviews'}
-                            </Card>
+                            <Link to={`/positions/${pos.positionName}`}>
+                                <Card css={styles.PositionCard}>
+                                    <div style={{ whiteSpace: "nowrap", overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                        <b>{pos.positionName}</b>
+                                    </div>
+                                    <br />
+                                    {pos.numReviews + ' Reviews'}
+                                </Card>
+                            </Link>
                         </Col>) :
                     <h2>{isLoading && "Loading positions"} </h2>
                 }

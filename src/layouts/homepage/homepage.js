@@ -68,7 +68,7 @@ const Homepage = () => {
 
     return toSearchRes ?
         <Redirect to={{
-            pathname: `/search?term=${searchTerm}`
+            pathname: `/search/${searchTerm}`
         }} /> : (
             <div>
                 <div style={{
