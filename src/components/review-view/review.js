@@ -1,5 +1,5 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
-import { Avatar, Button, Col, Comment, Form, Icon, Input, Row } from 'antd'
+import { Button, Col, Comment, Form, Icon, Input, Row } from 'antd'
 import axios from 'axios'
 import moment from 'moment'
 import { useEffect, useState } from 'react'
@@ -330,12 +330,6 @@ const Review = () => {
                     <Row style={{ height: "100%", width: "100%" }}>
                         <Col xl={{ span: 24 }}>
                             <Comment
-                                avatar={
-                                    <Avatar
-                                        src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                                        alt="Han Solo"
-                                    />
-                                }
                                 content={
                                     <Editor  submissionHandler={(text, cb) => submitComment(text, cb)}/>
                                     

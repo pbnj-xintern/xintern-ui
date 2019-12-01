@@ -9,15 +9,15 @@ export const CardContainer = css`
     //height: 125px;
     // background-color: gray; //remove after
     // border-radius: 1em;
-    border-top: 0.5px solid lightgray;
-    border-bottom: 0.5px solid lightgray;
-    // border: 0.5px solid lightgray;
+    border: 0.5px solid lightgray;
     padding: 16px 2em;
 
     &:hover{
-        border-top: 0.5px darkblue solid;
-        border-bottom: 0.5px darkblue solid;
-        // border: 0.5px darkblue solid;
+        border: 0.5px darkblue solid;
+        -webkit-box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.10);
+        -moz-box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.10);
+        box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.10);
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, .01), 0 0 20px rgba(0, 0, 0, .2);
     }
 
     @media (min-width: 992px) {

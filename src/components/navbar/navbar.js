@@ -64,10 +64,13 @@ const Navbar = (props) => {
             }}
         >
             <Menu.Item style={{ float: 'left' }} key="1">
-                <Link to={`/`}>xIntern</Link>
+                <Link to={`/`}><b style={{fontWeight: 'bolder', fontSize: '18px'}}>xintern.co</b></Link>
             </Menu.Item>
             <Menu.Item style={{ float: 'left' }} key="4">
-                <Link to={`/companies`}><Icon />Companies</Link>
+                <Link to={`/companies`}>Companies</Link>
+            </Menu.Item>
+            <Menu.Item style={{ float: 'left' }} key="5">
+                <Link to={`/all-positions`}>Positions</Link>
             </Menu.Item>
 
             <SearchBar search={props.search} />
