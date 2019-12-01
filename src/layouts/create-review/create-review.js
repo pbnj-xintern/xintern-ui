@@ -5,6 +5,7 @@ import * as styles from './create-review.emotion'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { useLocation, useHistory } from 'react-router-dom'
+import AddCompanyModal from '../../components/add-company-modal/add-company-modal'
 
 const getAllCompanies = async () => {
     let response = await axios.get('/company/all')
@@ -27,18 +28,19 @@ const getCompanyLocations = async (companyName) => {
     return response.data
 }
 
+// ------ MAIN COMPONENT ------
 const CreateReviewForm = (props) => {
-    // const { getFieldDecorator } = props.form
     let location = useLocation()
     let history = useHistory()
     let companyName = location.pathname.split("/")[2]
-    // console.log('companyName:', companyName)
+
     const { Option } = Select
     const { TextArea } = Input
 
     const [isLoading, setIsLoading] = useState(false)
     const [companyLocations, setCompanyLocations] = useState([])
     const [companyList, setCompanyList] = useState([])
+    const [isModalHidden, setIsModalHidden] = useState(true)
     const [payload, setPayload] = useState({
         culture: 0,
         mentorship: 0,
@@ -88,6 +90,14 @@ const CreateReviewForm = (props) => {
             sm: { span: 16, offset: 8 },
             xl: { span: 4, offset: 10 }
         }
+    }
+
+    const showModal = () => {
+        setIsModalHidden(false)
+    }
+    
+    const hideModal = () => {
+        setIsModalHidden(true)
     }
 
     const onFieldChange = (e, key) => {
@@ -150,7 +160,7 @@ const CreateReviewForm = (props) => {
                                                         css={styles.AddCompanyDropdown}
                                                         style={{ padding: '9.5px', cursor: 'pointer' }}
                                                         onMouseDown={e => e.preventDefault()}
-                                                        // onClick={}
+                                                        onClick={showModal}
                                                     >
                                                         <Icon type="plus" /> Add Company
                                                     </div>
@@ -160,6 +170,7 @@ const CreateReviewForm = (props) => {
                                         {companyList.map((company, i) => <Option key={i} value={company.name}>{company.name}</Option> )}                                
                                     </Select>}                                
                             </Form.Item>
+                            <AddCompanyModal isHidden={isModalHidden} hideModal={hideModal} />
                         </Col>
                         <Col xl={{ span: 8, offset: 0 }}>
                             <Form.Item label="Location" labelCol={{ span: 7, offset: 1 }} labelAlign="left">
