@@ -44,6 +44,7 @@ const ProfileComment = props => {
             <Row>
                 <Col md={{ span: 17, offset: 4 }} sm={24}>
                     <h1 style={{ fontWeight: "500" }}>{`${props.username}'s Comments`}</h1>
+                    <p>{comments.length} {(comments.length === 1) ? "comment" : "comments"}</p>
                     <Card>
                         {!isLoading ?
                             <List
