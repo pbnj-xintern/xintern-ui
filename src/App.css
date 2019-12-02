@@ -68,3 +68,11 @@ h1{
   font-weight: bold;
   font-size: 22px;
 }
+
+.ant-btn-group > .ant-btn:hover {
+  z-index: 1 !important;
+}
+
+.ant-menu {
+  z-index: 3 !important;
+}
