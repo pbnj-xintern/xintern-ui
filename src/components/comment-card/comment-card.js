@@ -17,10 +17,12 @@ const CommentCard = props => {
     let [votePending, setVotePending] = useState(false)
     let [isDownvoted, setIsDownvoted] = useState(false)
     let [isUpvoted, setIsUpvoted] = useState(false)
+    const [showReplies, setShowReplies] = useState(true)
     const [commentInput, setCommentInput] = useState("")
     const [editorVisible, setEditorVisible] = useState(false)
     const [loading, setLoading] = useState(false)
     const { TextArea } = Input
+
 
     useEffect(() => {
         let initialUid = localStorage.getItem('uid')
@@ -28,6 +30,9 @@ const CommentCard = props => {
         setDownvotes(props.downvotes || [])
         setIsUpvoted(initialUid ? props.upvotes.includes(localStorage.getItem('uid')) : false)
         setIsDownvoted(initialUid ? props.downvotes.includes(localStorage.getItem('uid')) : false)
+        if(props.hideReplies){
+            setShowReplies(false)
+        }
     }, [])
 
     const handleChange = e => {
@@ -52,7 +57,7 @@ const CommentCard = props => {
             return;
         }
         setVotePending(true)
-        Axios.patch(`/review//comment/${props._id}/${type}`)
+        Axios.patch(`/review/comment/${props._id}/${type}`)
             .then(res => {
                 setVotePending(false)
                 toast.success('Submitted vote');
@@ -74,7 +79,7 @@ const CommentCard = props => {
                         color: isUpvoted ? '#07bc0c' : 'gray'
                     }}
                     theme={votePending ? 'outlined' : "filled"}
-                    onClick={() => voteComment(UPVOTE_TYPE)}
+                    onClick={() => {if(showReplies) return voteComment(UPVOTE_TYPE)}}
                 />
             </Tooltip>
             <span style={{ paddingLeft: 8, cursor: 'auto' }}>{upvotes.length}</span>
@@ -87,12 +92,12 @@ const CommentCard = props => {
                         color: isDownvoted ? '#ff4d4f' : 'gray'
                     }}
                     theme={votePending ? 'outlined' : "filled"}
-                    onClick={() => voteComment(DOWNVOTE_TYPE)}
+                    onClick={() => {if(showReplies) return voteComment(DOWNVOTE_TYPE)}}
                 />
             </Tooltip>
             <span style={{ paddingLeft: 8, cursor: 'auto' }}>{downvotes.length}</span>
         </span>,
-        <span key="comment-basic-reply-to" onClick={() => setEditorVisible(!editorVisible)}>Reply to this comment</span>,
+        showReplies && <span key="comment-basic-reply-to" onClick={() => setEditorVisible(!editorVisible)}>Reply to this comment</span>,
     ];
 
 
@@ -111,7 +116,7 @@ const CommentCard = props => {
             }}>
             <Comment
                 actions={actions}
-                author={<Link to={`/user/${props.author._id}`} css={styles.UsernameLink}>{props.author.username}</Link>}
+                author={<Link to={`/profile/${props.author.username}`} css={styles.UsernameLink}>{props.author.username}</Link>}
                 content={props.content}
                 datetime={
                     <Tooltip title={moment(props.createdAt).format('YYYY-MM-DD HH:mm:ss')}>
@@ -120,10 +125,10 @@ const CommentCard = props => {
                 }
             >
                 {
-                    editorVisible &&
+                    editorVisible && showReplies &&
                     <div style={{ paddingRight: '4%' }}>
                         <Form.Item>
-                            <TextArea rows={4} onChange={handleChange} value={commentInput} disabled={loading} />
+                            <TextArea rows={4} onChange={handleChange} onPressEnter={() => handleReply(props)} value={commentInput} disabled={loading} />
                         </Form.Item>
                         <Form.Item>
                             <Button htmlType="submit" onClick={() => handleReply(props)} type="primary" loading={loading} >
@@ -132,7 +137,7 @@ const CommentCard = props => {
                         </Form.Item>
                     </div>
                 }
-                {props.replies && props.replies.map(reply => <CommentCard {...reply} postReply= {props.postReply} />)}
+                {props.replies && showReplies && props.replies.map(reply => <CommentCard {...reply} postReply= {props.postReply} />)}
             </Comment>
         </Card>
     )

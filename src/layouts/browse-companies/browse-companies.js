@@ -25,6 +25,7 @@ const BrowseCompanies = () => {
     let [typingTimer, setTypingTimer] = useState(null)
 
     useEffect(() => {
+        window.scrollTo({ top: 0 })
         setLoading(true)
         const fetchAllCompanies = async () => {
             let allCompanies = await getAllCompanies()
@@ -67,17 +68,20 @@ const BrowseCompanies = () => {
     const getSidebarButtons = () => {
         let buttonList = [
             <li
-                id='rolodex'
-                onClick={() => window.scrollTo({ top: 0 })}
-                style={{
-                    cursor: 'default',
-                    transition: 'all .2s ease-in-out'
-                }}>
+                // id='rolodex'
+                // onClick={() => window.scrollTo({ top: 0 })}
+                // style={{
+                //     cursor: 'default',
+                //     transition: 'all .2s ease-in-out'
+                // }}
+                style={{ marginBottom: "12%", marginTop: "18%" }}
+            >
                 <b>Jump To:</b>
             </li>,
             <li
                 id='rolodex'
-                onClick={() => jumpToId('#')}
+                // onClick={() => jumpToId('#')}
+                onClick={() => window.scrollTo({ top: 0 })}
                 style={{
                     cursor: 'pointer',
                     transition: 'all .2s ease-in-out'
@@ -103,10 +107,10 @@ const BrowseCompanies = () => {
     }
 
     return (
-        <div>
+        <div style={{ minHeight: "100vh", background: "#F5FcFF" }}>
             <Row>
                 <Col md={23}>
-                    <Row style={{ paddingTop: '5%' }} >
+                    <Row style={{ paddingTop: '7%' }} >
                         {
                             isLoading ?
                                 <h1 style={headerStyle}>Fetching Companies <Icon type='loading' /></h1> :
@@ -122,7 +126,7 @@ const BrowseCompanies = () => {
                         />
                     </Row>
                     <Row style={{ paddingTop: '1%' }} >
-                        <Col md={{ span: 16, offset: 4 }} xs={{ span: 24 }}>
+                        <Col md={{ span: 16, offset: 4 }} xs={{ span: 24 }} style={{ paddingBottom: "4%" }}>
                             {filteredCompanies ?
                                 <List
                                     split={false}
@@ -149,7 +153,8 @@ const BrowseCompanies = () => {
                             {!isLoading &&
                                 <ul style={{
                                     listStyleType: 'none',
-                                    fontWeight: '15px'
+                                    fontWeight: '15px',
+                                    width: "max-content"
                                 }}>
                                     {getSidebarButtons()}
                                 </ul>

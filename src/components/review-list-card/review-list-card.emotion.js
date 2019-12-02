@@ -10,7 +10,7 @@ export const CardContainer = css`
     border: 0.5px solid lightgray;
     padding: 16px 2em;
     cursor: pointer;
-    transition: all 0.5s ease-in;
+    transition: all 0.2s ease-in;
 
     &:hover{
         // border-top: 0.5px darkblue solid;
@@ -173,21 +173,28 @@ export const RatingContainer = css`
     display: flex;
     flex-direction: column;
     // background-color: lightgray; //remove after
-    background-color: aliceblue;
+    // background-color: aliceblue;
+    // border-bottom: 1px solid darkblue;
+    border: 1px solid lightgray;
     height: 82%;
     width: 22%;
     margin: 0em 0.25em;
-    border-radius: 1.25em;
+    border-radius: 1em;
     justify-content: center;
     cursor: pointer;
+    transition: all 0.2s ease-in;
 
     @media (min-width: 992px) {
         height: 56%; 
         width: 22.5%;
     }
     @media (min-width: 1200px) {
-        height: 95%; 
-        width: 22%;
+        height: 90%; 
+        width: 21%;
+    }
+
+    &:hover {
+        border: 1px solid darkblue;
     }
 `
 

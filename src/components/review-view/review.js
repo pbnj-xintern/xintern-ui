@@ -1,5 +1,5 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
-import { Avatar, Button, Col, Comment, Form, Icon, Input, Row } from 'antd'
+import { Button, Col, Comment, Form, Icon, Input, Row } from 'antd'
 import axios from 'axios'
 import moment from 'moment'
 import { useEffect, useState } from 'react'
@@ -14,7 +14,7 @@ const { TextArea } = Input
 
 const getPopulatedComments = async (reviewId) => {
     try {
-        let response = await axios.get(`/comments/${reviewId}`)
+        let response = await axios.get(`/review/${reviewId}/comments`)
         if (response.data.error) {
             return []
         }
@@ -48,13 +48,19 @@ const Editor = props => {
         setIsLoading(false)
     }
 
+    const submit = () => {
+        setIsLoading(true);
+        props.submissionHandler(comment, afterCommentCB);
+        setComment("");
+    }
+
     return (
         <div>
             <Form.Item>
-                <TextArea rows={4} onChange={handleChange} value={comment} disabled={isLoading} />
+                <TextArea rows={4} onChange={handleChange} value={comment} disabled={isLoading} onPressEnter={() => submit()} />
             </Form.Item>
             <Form.Item>
-                <Button htmlType="submit" loading={isLoading} onClick={() => {setIsLoading(true); props.submissionHandler(comment, afterCommentCB); setComment(""); }} type="primary">
+                <Button htmlType="submit" loading={isLoading} onClick={() => submit()} type="primary">
                     Add Comment
                                             </Button>
             </Form.Item>
@@ -78,7 +84,7 @@ const Review = () => {
     const [isReviewVotePending, setReviewVotePending] = useState(false)
     const [commentLoading, setCommentLoading] = useState(false)
     const location = useLocation()
-    const reviewId = location.pathname.substring(8, location.pathname.length)
+    const reviewId = location.pathname.split("/")[2]
 
     const voteItem = {
         COMMENT: "COMMENT",
@@ -132,6 +138,8 @@ const Review = () => {
                     setCommentInput("")
                 }
                 cb()
+                toast.success("Comment Posted")
+
             })
         } else if (!toast.isActive('vote')) {
             toast.error("Login to Comment!", {
@@ -210,16 +218,17 @@ const Review = () => {
     const formatSalary = (salary) => {
         let formattedSalary = 0
         let currenciesWithCents = ["CAD", 'USD', 'AUD', 'EUR']
-        if (currenciesWithCents.includes(reviewObj.currency)) {
-            formattedSalary = (salary / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-        } else {
-            formattedSalary = salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-        }
+        formattedSalary = salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        // if (currenciesWithCents.includes(reviewObj.currency)) {
+        //     formattedSalary = (salary / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        // } else {
+        //     formattedSalary = salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        // }
         return formattedSalary
     }
 
     return (
-        <Row style={{ height: "100%", width: "100%", paddingTop: "7%", paddingBottom: "3%", overflowY: "scroll" }}>
+        <Row style={{ minHeight: "100vh", width: "100%", paddingTop: "7%", paddingBottom: "3%", overflowY: "scroll" }}>
             <Col xl={{ span: 16, offset: 4 }} css={styles.ReviewViewCol}>
                 <div css={styles.CompanyContainer}>
                     <Row style={{ height: "100%", width: "100%" }}>
@@ -297,7 +306,9 @@ const Review = () => {
                 <div css={styles.MetadataContainer}>
                     <Row style={{ height: "100%", width: "100%" }}>
                         <Col xl={{ span: 6 }}>
-                            <Link to={`/user/${reviewObj.user._id}`}>
+                            <Link to={{
+                                pathname: `/profile/${reviewObj.user.username}`
+                            }} >
                                 <p css={styles.MetaText} style={{ paddingLeft: "0.5%", width: "fit-content" }}>
                                     <Icon type="user" style={{ marginRight: '1em' }}></Icon>
                                     {reviewObj.user.username}
@@ -322,15 +333,9 @@ const Review = () => {
                     <Row style={{ height: "100%", width: "100%" }}>
                         <Col xl={{ span: 24 }}>
                             <Comment
-                                avatar={
-                                    <Avatar
-                                        src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                                        alt="Han Solo"
-                                    />
-                                }
                                 content={
-                                    <Editor  submissionHandler={(text, cb) => submitComment(text, cb)}/>
-                                    
+                                    <Editor submissionHandler={(text, cb) => submitComment(text, cb)} />
+
                                 }
                             />
                         </Col>

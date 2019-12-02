@@ -9,7 +9,7 @@ const outerDiv = {
     paddingTop: '15%',
     height: '100vh',
     width: '100vw',
-    background: 'linear-gradient(8deg, #FFF 60%, rgb(21, 97, 173) 60%)',
+    background: 'linear-gradient(0deg, #FFF 60%, rgb(21, 97, 173) 60%)',
     display: "flex",
     justifyContent: "center",
     alignItems: "center"
@@ -44,7 +44,7 @@ const Login = props => {
 
     const loginfn = async () => {
         setLoading(true)
-        let response = await Axios.post('https://3u3ckfdn26.execute-api.us-east-2.amazonaws.com/dev/user/login', { username: username, password: password })
+        let response = await Axios.post('/user/login', { username: username, password: password })
             .catch(e => {
                 console.error('Could not log in', e.nessage)
                 return null
@@ -60,6 +60,7 @@ const Login = props => {
             let token = response.data.token
             localStorage.setItem('token', token)
             localStorage.setItem('uid', response.data.uid)
+            localStorage.setItem('username', username)
             toast.success('Successfully logged in!')
 
             changeAuthState({ type: 'CHANGE_AUTH_STATE', isAuth: true })

@@ -13,9 +13,10 @@ const Navbar = (props) => {
 
     // HOOKS
     const [authState, changeAuthState] = useAuthState();
-
+    const [username, setUsername] = useState("")
     const [isTop, setIsTop] = useState({})
     useEffect(() => {
+        setUsername(localStorage.getItem('username'))
         window.onscroll = () => {
             window.pageYOffset < 30 ?
                 setIsTop(true) :
@@ -36,7 +37,9 @@ const Navbar = (props) => {
             <Link to={`/`}><Icon type='logout' />Logout</Link>
         </Menu.Item>,
         <Menu.Item style={menuItemStyle} key="3">
-            <Link to={`/me`}><Icon type='user' />My Profile</Link>
+            <Link to={{
+                pathname: `/profile/${username}`
+            }} ><Icon type='user' />My Profile</Link>
         </Menu.Item>
     ]
 
@@ -64,10 +67,13 @@ const Navbar = (props) => {
             }}
         >
             <Menu.Item style={{ float: 'left' }} key="1">
-                <Link to={`/`}>xIntern</Link>
+                <Link to={`/`}><b style={{ fontWeight: 'bolder', fontSize: '18px' }}>xintern.co</b></Link>
             </Menu.Item>
             <Menu.Item style={{ float: 'left' }} key="4">
-                <Link to={`/companies`}><Icon />Companies</Link>
+                <Link to={`/companies`}>Companies</Link>
+            </Menu.Item>
+            <Menu.Item style={{ float: 'left' }} key="5">
+                <Link to={`/all-positions`}>Positions</Link>
             </Menu.Item>
 
             <SearchBar search={props.search} />
