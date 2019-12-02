@@ -116,7 +116,7 @@ const CommentCard = props => {
             }}>
             <Comment
                 actions={actions}
-                author={<Link to={`/user/${props.author._id}`} css={styles.UsernameLink}>{props.author.username}</Link>}
+                author={<Link to={`/profile/${props.author.username}`} css={styles.UsernameLink}>{props.author.username}</Link>}
                 content={props.content}
                 datetime={
                     <Tooltip title={moment(props.createdAt).format('YYYY-MM-DD HH:mm:ss')}>
