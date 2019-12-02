@@ -22,7 +22,7 @@ const Navbar = (props) => {
                 setIsTop(true) :
                 setIsTop(false)
         }
-    }, [])
+    }, [authState.isAuth])
 
     //FUNCTIONS
     const logout = () => {
