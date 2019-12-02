@@ -40,6 +40,7 @@ const ProfileReview = props => {
         <Row style={{ height: "100%" }}>
             <Col md={{ span: 16, offset: 4 }} xs={{ span: 24 }}>
                 <h1 style={{ fontWeight: "500" }}>{`${props.username}'s Reviews`}</h1>
+                <p>{reviewList.length} {(reviewList.length === 1) ? "review" : "reviews"}</p>
                 {!isLoading ?
                     <List
                         split={false}
