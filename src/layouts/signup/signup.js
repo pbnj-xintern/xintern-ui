@@ -126,6 +126,8 @@ const Signup = () => {
         let isValid = true
         let invalidFields = []
 
+        console.log('formInfo', formInfo)
+
         Object.keys(formInfo).forEach(k => {
             if (inputRules[k])
                 isValid = fieldValidation(k, formInfo[k])
@@ -149,7 +151,7 @@ const Signup = () => {
         })
 
         let response = await Axios
-            .post('https://3u3ckfdn26.execute-api.us-east-2.amazonaws.com/dev/user', formInfo)
+            .post('/user', formInfo)
             .catch(e => {
                 console.error(e.message)
                 return null
@@ -275,7 +277,7 @@ const Signup = () => {
                                     />
                                 </Form.Item>
                                 <Form.Item label=''>
-                                    <Checkbox onChange={() => setFormInfo({ ...formInfo, isShowInfo: !formInfo.isShowInfo })} checked={formInfo.isShowInfo} disabled={formDisable}>Keep my information anonymous</Checkbox>
+                                    <Checkbox onChange={e => setFormInfo({ ...formInfo, isShowInfo: !e.target.checked })} checked={!formInfo.isShowInfo} disabled={formDisable}>Keep my information anonymous</Checkbox>
                                 </Form.Item>
 
                             </Form>
