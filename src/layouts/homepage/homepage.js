@@ -73,7 +73,7 @@ const Homepage = () => {
             <div>
                 <div style={{
                     backgroundImage: `url('/images/homepage-backdrop.jpeg')`,
-                    height: '90vh',
+                    height: '70vh',
                     backgroundSize: 'cover',
                     display: 'flex',
                     alignItems: 'center',
@@ -86,7 +86,7 @@ const Homepage = () => {
                             id='home-search'
                             placeholder="Search for a company or position"
                             onSearch={onSearch}
-                            style={{ width: '75%', marginTop: '1em' }}
+                            style={{ width: '60%', marginTop: '1em' }}
                         />
                     </h1>
                 </div>

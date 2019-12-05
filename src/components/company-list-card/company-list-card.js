@@ -37,12 +37,12 @@ const CompanyListCard = (props) => {
                         </div>
                     </Col >
                 </Link>
-                <Col style={{ height: '100px', weight: '100%', display: 'flex', justifyContent: 'left', alignItems: 'center' }} xs={12} sm={18}>
+                <Col style={{ height: '100px', weight: '100%', display: 'flex', justifyContent: 'left', alignItems: 'center' }} xs={12} sm={15}>
                     <Link to={`/company/${props.name}/reviews`}>
                         <h2 css={styles.CompanyText}>{props.name}</h2>
                     </Link>
                 </Col>
-                <Col style={{ height: '100%', weight: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }} xs={24} sm={2}>
+                <Col style={{ height: '100%', weight: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }} xs={24} sm={5}>
                     <Button block style={{margin: '1em'}} onClick={handleOnCreateReview}>Create Review</Button>
                 </Col>
             </Row>
