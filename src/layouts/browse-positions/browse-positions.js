@@ -52,7 +52,7 @@ const BrowsePositions = () => {
 
     return (
         <div style={{ minHeight: "100vh", background: "#F5FcFF" }}>
-            <Row style={{ paddingTop: '7%', paddingBottom: '2%' }} >
+            <Row style={{ paddingTop: '7em', paddingBottom: '2%' }} >
                 {
                     isLoading ?
                         <h1 style={headerStyle}>Fetching Positions <Icon type='loading' /></h1> :

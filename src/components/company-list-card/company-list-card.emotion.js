@@ -30,7 +30,7 @@ export const CardContainer = css`
 
 export const CardBodyStyle = {
     width: "100%",
-    padding: "0"
+    padding: "0",
 }
 
 export const CompanyLogoContainer = css`
@@ -79,13 +79,8 @@ export const CompanyInfoCol = css`
 
 export const CompanyText = css`
     font-weight: 200;
-    margin: 0em 0em;
-    padding-left: 5%;
     font-size: 25px;
-    width: 600px;
     color: black;
-    height: 100%;
-    // margin-left: 0;
 
     &:hover {
         color: darkblue;

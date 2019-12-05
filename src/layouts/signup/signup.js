@@ -71,7 +71,8 @@ const Signup = () => {
     };
 
     const outerDiv = {
-        paddingTop: '4%',
+        padding: '2em',
+        paddingTop: '7em',
         height: '100vh',
         width: '100vw',
         background: 'linear-gradient(0deg, #FFF 60%, rgb(21, 97, 173) 60%)',
@@ -79,7 +80,8 @@ const Signup = () => {
 
     const cardShadow = {
         boxShadow: '6px 10px 31px -17px rgba(0,0,0,0.50)',
-        margin: '0.3em'
+        margin: '0.3em',
+        marginBottom: '7em',
     }
 
     const fieldValidation = (key, value) => {

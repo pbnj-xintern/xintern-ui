@@ -6,7 +6,8 @@ import { Redirect, Link } from 'react-router-dom'
 import { useAuthState } from '../../state/auth-state'
 
 const outerDiv = {
-    paddingTop: '15%',
+    padding: '2em',
+    paddingTop: '18em',
     height: '100vh',
     width: '100vw',
     background: 'linear-gradient(0deg, #FFF 60%, rgb(21, 97, 173) 60%)',

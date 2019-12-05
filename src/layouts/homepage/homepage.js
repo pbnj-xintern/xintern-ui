@@ -86,13 +86,13 @@ const Homepage = () => {
                             id='home-search'
                             placeholder="Search for a company or position"
                             onSearch={onSearch}
-                            style={{ width: '50%', marginTop: '1em' }}
+                            style={{ width: '75%', marginTop: '1em' }}
                         />
                     </h1>
                 </div>
                 {!isTopCompaniesEmpty &&
                     <Row css={styles.outerCarouselDiv} style={{ paddingTop: '5%', paddingBottom: '5%' }}>
-                        <Col xl={{ span: 22, offset: 1 }} md={{ span: 20, offset: 2 }} sm={{ span: 24 }}>
+                        <Col xl={{ span: 20, offset: 2 }} md={24}>
                             <h1 style={{ fontWeight: "500", paddingBottom: "3%" }}>Check out these Top Companies!</h1>
                             <Carousel autoplay>
                                 {
@@ -101,7 +101,8 @@ const Homepage = () => {
                                             <Row style={{ paddingBottom: '2em' }} type="flex" justify="space-around" align="middle">
                                                 {
                                                     div.map((company, i) =>
-                                                        <Col key={i} md={4} sm={24}>
+                                                        <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} key={i} 
+                                                        md={4} xs={12}>
                                                             <SmallCompanyCard {...company} />
                                                         </Col>
                                                     )
