@@ -5,8 +5,10 @@ export const ButtonStyles = css`
     width: 4em;
     height: 4em;
     position: fixed;
-    left: 91%;
-    top: 85%;
+    // left: 91%;
+    // top: 85%;
+    bottom: 4em;
+    right: 2em;
     border-color: darkblue !important;
     transition: all 0.2s ease-in;
     box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.56);

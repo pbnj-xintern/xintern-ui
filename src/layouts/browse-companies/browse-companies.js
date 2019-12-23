@@ -143,7 +143,7 @@ const BrowseCompanies = () => {
                                 <h2>{!isLoading && "No Companies Found"} </h2>
                             }
                         </Col>
-                        <Col md={1} style={{
+                        <Col md={1} xs={0} style={{
                             position: 'sticky',
                             width: '60px',
                             top: '10%',

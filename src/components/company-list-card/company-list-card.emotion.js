@@ -5,11 +5,12 @@ export const CardContainer = css`
     // flex-direction: row;
     overflow: hidden;
     width: 100%;
-    height: fit-content;
-    //height: 125px;
+    // height: fit-content;
     // background-color: gray; //remove after
     // border-radius: 1em;
     border: 0.5px solid lightgray;
+    margin-left: 2em;
+    margin-right: 2em;
     padding: 16px 2em;
 
     &:hover{
@@ -81,7 +82,12 @@ export const CompanyText = css`
     font-weight: 200;
     font-size: 25px;
     color: black;
-
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    text-align: left;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
     &:hover {
         color: darkblue;
     }

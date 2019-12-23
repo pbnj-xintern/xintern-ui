@@ -3,11 +3,11 @@ import { css } from '@emotion/core'
 export const Card = css`
     // border-radius: 20px;
     width: 250px;
-    margin-top: 5px;
-    margin-left: -13%;
+    // margin-top: 5px;
+    // margin-left: -13%;
     transition: all .2s ease-in-out;
     cursor: pointer;
-    border: 1px solid rgba(0,0,0,0.3);
+    border: 1px solid rgba(0,0,0,0.1);
 
     &:hover {
         transform: scale(1.03);
@@ -26,7 +26,7 @@ export const Card = css`
 `
 
 export const BodyStyle = {
-    paddingTop: '1em',
+    paddingTop: '0',
     paddingBottom: 0,
     paddingLeft: 0,
     paddingRight: 0,
@@ -43,4 +43,5 @@ export const ImageContainer = css`
 export const LogoImage = css`
     max-width:100px;
     height: auto;
+    // object-fit: contain;
 `

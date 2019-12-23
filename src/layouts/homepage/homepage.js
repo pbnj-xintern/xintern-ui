@@ -72,6 +72,8 @@ const Homepage = () => {
         }} /> : (
             <div>
                 <div style={{
+                    boxShadow: 'inset 0px 0px 40px 0px rgba(0,0,0,0.5)',
+                    padding: '10px',
                     backgroundImage: `url('/images/homepage-backdrop.jpeg')`,
                     height: '70vh',
                     backgroundSize: 'cover',
@@ -101,7 +103,7 @@ const Homepage = () => {
                                             <Row style={{ paddingBottom: '2em' }} type="flex" justify="space-around" align="middle">
                                                 {
                                                     div.map((company, i) =>
-                                                        <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} key={i} 
+                                                        <Col style={{ padding: '2px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} key={i} 
                                                         md={4} xs={12}>
                                                             <SmallCompanyCard {...company} />
                                                         </Col>
@@ -115,8 +117,8 @@ const Homepage = () => {
                         </Col>
                     </Row>
                 }
-                <Row style={{ backgroundColor: 'white' }}>
-                    <Col md={{ span: 16, offset: 4 }} xs={{ span: 24 }} style={{ paddingBottom: "4%" }}>
+                <Row style={{ backgroundColor: 'rgba(251, 249, 246, 0.3)' }}>
+                    <Col md={{ span: 16, offset: 4 }} xs={{ span: 24 }} style={{ padding: '12px', paddingBottom: "4%" }}>
                         <h1 style={{ fontWeight: "500", marginTop: '5%' }}>Recent Reviews</h1>
                         {recentReviews ?
                             <List

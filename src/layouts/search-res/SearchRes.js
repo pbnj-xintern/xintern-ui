@@ -1,5 +1,5 @@
 /** @jsx jsx */ import { jsx } from '@emotion/core'
-import { Col, Card, Row, List, Button, Icon } from 'antd'
+import { Col, Card, Row, List, Button, Icon, Empty } from 'antd'
 import Axios from 'axios'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
@@ -49,10 +49,10 @@ const SearchRes = () => {
     }, [])
 
     return (
-        <div style={{ backgroundColor: '#f2f2f2', paddingTop: '5%', paddingBottom: '5%', minHeight: '95vh' }}>
-            <h1 style={{ paddingTop: "1%" }} >Search Results for "{searchTerm}"</h1>
+        <div style={{ backgroundColor: '#f2f2f2', paddingTop: '7em', paddingBottom: '5%', minHeight: '95vh' }}>
+            <h1>Search Results for "{searchTerm}"</h1>
             <Row>
-                <Col md={12} style={{ padding: '2em' }}>
+                <Col md={12} style={{ padding: '0.5em' }}>
                     <Card>
                         <Row>
                             <h2>Companies</h2>
@@ -72,13 +72,13 @@ const SearchRes = () => {
                         }
                     </Card>
                 </Col>
-                <Col md={12} style={{ padding: '2em' }}>
+                <Col md={12} style={{ padding: '0.5em' }}>
                     <Card>
                         <Row>
                             <h2>Positions</h2>
                             <Link to='/all-positions'><Button>Click here to see more positions</Button></Link>
                         </Row>
-                        {positionResults ?
+                        {positionResults !==[] ?
                             positionResults.map(pos =>
                                 <Col style={{ padding: '10px' }} md={8} sm={12}>
                                     <Link to={`/positions/${pos.positionName}`}>
@@ -91,7 +91,7 @@ const SearchRes = () => {
                                         </Card>
                                     </Link>
                                 </Col>) :
-                            <Icon type='loading' />
+                                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE}/>
                         }
                     </Card>
                 </Col>
