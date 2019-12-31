@@ -72,8 +72,10 @@ const Homepage = () => {
         }} /> : (
             <div>
                 <div style={{
+                    boxShadow: 'inset 0px 0px 40px 0px rgba(0,0,0,0.5)',
+                    padding: '10px',
                     backgroundImage: `url('/images/homepage-backdrop.jpeg')`,
-                    height: '90vh',
+                    height: '70vh',
                     backgroundSize: 'cover',
                     display: 'flex',
                     alignItems: 'center',
@@ -86,13 +88,13 @@ const Homepage = () => {
                             id='home-search'
                             placeholder="Search for a company or position"
                             onSearch={onSearch}
-                            style={{ width: '50%', marginTop: '1em' }}
+                            style={{ width: '60%', marginTop: '1em' }}
                         />
                     </h1>
                 </div>
                 {!isTopCompaniesEmpty &&
                     <Row css={styles.outerCarouselDiv} style={{ paddingTop: '5%', paddingBottom: '5%' }}>
-                        <Col xl={{ span: 22, offset: 1 }} md={{ span: 20, offset: 2 }} sm={{ span: 24 }}>
+                        <Col xl={{ span: 20, offset: 2 }} md={24}>
                             <h1 style={{ fontWeight: "500", paddingBottom: "3%" }}>Check out these Top Companies!</h1>
                             <Carousel autoplay>
                                 {
@@ -101,7 +103,8 @@ const Homepage = () => {
                                             <Row style={{ paddingBottom: '2em' }} type="flex" justify="space-around" align="middle">
                                                 {
                                                     div.map((company, i) =>
-                                                        <Col key={i} md={4} sm={24}>
+                                                        <Col style={{ padding: '2px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} key={i} 
+                                                        md={4} xs={12}>
                                                             <SmallCompanyCard {...company} />
                                                         </Col>
                                                     )
@@ -114,8 +117,8 @@ const Homepage = () => {
                         </Col>
                     </Row>
                 }
-                <Row style={{ backgroundColor: 'white' }}>
-                    <Col md={{ span: 16, offset: 4 }} xs={{ span: 24 }} style={{ paddingBottom: "4%" }}>
+                <Row style={{ backgroundColor: 'rgba(251, 249, 246, 0.3)' }}>
+                    <Col md={{ span: 16, offset: 4 }} xs={{ span: 24 }} style={{ padding: '12px', paddingBottom: "4%" }}>
                         <h1 style={{ fontWeight: "500", marginTop: '5%' }}>Recent Reviews</h1>
                         {recentReviews ?
                             <List

@@ -109,8 +109,8 @@ const BrowseCompanies = () => {
     return (
         <div style={{ minHeight: "100vh", background: "#F5FcFF" }}>
             <Row>
-                <Col md={23}>
-                    <Row style={{ paddingTop: '7%' }} >
+                <Col md={24}>
+                    <Row style={{ paddingTop: '7em' }} >
                         {
                             isLoading ?
                                 <h1 style={headerStyle}>Fetching Companies <Icon type='loading' /></h1> :
@@ -143,7 +143,7 @@ const BrowseCompanies = () => {
                                 <h2>{!isLoading && "No Companies Found"} </h2>
                             }
                         </Col>
-                        <Col md={1} style={{
+                        <Col md={1} xs={0} style={{
                             position: 'sticky',
                             width: '60px',
                             top: '10%',

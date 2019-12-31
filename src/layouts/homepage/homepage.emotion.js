@@ -9,8 +9,5 @@ export const SearchBar = css`
 `
 
 export const outerCarouselDiv = css`
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background-color: #d6e8ff;
 `

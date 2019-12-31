@@ -12,24 +12,53 @@ const CompanyListCard = (props) => {
 
     return (
         <Card css={styles.CardContainer} bodyStyle={styles.CardBodyStyle}>
-            <Row style={{ height: '100%' }}>
+            {/* <Row style={{ height: '100%' }}>
+            <Link to={`/company/${props.name}/reviews`}>
+                <Col lg={{ span: 4 }} xl={{ span: 3 }} css={styles.CompanyLogoCol}>
+                    <div css={styles.CompanyLogoContainer}>
+                        <img src={props.logo} style={{ objectFit: 'contain', width: '75%' }} alt="no_logo" />
+                    </div>
+                </Col >
+            </Link>
+            <Col lg={{ span: 20 }} xl={{ span: 21 }} css={styles.CompanyInfoCol}>
+                <div css={styles.CompanyInfoContainer}>
+                    <Link to={`/company/${props.name}/reviews`}>
+                        <h4 css={styles.CompanyText}>{props.name}</h4>  
+                    </Link>
+                    <Button onClick={handleOnCreateReview} style={{ position: "absolute", right: "0" }}>Create Review</Button>                      
+                </div>
+            </Col>
+        </Row> */}
+            <Row style>
                 <Link to={`/company/${props.name}/reviews`}>
-                    <Col lg={{ span: 4 }} xl={{ span: 3 }} css={styles.CompanyLogoCol}>
-                        <div css={styles.CompanyLogoContainer}>
-                            <img src={props.logo} style={{ objectFit: 'contain', width: '75%' }} alt="no_logo" />
+                    <Col xs={10} sm={3}>
+                        <div style={{ display: 'flex', alignItems: 'center', height: '100px' }}>
+                            <img src={props.logo} style={{ objectFit: 'cover', maxWidth: '70px', maxHeight: '70px', width: 'auto' }} alt="no_logo" />
                         </div>
                     </Col >
                 </Link>
-                <Col lg={{ span: 20 }} xl={{ span: 21 }} css={styles.CompanyInfoCol}>
-                    <div css={styles.CompanyInfoContainer}>
-                        <Link to={`/company/${props.name}/reviews`}>
-                            <h4 css={styles.CompanyText}>{props.name}</h4>  
-                        </Link>
-                        <Button onClick={handleOnCreateReview} style={{ position: "absolute", right: "0" }}>Create Review</Button>                      
-                    </div>
+                <Col style={{ height: '100px', weight: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }} xs={14} sm={21}>
+                    <Row style={{ width: '100%' }}>
+                        <Col sm={20} xs={24} style={{ display: 'flex', justifyContent: 'left', alignItems: 'center' }}>
+                            <Link to={`/company/${props.name}/reviews`}>
+                                <h2 css={styles.CompanyText}>{props.name}</h2>
+                            </Link>
+                        </Col>
+                        <Col sm={4} xs={24} style={{ display: 'flex', justifyContent: 'left', alignItems: 'center' }}>
+                            <Button block style={{
+                                height: '100%',
+                                overflow: 'hidden',
+                                wordWrap: 'break-word',
+                                whiteSpace: 'normal'
+                            }} onClick={handleOnCreateReview}>
+                                Create Review
+                            </Button>
+
+                        </Col>
+                    </Row>
                 </Col>
             </Row>
-        </Card>
+        </Card >
     )
 }
 
