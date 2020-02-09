@@ -5,6 +5,7 @@ import SearchBar from '../search-bar/index'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { useAuthState } from '../../state/auth-state'
+import colors from '../../globals/colors'
 
 const menuStyle = { position: 'fixed', zIndex: 1, width: '100%' }
 const menuItemStyle = { float: 'right' }
@@ -61,7 +62,7 @@ const Navbar = (props) => {
             style={{
                 ...menuStyle,
                 lineHeight: isTop ? '64px' : '40px',
-                backgroundColor: isTop ? '#1561ad' : 'rgba(0,0,0,0.6)',
+                backgroundColor: isTop ? colors.primary : 'rgba(0,0,0,0.6)',
                 transition: 'all .1s ease-in-out',
                 boxShadow: isTop ? 'none' : '10px 10px 31px -17px rgba(0,0,0,0.7)'
             }}
@@ -74,6 +75,9 @@ const Navbar = (props) => {
             </Menu.Item>
             <Menu.Item style={{ float: 'left' }} key="5">
                 <Link to={`/all-positions`}>Positions</Link>
+            </Menu.Item>
+            <Menu.Item  disabled style={{ float: 'left' }} key="6">
+                <Link to={`/all-location`}>Locations</Link>
             </Menu.Item>
 
             <SearchBar search={props.search} />

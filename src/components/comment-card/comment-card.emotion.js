@@ -1,10 +1,11 @@
 import { css } from '@emotion/core'
+import colors from '../../globals/colors'
 
 export const UsernameLink = css`
-    color: darkblue;
+    color: ${colors.primary};
 
     &:hover {
-        color: #1890ff;
+        font-weight:bold;
     }
 `
 

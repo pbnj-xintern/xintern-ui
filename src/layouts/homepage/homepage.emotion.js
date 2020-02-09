@@ -9,5 +9,5 @@ export const SearchBar = css`
 `
 
 export const outerCarouselDiv = css`
-    background-color: #d6e8ff;
+    background: linear-gradient(180deg, rgba(131,21,123,0.3) 0%, rgba(21,97,173,0.3) 100%);
 `

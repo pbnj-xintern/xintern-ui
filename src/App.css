@@ -76,3 +76,8 @@ h1{
 .ant-menu {
   z-index: 3 !important;
 }
+
+.ant-menu-item-selected {
+  background: black !important;
+  margin: -0.5px 0;
+}

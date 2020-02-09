@@ -1,4 +1,6 @@
 import { css } from '@emotion/core'
+import colors from '../../globals/colors'
+import hover from '../../globals/hover'
 
 export const ButtonStyles = css`
     z-index: 5;
@@ -9,12 +11,12 @@ export const ButtonStyles = css`
     // top: 85%;
     bottom: 4em;
     right: 2em;
-    border-color: darkblue !important;
+    border-color: ${colors.primary} !important;
     transition: all 0.2s ease-in;
     box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.56);
 
     &:hover {
-        transform: scale(1.1);
+        ${hover.transformScale}
     }
 `
 
@@ -22,5 +24,5 @@ export const IconStyles = css`
     font-size: 2em; 
     height: fit-content;
     padding-top: 4%;
-    color: darkblue;
+    color: ${colors.primary};
 `

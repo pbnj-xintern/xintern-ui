@@ -3,7 +3,7 @@ import Axios from 'axios'
 import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import { toast } from 'react-toastify'
-
+import colors from '../../globals/colors'
 const Signup = () => {
 
     const [formDisable, setLoading] = useState(false)
@@ -75,7 +75,7 @@ const Signup = () => {
         paddingTop: '7em',
         height: '100vh',
         width: '100vw',
-        background: 'linear-gradient(0deg, #FFF 60%, rgb(21, 97, 173) 60%)',
+        background: 'linear-gradient(0deg, #FFF 60%, ' + colors.primary + ' 60%)',
     }
 
     const cardShadow = {

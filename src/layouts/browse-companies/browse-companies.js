@@ -107,7 +107,7 @@ const BrowseCompanies = () => {
     }
 
     return (
-        <div style={{ minHeight: "100vh", background: "#F5FcFF" }}>
+        <div style={{ minHeight: "100vh", background: "rgba(131,21,123,0.05)" }}>
             <Row>
                 <Col md={24}>
                     <Row style={{ paddingTop: '7em' }} >

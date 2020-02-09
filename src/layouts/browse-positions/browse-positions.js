@@ -51,7 +51,7 @@ const BrowsePositions = () => {
     const headerStyle = { fontWeight: "500" }
 
     return (
-        <div style={{ minHeight: "100vh", background: "#F5FcFF" }}>
+        <div style={{ minHeight: "100vh", background: "rgba(131,21,123,0.05)" }}>
             <Row style={{ paddingTop: '7em', paddingBottom: '2%' }} >
                 {
                     isLoading ?
