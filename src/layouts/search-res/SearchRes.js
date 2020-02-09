@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import * as styles from './search-res.emotion'
 import CompanyListCard from '../../components/company-list-card/company-list-card';
+import colors from '../../globals/colors'
 
 
 const SearchRes = () => {
@@ -49,7 +50,7 @@ const SearchRes = () => {
     }, [])
 
     return (
-        <div style={{ backgroundColor: '#f2f2f2', paddingTop: '7em', paddingBottom: '5%', minHeight: '95vh' }}>
+        <div style={{ backgroundColor: colors.lightBackground2, paddingTop: '7em', paddingBottom: '5%', minHeight: '95vh' }}>
             <h1>Search Results for "{searchTerm}"</h1>
             <Row>
                 <Col md={12} style={{ padding: '0.5em' }}>

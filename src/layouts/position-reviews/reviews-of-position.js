@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import ReviewListCard from '../../components/review-list-card/review-list-card'
+import colors from '../../globals/colors'
 
 
 const ReviewsOfPosition = () => {
@@ -32,9 +33,9 @@ const ReviewsOfPosition = () => {
     }, [])
 
     return (
-        <Row style={{ background: "#F5FcFF", minHeight: "100vh", paddingBottom: "4%" }}>
+        <Row style={{ background: colors.lightBackground1, minHeight: "100vh", paddingTop:'7em', paddingBottom: "4%" }}>
             <Col md={{ span: 16, offset: 4 }} xs={{ span: 24 }}>
-                <h1 style={{ fontWeight: "500", marginTop: '13%', paddingBottom: "1%" }}>{positionName} Reviews</h1>
+                <h1 style={{ fontWeight: "500", paddingBottom: "1%" }}>{positionName} Reviews</h1>
                 {reviewList ?
                     <List
                         split={false}

@@ -2,8 +2,8 @@ import { Col, Icon, Input, List, Row } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import CompanyListCard from '../../components/company-list-card/company-list-card';
+import colors from '../../globals/colors'
 const { Search } = Input;
-
 
 const getAllCompanies = async () => {
     try {
@@ -107,7 +107,7 @@ const BrowseCompanies = () => {
     }
 
     return (
-        <div style={{ minHeight: "100vh", background: "rgba(131,21,123,0.05)" }}>
+        <div style={{ minHeight: "100vh", background: colors.lightBackground1 }}>
             <Row>
                 <Col md={24}>
                     <Row style={{ paddingTop: '7em' }} >
