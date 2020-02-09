@@ -1,8 +1,9 @@
 import { css } from '@emotion/core'
+import colors from '../../globals/colors'
+import hover from '../../globals/hover'
 
 export const CardContainer = css`
     display: flex;
-    // flex-direction: row;
     overflow: hidden;
     width: 100%;
     // height: fit-content;
@@ -12,21 +13,14 @@ export const CardContainer = css`
     margin-left: 2em;
     margin-right: 2em;
     padding: 16px 2em;
+    transition: all .2s ease-in-out;
+    cursor: pointer;
 
     &:hover{
-        border: 0.5px darkblue solid;
-        -webkit-box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.10);
-        -moz-box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.10);
-        box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.10);
-        box-shadow: inset 0 0 20px rgba(0, 0, 0, .01), 0 0 20px rgba(0, 0, 0, .2);
+        ${hover.primaryBorders}
+        ${hover.shadow}
     }
 
-    @media (min-width: 992px) {
-        height: 225px;
-    }
-    @media (min-width: 1200px) {
-        height: fit-content;
-    }
 `
 
 export const CardBodyStyle = {
@@ -38,10 +32,7 @@ export const CompanyLogoContainer = css`
     display: flex;
     height: 100%;
     width: 90%;
-    // background-color: aliceblue;
     border-radius: 2em;
-    // justify-content: center;
-    // align-items: center;
     cursor: pointer;
 `
 
@@ -89,6 +80,6 @@ export const CompanyText = css`
     overflow: hidden;
     text-overflow: ellipsis;
     &:hover {
-        color: darkblue;
+        color: ${colors.primary};
     }
 `

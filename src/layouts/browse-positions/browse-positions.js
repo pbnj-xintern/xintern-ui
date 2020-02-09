@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as styles from './browse-positions.emotion';
+import colors from '../../globals/colors'
 const { Search } = Input;
 
 
@@ -51,7 +52,7 @@ const BrowsePositions = () => {
     const headerStyle = { fontWeight: "500" }
 
     return (
-        <div style={{ minHeight: "100vh", background: "#F5FcFF" }}>
+        <div style={{ minHeight: "100vh", background: colors.lightBackground1 }}>
             <Row style={{ paddingTop: '7em', paddingBottom: '2%' }} >
                 {
                     isLoading ?

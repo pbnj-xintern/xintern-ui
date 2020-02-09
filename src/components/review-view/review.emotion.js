@@ -1,4 +1,5 @@
 import { css } from '@emotion/core'
+import colors from '../../globals/colors'
 
 export const CardBodyStyle = {
     width: "100%",
@@ -107,7 +108,7 @@ export const RatingContainer = css`
     flex-direction: column;
     // background-color: lightgray; //remove after
     // background-color: lightblue;
-    border: 1.4px solid darkblue;
+    border: 1.4px solid ${colors.primary};
     height: 82%;
     width: 22%;
     margin: 0em 0.25em;
@@ -125,7 +126,7 @@ export const RatingContainer = css`
     }
 `
 export const RatingValue = css`
-    color: darkblue;
+    color: ${colors.primary};
     font-size: 27px;
     font-weight: 250;
     margin: 0em 0em;
@@ -174,7 +175,7 @@ export const CompanyNameLinkStyle = css`
     color: black;
 
     &:hover {
-        color: darkblue;
-        border-bottom: 1px solid darkblue;
+        color: ${colors.primary};
+        border-bottom: 1px solid ${colors.primary};
     }
 `

@@ -4,13 +4,15 @@ import { toast } from 'react-toastify'
 import Axios from 'axios'
 import { Redirect, Link } from 'react-router-dom'
 import { useAuthState } from '../../state/auth-state'
+import { conditionalExpression } from '@babel/types'
+import colors from '../../globals/colors'
 
 const outerDiv = {
     padding: '2em',
     paddingTop: '18em',
     height: '100vh',
     width: '100vw',
-    background: 'linear-gradient(0deg, #FFF 60%, rgb(21, 97, 173) 60%)',
+    background: 'linear-gradient(0deg, #FFF 60%, ' + colors.primary + ' 60%)',
     display: "flex",
     justifyContent: "center",
     alignItems: "center"

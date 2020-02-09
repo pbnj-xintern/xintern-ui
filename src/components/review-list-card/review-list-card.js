@@ -4,6 +4,7 @@ import moment from 'moment'
 import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import * as styles from './review-list-card.emotion'
+import colors from '../../globals/colors'
 
 
 const ReviewListCard = (props) => {
@@ -55,7 +56,7 @@ const ReviewListCard = (props) => {
                             <h4 css={styles.ReviewText} style={{ fontSize: "20px", fontWeight: "250", paddingBottom: "1%", fontStyle: "normal" }}>{reviewObj.position && reviewObj.position}</h4>
                             {/* "{reviewObj.content && reviewObj.content.substring(0, 35) + "..."}" */}
                             <div style={{ display: "flex", flexDirection: "row" }}>
-                                <h4 css={styles.ReviewText} style={{ marginBottom: "1%", fontWeight: "400", color: "darkblue" }}>{reviewObj.company_name}</h4>
+                                <h4 css={styles.ReviewText} style={{ marginBottom: "1%", fontWeight: "400", color: colors.primary }}>{reviewObj.company_name}</h4>
                                 <h4 css={styles.LocationText}>{reviewObj.company_location}</h4>
                             </div>
                             <div css={styles.MetaDataContainer}>
@@ -72,7 +73,7 @@ const ReviewListCard = (props) => {
                     <Col lg={{ span: 24 }} xl={{ span: 10 }} css={styles.ReviewRatingCol}>
                         <div css={styles.ReviewRatingsContainer}>
                             <div css={styles.RatingContainer}>
-                                <h3 css={styles.RatingValue} style={{ color: 'darkblue' }}>{reviewObj.overall_rating}</h3>
+                                <h3 css={styles.RatingValue} style={{ color: colors.primary }}>{reviewObj.overall_rating}</h3>
                                 <h6 css={styles.RatingLabel} >rating</h6>
                             </div>
                             <div css={styles.RatingContainer}>

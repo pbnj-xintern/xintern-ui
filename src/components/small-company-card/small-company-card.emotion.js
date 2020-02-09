@@ -1,4 +1,5 @@
 import { css } from '@emotion/core'
+import hover from '../../globals/hover'
 
 export const Card = css`
     // border-radius: 20px;
@@ -10,11 +11,9 @@ export const Card = css`
     border: 1px solid rgba(0,0,0,0.1);
 
     &:hover {
-        transform: scale(1.03);
-        -webkit-box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.56);
-        -moz-box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.56);
-        box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.56);
-        border: 1px solid darkblue;
+        ${hover.transformScale}
+        ${hover.primaryBorders}
+        ${hover.shadow}
     }
 
     @media (min-width: 992px) {

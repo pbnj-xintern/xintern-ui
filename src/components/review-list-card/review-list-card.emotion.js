@@ -1,5 +1,5 @@
 import { css } from '@emotion/core'
-// import bp from '../../styles/breakpoint'
+import hover from '../../globals/hover'
 
 export const CardContainer = css`
     display: flex;
@@ -13,14 +13,8 @@ export const CardContainer = css`
     transition: all 0.2s ease-in;
 
     &:hover{
-        // border-top: 0.5px darkblue solid;
-        // border-bottom: 0.5px darkblue solid;
-        // border-left: 0.5px white solid;
-        // border-right:0.5px white solid;
-        -webkit-box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.10);
-        -moz-box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.10);
-        box-shadow: 6px 10px 31px -17px rgba(0,0,0,0.10);
-        box-shadow: inset 0 0 20px rgba(0, 0, 0, .01), 0 0 20px rgba(0, 0, 0, .2);
+        ${hover.primaryBorders}
+        ${hover.shadow}
     }
 
     @media (min-width: 992px) {
@@ -172,9 +166,6 @@ export const DateReviewText = css`
 export const RatingContainer = css`
     display: flex;
     flex-direction: column;
-    // background-color: lightgray; //remove after
-    // background-color: aliceblue;
-    // border-bottom: 1px solid darkblue;
     border: 1px solid lightgray;
     height: 82%;
     width: 22%;
@@ -194,7 +185,9 @@ export const RatingContainer = css`
     }
 
     &:hover {
-        border: 1px solid darkblue;
+        ${hover.primaryBorders}
+        ${hover.shadow}
+        ${hover.transformScale}
     }
 `
 
